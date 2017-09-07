@@ -156,6 +156,17 @@ infrastructure to assemble complicated & brittle web.configs, which saves on fin
 			//response logic...
         }
     }
+	
+    public class SampleController : ApiController
+    {
+        [HttpGet]
+        [ActionFilterDnsAddress(@"[a-zA-Z0-9]*\.org$", DnsAddressFilterAction.DenyRegEx)]
+        [AuthorizeDnsAddress(@"[a-zA-Z0-9]*\.org$", DnsAddressFilterAction.DenyRegEx)]
+        public IHttpActionResult DoSomething(int id)
+        {
+			//response logic...
+        }
+	}
 
 	//DNS (Static)
     public class SampleController : ApiController
@@ -181,6 +192,17 @@ infrastructure to assemble complicated & brittle web.configs, which saves on fin
 			//response logic...
         }
     }
+
+    public class SampleController : ApiController
+    {
+        [HttpGet]
+        [ActionFilterDnsAddress(@"[a-zA-Z0-9]*\.org$", DnsAddressFilterAction.DenyRegEx)]
+        [AuthorizeDnsAddress(@"[a-zA-Z0-9]*\.org$", DnsAddressFilterAction.DenyRegEx)]
+        public IHttpActionResult DoSomething(int id)
+        {
+			//response logic...
+        }
+	}
 
 ```
 
