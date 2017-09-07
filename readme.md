@@ -18,8 +18,8 @@ that can NOT easily or conveniently be managed by a firewall. Like below...
 * https://defcon.org/app1/ref2
 
 This library isn't attempting to implement the full feature set that a modern WAF could provide, but instead save entities the time & expense of a WAF implementation... because
-basic functionality is all that is needed. This library is meant to make it VERY easy for developers on a .Net stack to apply WAF like features so the burnden doesn't fall 
-on infrastructure to assemble complicated & brittle web.configs, which saves on finger pointing & wasted troubleshooting cycles that can ensue during a deployment.
+basic functionality is all that is needed. This library is meant to make it VERY easy for developers on a .Net stack to apply WAF like features so the burden doesn't fall on
+infrastructure to assemble complicated & brittle web.configs, which saves on finger pointing & wasted troubleshooting cycles that can ensue before, during & after a deployment.
 
 ## Http Option(s)
 
@@ -42,7 +42,7 @@ on infrastructure to assemble complicated & brittle web.configs, which saves on 
 
 ```
 
-## Schedule(s)
+## Schedule(s) (NOT FULLY IMPLIMENTED YET. RECURRING TIMESPANS DON'T WORK YET, ONLY ONE-TIME TIMESPANS)
 
 * Single schedule
 * Multiple schedule(s)
@@ -54,20 +54,8 @@ on infrastructure to assemble complicated & brittle web.configs, which saves on 
     {
         [HttpGet]
         [Route("api/{id}")]
-        [ActionFilterSchedule(ScheduleFilteringAction.Deny)]
-        [AuthorizeSchedule(ScheduleFilteringAction.Deny)]
-        public HttpResponseMessage DoSomething(int id)
-        {
-			//response logic...
-        }
-    }
-
-	public class SampleController : ApiController
-    {
-        [HttpGet]
-        [Route("api/{id}")]
-        [ActionFilterSchedule(ScheduleFilteringAction.DenyContains)]
-        [AuthorizeSchedule(ScheduleFilteringAction.DenyContains)]
+        [ActionFilterSchedule(ScheduleFilteringAction.Deny, ScheduleFilteringOccur.Daily)]
+        [AuthorizeSchedule(ScheduleFilteringAction.Deny, ScheduleFilteringOccur.Daily)]
         public HttpResponseMessage DoSomething(int id)
         {
 			//response logic...
@@ -79,20 +67,8 @@ on infrastructure to assemble complicated & brittle web.configs, which saves on 
     {
         [HttpGet]
         [Route("api/{id}")]
-        [ActionFilterSchedule("defcon.org", ScheduleFilteringAction.Deny)]
-        [AuthorizeSchedule("defcon.org", ScheduleFilteringAction.Deny)]
-        public HttpResponseMessage DoSomething(int id)
-        {
-			//response logic...
-        }
-    }
-
-	public class SampleController : ApiController
-    {
-        [HttpGet]
-        [Route("api/{id}")]
-        [ActionFilterSchedule(".org", ScheduleFilteringAction.DenyContains)]
-        [AuthorizeSchedule(".org", ScheduleFilteringAction.DenyContains)]
+        [ActionFilterSchedule("2017:01:01T17:00:00-2018:01:01T08:00:00", ScheduleFilteringAction.Deny, ScheduleFilteringOccur.Daily)]
+        [AuthorizeSchedule("2017:01:01T17:00:00-2018:01:01T08:00:00", ScheduleFilteringAction.Deny, ScheduleFilteringOccur.Daily)]
         public HttpResponseMessage DoSomething(int id)
         {
 			//response logic...
