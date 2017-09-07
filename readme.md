@@ -77,7 +77,7 @@ infrastructure to assemble complicated & brittle web.configs, which saves on fin
 
 ```
 
-## IPv4 address(es) & IPv4 range(s)
+## IPv4/IPv6 address(es) & IPv4/IPv6 range(s)
 
 * Single IP or CIDR address
 * Multiple IP(s) or CIDR address(es)
@@ -160,8 +160,9 @@ infrastructure to assemble complicated & brittle web.configs, which saves on fin
     public class SampleController : ApiController
     {
         [HttpGet]
-        [ActionFilterDnsAddress(@"[a-zA-Z0-9]*\.org$", DnsAddressFilterAction.DenyRegEx)]
-        [AuthorizeDnsAddress(@"[a-zA-Z0-9]*\.org$", DnsAddressFilterAction.DenyRegEx)]
+        [Route("api/{id}")]
+        [ActionFilterDnsAddress(DnsAddressFilterAction.DenyRegEx)]
+        [AuthorizeDnsAddress(DnsAddressFilterAction.DenyRegEx)]
         public IHttpActionResult DoSomething(int id)
         {
 			//response logic...
@@ -196,6 +197,7 @@ infrastructure to assemble complicated & brittle web.configs, which saves on fin
     public class SampleController : ApiController
     {
         [HttpGet]
+        [Route("api/{id}")]
         [ActionFilterDnsAddress(@"[a-zA-Z0-9]*\.org$", DnsAddressFilterAction.DenyRegEx)]
         [AuthorizeDnsAddress(@"[a-zA-Z0-9]*\.org$", DnsAddressFilterAction.DenyRegEx)]
         public IHttpActionResult DoSomething(int id)
