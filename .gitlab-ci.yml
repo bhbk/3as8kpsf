@@ -1,0 +1,29 @@
+stages:
+  - debug
+  - release
+
+debug:
+  stage: debug
+  only:
+  - dummy
+  script:
+  - call "C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\vcvarsall.bat"
+  - nuget restore "Bhbk.Lib.Env.Waf.sln" -Verbosity detailed -NoCache
+  - msbuild /t:build /p:Configuration=Debug /verbosity:normal "Bhbk.Lib.Env.Waf.sln"
+  - mstest /testcontainer:"Bhbk.Lib.Env.Waf.Tests\bin\Debug\Bhbk.Lib.Env.Waf.Tests.dll"
+  - cd Bhbk.Lib.Env.Waf/
+  - nuget spec -Verbosity detailed -NonInteractive
+  - nuget pack -Properties Configuration=Debug -IncludeReferencedProjects -Verbosity detailed -NonInteractive
+
+release:
+  stage: release
+  only:
+  - dummy
+  script:
+  - call "C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\vcvarsall.bat"
+  - nuget restore "Bhbk.Lib.Env.Waf.sln" -Verbosity detailed -NoCache
+  - msbuild /t:build /p:Configuration=Release /verbosity:normal "Bhbk.Lib.Env.Waf.sln"
+  - mstest /testcontainer:"Bhbk.Lib.Env.Waf.Tests\bin\Release\Bhbk.Lib.Env.Waf.Tests.dll"
+  - cd Bhbk.Lib.Env.Waf/
+  - nuget spec -Verbosity detailed -NonInteractive
+  - nuget pack -Properties Configuration=Release -IncludeReferencedProjects -Verbosity detailed -NonInteractive
