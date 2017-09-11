@@ -1,4 +1,4 @@
-# WAF-Filtering
+# WAF (Web Application Firewall / Filtering)
 Lightweight C# ASP.NET MVC & Web API library to filter traffic that modern firewalls have trouble with. Entities have different types of firewalls that offer different feature
 sets, but not many entities have true WAF's (web application firewalls). This library can help bridge the gap between what infrastructure geeks think code geeks should do inside 
 code... versus what code geeks think that infrastructure should "handle for them".
@@ -42,7 +42,7 @@ infrastructure to assemble complicated & brittle web.configs, which saves on fin
 
 ```
 
-## Schedule(s) (NOT FULLY IMPLIMENTED YET. RECURRING TIMESPANS DON'T WORK YET, ONLY ONE-TIME TIMESPANS)
+## Schedule(s) (NOT FULLY IMPLIMENTED YET...)
 
 * Single schedule
 * Multiple schedule(s)

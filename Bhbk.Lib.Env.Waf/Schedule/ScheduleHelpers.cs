@@ -39,18 +39,52 @@ namespace Bhbk.Lib.Env.Waf.Schedule
                 switch (occur)
                 {
                     case ScheduleFilterOccur.Yearly:
+                        {
+                            foreach (Tuple<DateTime, DateTime> entry in scheduleList)
+                                if (entry.Item1.Year < when.Year && entry.Item2.Year > when.Year)
+                                    return true;
+
+                            return false;
+                        }
+
                     case ScheduleFilterOccur.Monthly:
+                        {
+                            foreach (Tuple<DateTime, DateTime> entry in scheduleList)
+                                if (entry.Item1.Month < when.Month && entry.Item2.Month > when.Month)
+                                    return true;
+
+                            return false;
+                        }
+
                     case ScheduleFilterOccur.Weekly:
-                    case ScheduleFilterOccur.Daily:
-                    case ScheduleFilterOccur.Hourly:
                         throw new NotImplementedException();
 
-                    case ScheduleFilterOccur.Once:
-                        foreach (Tuple<DateTime, DateTime> entry in scheduleList)
-                            if (entry.Item1 < when && entry.Item2 > when)
-                                return true;
+                    case ScheduleFilterOccur.Daily:
+                        {
+                            foreach (Tuple<DateTime, DateTime> entry in scheduleList)
+                                if (entry.Item1.Day < when.Day && entry.Item2.Day > when.Day)
+                                    return true;
 
-                        return false;
+                            return false;
+                        }
+
+                    case ScheduleFilterOccur.Hourly:
+                        {
+                            foreach (Tuple<DateTime, DateTime> entry in scheduleList)
+                                if (entry.Item1.Hour < when.Hour && entry.Item2.Hour > when.Hour)
+                                    return true;
+
+                            return false;
+                        }
+
+                    case ScheduleFilterOccur.Once:
+                        {
+                            foreach (Tuple<DateTime, DateTime> entry in scheduleList)
+                                if (entry.Item1 < when && entry.Item2 > when)
+                                    return true;
+
+                            return false;
+                        }
 
                     default:
                         throw new InvalidOperationException();
@@ -61,18 +95,52 @@ namespace Bhbk.Lib.Env.Waf.Schedule
                 switch (occur)
                 {
                     case ScheduleFilterOccur.Yearly:
+                        {
+                            foreach (Tuple<DateTime, DateTime> entry in scheduleList)
+                                if (entry.Item1.Year < when.Year && entry.Item2.Year > when.Year)
+                                    return false;
+
+                            return true;
+                        }
+
                     case ScheduleFilterOccur.Monthly:
+                        {
+                            foreach (Tuple<DateTime, DateTime> entry in scheduleList)
+                                if (entry.Item1.Month < when.Month && entry.Item2.Month > when.Month)
+                                    return false;
+
+                            return true;
+                        }
+
                     case ScheduleFilterOccur.Weekly:
-                    case ScheduleFilterOccur.Daily:
-                    case ScheduleFilterOccur.Hourly:
                         throw new NotImplementedException();
 
-                    case ScheduleFilterOccur.Once:
-                        foreach (Tuple<DateTime, DateTime> entry in scheduleList)
-                            if (entry.Item1 < when && entry.Item2 > when)
-                                return false;
+                    case ScheduleFilterOccur.Daily:
+                        {
+                            foreach (Tuple<DateTime, DateTime> entry in scheduleList)
+                                if (entry.Item1.Day < when.Day && entry.Item2.Day > when.Day)
+                                    return false;
 
-                        return true;
+                            return true;
+                        }
+
+                    case ScheduleFilterOccur.Hourly:
+                        {
+                            foreach (Tuple<DateTime, DateTime> entry in scheduleList)
+                                if (entry.Item1.Hour < when.Hour && entry.Item2.Hour > when.Hour)
+                                    return false;
+
+                            return true;
+                        }
+
+                    case ScheduleFilterOccur.Once:
+                        {
+                            foreach (Tuple<DateTime, DateTime> entry in scheduleList)
+                                if (entry.Item1 < when && entry.Item2 > when)
+                                    return false;
+
+                            return true;
+                        }
 
                     default:
                         throw new InvalidOperationException();
@@ -105,7 +173,6 @@ namespace Bhbk.Lib.Env.Waf.Schedule
                         foreach (Tuple<DateTime, DateTime> entry in scheduleList)
                             if (entry.Item1 >= entry.Item2)
                                 return false;
-
                         return true;
 
                     default:
