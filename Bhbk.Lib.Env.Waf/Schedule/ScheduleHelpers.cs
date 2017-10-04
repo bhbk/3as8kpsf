@@ -16,12 +16,12 @@ namespace Bhbk.Lib.Env.Waf.Schedule
 
     public enum ScheduleFilterOccur
     {
-        Once,
-        Hourly,
-        Daily,
-        Weekly,
+        Yearly,
         Monthly,
-        Yearly
+        Weekly,
+        Daily,
+        Hourly,
+        Once
     }
 
     public static class ScheduleHelpers
@@ -29,7 +29,7 @@ namespace Bhbk.Lib.Env.Waf.Schedule
         public static bool IsScheduleAllowed(ref ScheduleFilterAction action,
             ref ScheduleFilterOccur occur,
             ref List<Tuple<DateTime, DateTime>> scheduleList,
-            ref DateTime when)
+            ref DateTime moment)
         {
             if (scheduleList == null)
                 throw new InvalidOperationException();
@@ -41,7 +41,7 @@ namespace Bhbk.Lib.Env.Waf.Schedule
                     case ScheduleFilterOccur.Yearly:
                         {
                             foreach (Tuple<DateTime, DateTime> entry in scheduleList)
-                                if (entry.Item1.Year < when.Year && entry.Item2.Year > when.Year)
+                                if (entry.Item1.Month < moment.Month && entry.Item2.Month > moment.Month)
                                     return true;
 
                             return false;
@@ -50,7 +50,7 @@ namespace Bhbk.Lib.Env.Waf.Schedule
                     case ScheduleFilterOccur.Monthly:
                         {
                             foreach (Tuple<DateTime, DateTime> entry in scheduleList)
-                                if (entry.Item1.Month < when.Month && entry.Item2.Month > when.Month)
+                                if (entry.Item1.Day < moment.Day && entry.Item2.Day > moment.Day)
                                     return true;
 
                             return false;
@@ -62,7 +62,7 @@ namespace Bhbk.Lib.Env.Waf.Schedule
                     case ScheduleFilterOccur.Daily:
                         {
                             foreach (Tuple<DateTime, DateTime> entry in scheduleList)
-                                if (entry.Item1.Day < when.Day && entry.Item2.Day > when.Day)
+                                if (entry.Item1.Hour < moment.Hour && entry.Item2.Hour > moment.Hour)
                                     return true;
 
                             return false;
@@ -71,7 +71,7 @@ namespace Bhbk.Lib.Env.Waf.Schedule
                     case ScheduleFilterOccur.Hourly:
                         {
                             foreach (Tuple<DateTime, DateTime> entry in scheduleList)
-                                if (entry.Item1.Hour < when.Hour && entry.Item2.Hour > when.Hour)
+                                if (entry.Item1.Minute < moment.Minute && entry.Item2.Minute > moment.Minute)
                                     return true;
 
                             return false;
@@ -80,7 +80,7 @@ namespace Bhbk.Lib.Env.Waf.Schedule
                     case ScheduleFilterOccur.Once:
                         {
                             foreach (Tuple<DateTime, DateTime> entry in scheduleList)
-                                if (entry.Item1 < when && entry.Item2 > when)
+                                if (entry.Item1 < moment && entry.Item2 > moment)
                                     return true;
 
                             return false;
@@ -97,7 +97,7 @@ namespace Bhbk.Lib.Env.Waf.Schedule
                     case ScheduleFilterOccur.Yearly:
                         {
                             foreach (Tuple<DateTime, DateTime> entry in scheduleList)
-                                if (entry.Item1.Year < when.Year && entry.Item2.Year > when.Year)
+                                if (entry.Item1.Month < moment.Month && entry.Item2.Month > moment.Month)
                                     return false;
 
                             return true;
@@ -106,7 +106,7 @@ namespace Bhbk.Lib.Env.Waf.Schedule
                     case ScheduleFilterOccur.Monthly:
                         {
                             foreach (Tuple<DateTime, DateTime> entry in scheduleList)
-                                if (entry.Item1.Month < when.Month && entry.Item2.Month > when.Month)
+                                if (entry.Item1.Day < moment.Day && entry.Item2.Day > moment.Day)
                                     return false;
 
                             return true;
@@ -118,7 +118,7 @@ namespace Bhbk.Lib.Env.Waf.Schedule
                     case ScheduleFilterOccur.Daily:
                         {
                             foreach (Tuple<DateTime, DateTime> entry in scheduleList)
-                                if (entry.Item1.Day < when.Day && entry.Item2.Day > when.Day)
+                                if (entry.Item1.Hour < moment.Hour && entry.Item2.Hour > moment.Hour)
                                     return false;
 
                             return true;
@@ -127,7 +127,7 @@ namespace Bhbk.Lib.Env.Waf.Schedule
                     case ScheduleFilterOccur.Hourly:
                         {
                             foreach (Tuple<DateTime, DateTime> entry in scheduleList)
-                                if (entry.Item1.Hour < when.Hour && entry.Item2.Hour > when.Hour)
+                                if (entry.Item1.Minute < moment.Minute && entry.Item2.Minute > moment.Minute)
                                     return false;
 
                             return true;
@@ -136,7 +136,7 @@ namespace Bhbk.Lib.Env.Waf.Schedule
                     case ScheduleFilterOccur.Once:
                         {
                             foreach (Tuple<DateTime, DateTime> entry in scheduleList)
-                                if (entry.Item1 < when && entry.Item2 > when)
+                                if (entry.Item1 < moment && entry.Item2 > moment)
                                     return false;
 
                             return true;
@@ -192,8 +192,8 @@ namespace Bhbk.Lib.Env.Waf.Schedule
             {
                 string[] dt = token.Split('-').Select(x => x.Trim()).ToArray();
 
-                if (DateTime.TryParseExact(dt[0], Statics.ApiScheduleConfigFormat, null, DateTimeStyles.None, out begin)
-                    && DateTime.TryParseExact(dt[1], Statics.ApiScheduleConfigFormat, null, DateTimeStyles.None, out end))
+                if (DateTime.TryParseExact(dt[0], Statics.ApiScheduleFormatFull, null, DateTimeStyles.None, out begin)
+                    && DateTime.TryParseExact(dt[1], Statics.ApiScheduleFormatFull, null, DateTimeStyles.None, out end))
                     schedule.Add(new Tuple<DateTime, DateTime>(begin, end));
 
                 else

@@ -6,31 +6,31 @@ using System.Globalization;
 namespace Bhbk.Lib.Env.Waf.Tests.Schedule
 {
     [TestClass]
-    public class SingleTests
+    public class SingleOnceTests
     {
         [TestMethod]
-        public void SingleScheduleAllowMatch()
+        public void SingleScheduleOnceAllowMatch()
         {
             Assert.AreEqual<bool>(true, CheckActionFilterSchedule(Statics.TestWhen_1, ScheduleFilterAction.Allow, ScheduleFilterOccur.Once));
             Assert.AreEqual<bool>(true, CheckAuthorizeSchedule(Statics.TestWhen_1, ScheduleFilterAction.Allow, ScheduleFilterOccur.Once));
         }
 
         [TestMethod]
-        public void SingleScheduleAllowNoMatch()
+        public void SingleScheduleOnceAllowNoMatch()
         {
             Assert.AreEqual<bool>(false, CheckActionFilterSchedule(Statics.TestWhen_3, ScheduleFilterAction.Allow, ScheduleFilterOccur.Once));
             Assert.AreEqual<bool>(false, CheckAuthorizeSchedule(Statics.TestWhen_3, ScheduleFilterAction.Allow, ScheduleFilterOccur.Once));
         }
 
         [TestMethod]
-        public void SingleScheduleDenyMatch()
+        public void SingleScheduleOnceDenyMatch()
         {
             Assert.AreEqual<bool>(false, CheckActionFilterSchedule(Statics.TestWhen_1, ScheduleFilterAction.Deny, ScheduleFilterOccur.Once));
             Assert.AreEqual<bool>(false, CheckAuthorizeSchedule(Statics.TestWhen_1, ScheduleFilterAction.Deny, ScheduleFilterOccur.Once));
         }
 
         [TestMethod]
-        public void SingleScheduleDenyNoMatch()
+        public void SingleScheduleOnceDenyNoMatch()
         {
             Assert.AreEqual<bool>(true, CheckActionFilterSchedule(Statics.TestWhen_3, ScheduleFilterAction.Deny, ScheduleFilterOccur.Once));
             Assert.AreEqual<bool>(true, CheckAuthorizeSchedule(Statics.TestWhen_3, ScheduleFilterAction.Deny, ScheduleFilterOccur.Once));
@@ -38,9 +38,9 @@ namespace Bhbk.Lib.Env.Waf.Tests.Schedule
 
         private bool CheckActionFilterSchedule(string input, ScheduleFilterAction action, ScheduleFilterOccur occur)
         {
-            if (Bhbk.Lib.Env.Waf.Helpers.IsDateTimeFormatValid(input))
+            if (Bhbk.Lib.Env.Waf.Helpers.IsDateTimeFormatValid(occur, input))
             {
-                DateTime when = DateTime.ParseExact(input, Bhbk.Lib.Env.Waf.Statics.ApiScheduleConfigFormat, null, DateTimeStyles.None);
+                DateTime when = DateTime.ParseExact(input, Bhbk.Lib.Env.Waf.Statics.ApiScheduleFormatFull, null, DateTimeStyles.None);
                 ActionFilterScheduleAttribute attribute = new ActionFilterScheduleAttribute(Statics.TestSchedule_1, action, occur);
 
                 return Evaluate.IsScheduleValid(attribute, when);
@@ -51,9 +51,9 @@ namespace Bhbk.Lib.Env.Waf.Tests.Schedule
 
         private bool CheckAuthorizeSchedule(string input, ScheduleFilterAction action, ScheduleFilterOccur occur)
         {
-            if (Bhbk.Lib.Env.Waf.Helpers.IsDateTimeFormatValid(input))
+            if (Bhbk.Lib.Env.Waf.Helpers.IsDateTimeFormatValid(occur, input))
             {
-                DateTime when = DateTime.ParseExact(input, Bhbk.Lib.Env.Waf.Statics.ApiScheduleConfigFormat, null, DateTimeStyles.None);
+                DateTime when = DateTime.ParseExact(input, Bhbk.Lib.Env.Waf.Statics.ApiScheduleFormatFull, null, DateTimeStyles.None);
                 AuthorizeScheduleAttribute attribute = new AuthorizeScheduleAttribute(Statics.TestSchedule_1, action, occur);
 
                 return Evaluate.IsScheduleValid(attribute, when);

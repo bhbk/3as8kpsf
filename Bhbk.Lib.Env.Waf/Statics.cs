@@ -14,7 +14,14 @@ namespace Bhbk.Lib.Env.Waf
         internal const String ApiIpDynamicDeny = "IpDynamicDeny";
         internal const String ApiScheduleDynamicAllow = "ScheduleDynamicAllow";
         internal const String ApiScheduleDynamicDeny = "ScheduleDynamicDeny";
-        public const String ApiScheduleConfigFormat = "yyyy:MM:ddTHH:mm:ss";
+
+        //https://docs.microsoft.com/en-us/dotnet/standard/base-types/custom-date-and-time-format-strings
+        public const String ApiScheduleFormatFull = "yyyy:MM:ddTHH:mm:ss";
+        public const String ApiScheduleFormatMonth = "MMMM";
+        public const String ApiScheduleFormatDayOfWeek = "dddd";
+        public const String ApiScheduleFormatDay = "d";
+        public const String ApiScheduleFormatHour = "htt";
+        public const String ApiScheduleFormatMinute = "m";
 
         internal const String ApiContextIsHttp = "MS_HttpContext";
         internal const String ApiContextIsOwin = "MS_OwinContext";
