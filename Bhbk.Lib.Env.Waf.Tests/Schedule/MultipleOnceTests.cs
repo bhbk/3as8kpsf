@@ -38,9 +38,11 @@ namespace Bhbk.Lib.Env.Waf.Tests.Schedule
 
         private bool CheckActionFilterSchedule(string input, ScheduleFilterAction action, ScheduleFilterOccur occur)
         {
-            if (Bhbk.Lib.Env.Waf.Helpers.IsDateTimeFormatValid(occur, input))
+            string padded = string.Empty;
+
+            if (Bhbk.Lib.Env.Waf.Schedule.ScheduleHelpers.PadScheduleConfig(input, occur, ref padded))
             {
-                DateTime when = DateTime.ParseExact(input, Bhbk.Lib.Env.Waf.Statics.ApiScheduleFormatFull, null, DateTimeStyles.None);
+                DateTime when = DateTime.ParseExact(padded, Bhbk.Lib.Env.Waf.Statics.ApiScheduleFormatUnPadded, null, DateTimeStyles.None);
 
                 ActionFilterScheduleAttribute attribute =
                     new ActionFilterScheduleAttribute(new string[] {
@@ -56,9 +58,11 @@ namespace Bhbk.Lib.Env.Waf.Tests.Schedule
 
         private bool CheckAuthorizeSchedule(string input, ScheduleFilterAction action, ScheduleFilterOccur occur)
         {
-            if (Bhbk.Lib.Env.Waf.Helpers.IsDateTimeFormatValid(occur, input))
+            string padded = string.Empty;
+
+            if (Bhbk.Lib.Env.Waf.Schedule.ScheduleHelpers.PadScheduleConfig(input, occur, ref padded))
             {
-                DateTime when = DateTime.ParseExact(input, Bhbk.Lib.Env.Waf.Statics.ApiScheduleFormatFull, null, DateTimeStyles.None);
+                DateTime when = DateTime.ParseExact(padded, Bhbk.Lib.Env.Waf.Statics.ApiScheduleFormatUnPadded, null, DateTimeStyles.None);
 
                 AuthorizeScheduleAttribute attribute =
                     new AuthorizeScheduleAttribute(new string[] {

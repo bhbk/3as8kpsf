@@ -38,10 +38,10 @@ namespace Bhbk.Lib.Env.Waf.Schedule
         public ActionFilterScheduleAttribute(ScheduleFilterAction actionInput, ScheduleFilterOccur actionOccur)
         {
             if (actionInput == ScheduleFilterAction.Allow)
-                this.scheduleList = ScheduleHelpers.ParseScheduleConfig(ConfigurationManager.AppSettings[Statics.ApiScheduleDynamicAllow].Split(',').Select(x => x.Trim()));
+                this.scheduleList = ScheduleHelpers.ParseScheduleConfig(ConfigurationManager.AppSettings[Statics.ApiScheduleDynamicAllow].Split(',').Select(x => x.Trim()), actionOccur);
 
             else if (actionInput == ScheduleFilterAction.Deny)
-                this.scheduleList = ScheduleHelpers.ParseScheduleConfig(ConfigurationManager.AppSettings[Statics.ApiScheduleDynamicDeny].Split(',').Select(x => x.Trim()));
+                this.scheduleList = ScheduleHelpers.ParseScheduleConfig(ConfigurationManager.AppSettings[Statics.ApiScheduleDynamicDeny].Split(',').Select(x => x.Trim()), actionOccur);
 
             this.action = actionInput;
             this.occur = actionOccur;
@@ -49,14 +49,14 @@ namespace Bhbk.Lib.Env.Waf.Schedule
 
         public ActionFilterScheduleAttribute(string scheduleListInput, ScheduleFilterAction actionInput, ScheduleFilterOccur actionOccur)
         {
-            this.scheduleList = ScheduleHelpers.ParseScheduleConfig(scheduleListInput.Split(',').Select(x => x.Trim()));
+            this.scheduleList = ScheduleHelpers.ParseScheduleConfig(scheduleListInput.Split(',').Select(x => x.Trim()), actionOccur);
             this.action = actionInput;
             this.occur = actionOccur;
         }
 
         public ActionFilterScheduleAttribute(string[] scheduleListInput, ScheduleFilterAction actionInput, ScheduleFilterOccur actionOccur)
         {
-            this.scheduleList = ScheduleHelpers.ParseScheduleConfig(scheduleListInput);
+            this.scheduleList = ScheduleHelpers.ParseScheduleConfig(scheduleListInput, actionOccur);
             this.action = actionInput;
             this.occur = actionOccur;
         }
@@ -153,10 +153,10 @@ namespace Bhbk.Lib.Env.Waf.Schedule
         public AuthorizeScheduleAttribute(ScheduleFilterAction actionInput, ScheduleFilterOccur actionOccur)
         {
             if (actionInput == ScheduleFilterAction.Allow)
-                this.scheduleList = ScheduleHelpers.ParseScheduleConfig(ConfigurationManager.AppSettings[Statics.ApiScheduleDynamicAllow].Split(',').Select(x => x.Trim()));
+                this.scheduleList = ScheduleHelpers.ParseScheduleConfig(ConfigurationManager.AppSettings[Statics.ApiScheduleDynamicAllow].Split(',').Select(x => x.Trim()), actionOccur);
 
             else if (actionInput == ScheduleFilterAction.Deny)
-                this.scheduleList = ScheduleHelpers.ParseScheduleConfig(ConfigurationManager.AppSettings[Statics.ApiScheduleDynamicDeny].Split(',').Select(x => x.Trim()));
+                this.scheduleList = ScheduleHelpers.ParseScheduleConfig(ConfigurationManager.AppSettings[Statics.ApiScheduleDynamicDeny].Split(',').Select(x => x.Trim()), actionOccur);
 
             else
                 throw new InvalidOperationException();
@@ -167,14 +167,14 @@ namespace Bhbk.Lib.Env.Waf.Schedule
 
         public AuthorizeScheduleAttribute(string scheduleListInput, ScheduleFilterAction actionInput, ScheduleFilterOccur actionOccur)
         {
-            this.scheduleList = ScheduleHelpers.ParseScheduleConfig(scheduleListInput.Split(',').Select(x => x.Trim()));
+            this.scheduleList = ScheduleHelpers.ParseScheduleConfig(scheduleListInput.Split(',').Select(x => x.Trim()), actionOccur);
             this.action = actionInput;
             this.occur = actionOccur;
         }
 
         public AuthorizeScheduleAttribute(string[] scheduleListInput, ScheduleFilterAction actionInput, ScheduleFilterOccur actionOccur)
         {
-            this.scheduleList = ScheduleHelpers.ParseScheduleConfig(scheduleListInput);
+            this.scheduleList = ScheduleHelpers.ParseScheduleConfig(scheduleListInput, actionOccur);
             this.action = actionInput;
             this.occur = actionOccur;
         }
