@@ -33,7 +33,6 @@ infrastructure to assemble complicated & brittle web.configs, which saves on fin
         [HttpGet]
         [Route("api/{id}")]
         [ActionFilterHttpOption(HttpFilteringAction.SslRequired)]
-        [AuthorizeHttpOption(HttpFilteringAction.SslRequired)]
         public HttpResponseMessage DoSomething(int id)
         {
 			//response logic...
@@ -55,7 +54,6 @@ infrastructure to assemble complicated & brittle web.configs, which saves on fin
         [HttpGet]
         [Route("api/{id}")]
         [ActionFilterSchedule(ScheduleFilteringAction.Deny, ScheduleFilteringOccur.Daily)]
-        [AuthorizeSchedule(ScheduleFilteringAction.Deny, ScheduleFilteringOccur.Daily)]
         public HttpResponseMessage DoSomething(int id)
         {
 			//response logic...
@@ -68,7 +66,6 @@ infrastructure to assemble complicated & brittle web.configs, which saves on fin
         [HttpGet]
         [Route("api/{id}")]
         [ActionFilterSchedule("2017:01:01T17:00:00-2018:01:01T08:00:00", ScheduleFilteringAction.Deny, ScheduleFilteringOccur.Daily)]
-        [AuthorizeSchedule("2017:01:01T17:00:00-2018:01:01T08:00:00", ScheduleFilteringAction.Deny, ScheduleFilteringOccur.Daily)]
         public HttpResponseMessage DoSomething(int id)
         {
 			//response logic...
@@ -90,7 +87,6 @@ infrastructure to assemble complicated & brittle web.configs, which saves on fin
         [HttpGet]
         [Route("api/{id}")]
         [ActionFilterIpAddress(IpAddressFilteringAction.Deny)]
-        [AuthorizeIpAddress(IpAddressFilteringAction.Deny)]
         public HttpResponseMessage DoSomething(int id)
         {
 			//response logic...
@@ -103,7 +99,6 @@ infrastructure to assemble complicated & brittle web.configs, which saves on fin
         [HttpGet]
         [Route("api/{id}")]
         [ActionFilterIpAddress("10.0.0.0/8", IpAddressFilteringAction.Deny)]
-        [AuthorizeIpAddress("10.0.0.0/8", IpAddressFilteringAction.Deny)]
         public HttpResponseMessage DoSomething(int id)
         {
 			//response logic...
@@ -116,7 +111,6 @@ infrastructure to assemble complicated & brittle web.configs, which saves on fin
         [HttpGet]
         [Route("api/{id}")]
         [ActionFilterIpAddress("2001:db8:a::123/64", IpAddressFilteringAction.Deny)]
-        [AuthorizeIpAddress("2001:db8:a::123/64", IpAddressFilteringAction.Deny)]
         public HttpResponseMessage DoSomething(int id)
         {
 			//response logic...
@@ -138,7 +132,6 @@ infrastructure to assemble complicated & brittle web.configs, which saves on fin
         [HttpGet]
         [Route("api/{id}")]
         [ActionFilterDnsAddress(DnsAddressFilteringAction.Deny)]
-        [AuthorizeDnsAddress(DnsAddressFilteringAction.Deny)]
         public HttpResponseMessage DoSomething(int id)
         {
 			//response logic...
@@ -150,7 +143,6 @@ infrastructure to assemble complicated & brittle web.configs, which saves on fin
         [HttpGet]
         [Route("api/{id}")]
         [ActionFilterDnsAddress(DnsAddressFilteringAction.DenyContains)]
-        [AuthorizeDnsAddress(DnsAddressFilteringAction.DenyContains)]
         public HttpResponseMessage DoSomething(int id)
         {
 			//response logic...
@@ -162,8 +154,7 @@ infrastructure to assemble complicated & brittle web.configs, which saves on fin
         [HttpGet]
         [Route("api/{id}")]
         [ActionFilterDnsAddress(DnsAddressFilterAction.DenyRegEx)]
-        [AuthorizeDnsAddress(DnsAddressFilterAction.DenyRegEx)]
-        public IHttpActionResult DoSomething(int id)
+        public IActionResult DoSomething(int id)
         {
 			//response logic...
         }
@@ -175,7 +166,6 @@ infrastructure to assemble complicated & brittle web.configs, which saves on fin
         [HttpGet]
         [Route("api/{id}")]
         [ActionFilterDnsAddress("defcon.org", DnsAddressFilteringAction.Deny)]
-        [AuthorizeDnsAddress("defcon.org", DnsAddressFilteringAction.Deny)]
         public HttpResponseMessage DoSomething(int id)
         {
 			//response logic...
@@ -187,7 +177,6 @@ infrastructure to assemble complicated & brittle web.configs, which saves on fin
         [HttpGet]
         [Route("api/{id}")]
         [ActionFilterDnsAddress(".org", DnsAddressFilteringAction.DenyContains)]
-        [AuthorizeDnsAddress(".org", DnsAddressFilteringAction.DenyContains)]
         public HttpResponseMessage DoSomething(int id)
         {
 			//response logic...
@@ -199,8 +188,7 @@ infrastructure to assemble complicated & brittle web.configs, which saves on fin
         [HttpGet]
         [Route("api/{id}")]
         [ActionFilterDnsAddress(@"[a-zA-Z0-9]*\.org$", DnsAddressFilterAction.DenyRegEx)]
-        [AuthorizeDnsAddress(@"[a-zA-Z0-9]*\.org$", DnsAddressFilterAction.DenyRegEx)]
-        public IHttpActionResult DoSomething(int id)
+        public IActionResult DoSomething(int id)
         {
 			//response logic...
         }

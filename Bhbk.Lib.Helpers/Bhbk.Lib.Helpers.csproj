@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <Authors>Christopher Ochap</Authors>
+    <Company>Christopher Ochap</Company>
+    <Copyright>Copyright ©  2017</Copyright>
+    <PackageLicenseUrl>http://www.apache.org/licenses/LICENSE-2.0</PackageLicenseUrl>
+    <PackageProjectUrl>https://gitlab.com/bhbk/3as8kpsf</PackageProjectUrl>
+    <PackageIconUrl>https://gitlab.com/bhbk/3as8kpsf</PackageIconUrl>
+    <RepositoryUrl>https://gitlab.com/bhbk/3as8kpsf</RepositoryUrl>
+    <PackageTags>Bhbk Lib Helpers</PackageTags>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <Version>0.0.0</Version>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.3" />
+    <PackageReference Include="Portable.BouncyCastle" Version="1.8.2" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="3.0.0" />
+    <PackageReference Include="System.Linq.Dynamic.Core" Version="1.0.8.11" />
+  </ItemGroup>
+
+</Project>

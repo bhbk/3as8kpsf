@@ -1,3 +1,7 @@
+
+variables:
+  version: "2018.7.9.1439"
+
 stages:
   - debug
   - release
@@ -7,23 +11,39 @@ debug:
   only:
   - dummy
   script:
-  - call "C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\vcvarsall.bat"
-  - nuget restore "Bhbk.Lib.Env.Waf.sln" -Verbosity detailed -NoCache
-  - msbuild /t:build /p:Configuration=Debug /verbosity:normal "Bhbk.Lib.Env.Waf.sln"
-  - mstest /testcontainer:"Bhbk.Lib.Env.Waf.Tests\bin\Debug\Bhbk.Lib.Env.Waf.Tests.dll"
-  - cd Bhbk.Lib.Env.Waf/
-  - nuget spec -Verbosity detailed -NonInteractive
-  - nuget pack -Properties Configuration=Debug -IncludeReferencedProjects -Verbosity detailed -NonInteractive
+  - call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\Tools\VsDevCmd.bat"
+  -
+  - cd .\Bhbk.Lib.Helpers
+  - dotnet build "Bhbk.Lib.Helpers.csproj" --configuration Debug --framework netcoreapp2.1
+  #- dotnet test "Bhbk.Lib.Helpers.Tests.csproj" --configuration Debug --framework netcoreapp2.1
+  - dotnet pack "Bhbk.Lib.Helpers.csproj" --configuration Debug -p:PackageVersion=$version --output "..\\" -p:TargetFrameworks=netcoreapp2.1
+  #- dotnet publish "Bhbk.Lib.Helpers.csproj" --output "bin\\Debug\\netcoreapp2.1\\publish\\" --configuration Debug --framework netcoreapp2.1
+  #- octo pack --id="Bhbk.Lib.Helpers" --version=$version --basePath="bin\\Debug\\netcoreapp2.1\\publish\\" --outFolder="..\\"
+  -
+  - cd ..\Bhbk.Lib.Waf
+  - dotnet build "Bhbk.Lib.Waf.csproj" --configuration Debug --framework netcoreapp2.1
+  - dotnet test "Bhbk.Lib.Waf.Tests.csproj" --configuration Debug --framework netcoreapp2.1
+  - dotnet pack "Bhbk.Lib.Waf.csproj" --configuration Debug -p:PackageVersion=$version --output "..\\" -p:TargetFrameworks=netcoreapp2.1
+  #- dotnet publish "Bhbk.Lib.Waf.csproj" --output "bin\\Debug\\netcoreapp2.1\\publish\\" --configuration Debug --framework netcoreapp2.1
+  #- octo pack --id="Bhbk.Lib.Helpers" --version=$version --basePath="bin\\Debug\\netcoreapp2.1\\publish\\" --outFolder="..\\"
 
 release:
   stage: release
   only:
   - dummy
   script:
-  - call "C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\vcvarsall.bat"
-  - nuget restore "Bhbk.Lib.Env.Waf.sln" -Verbosity detailed -NoCache
-  - msbuild /t:build /p:Configuration=Release /verbosity:normal "Bhbk.Lib.Env.Waf.sln"
-  - mstest /testcontainer:"Bhbk.Lib.Env.Waf.Tests\bin\Release\Bhbk.Lib.Env.Waf.Tests.dll"
-  - cd Bhbk.Lib.Env.Waf/
-  - nuget spec -Verbosity detailed -NonInteractive
-  - nuget pack -Properties Configuration=Release -IncludeReferencedProjects -Verbosity detailed -NonInteractive
+  - call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\Tools\VsDevCmd.bat"
+  -
+  - cd Bhbk.Lib.Helpers
+  - dotnet build --verbosity minimal "Bhbk.Lib.Helpers.csproj" --configuration Release --framework netcoreapp2.1
+  #- dotnet test "Bhbk.Lib.Helpers.Tests.csproj" --configuration Release --framework netcoreapp2.1
+  - dotnet pack "Bhbk.Lib.Helpers.csproj" --configuration Release -p:PackageVersion=$version --output "..\\" -p:TargetFrameworks=netcoreapp2.1
+  #- dotnet publish "Bhbk.Lib.Helpers.csproj" --output "bin\\Release\\netcoreapp2.1\\publish\\" --configuration Release --framework netcoreapp2.1
+  #- octo pack --id="Bhbk.Lib.Helpers" --basePath="bin\\Release\\netcoreapp2.1\\publish\\" --outFolder="..\\"
+  -
+  - cd ..\Bhbk.Lib.Waf
+  - dotnet build --verbosity minimal "Bhbk.Lib.Waf.csproj" --configuration Release --framework netcoreapp2.1
+  - dotnet test "Bhbk.Lib.Waf.Tests.csproj" --configuration Release --framework netcoreapp2.1
+  - dotnet pack "Bhbk.Lib.Waf.csproj" --configuration Release -p:PackageVersion=$version --output "..\\" -p:TargetFrameworks=netcoreapp2.1
+  #- dotnet publish "Bhbk.Lib.Waf.csproj" --output "bin\\Release\\netcoreapp2.1\\publish\\" --configuration Release --framework netcoreapp2.1
+  #- octo pack --id="Bhbk.Lib.Helpers" --basePath="bin\\Release\\netcoreapp2.1\\publish\\" --outFolder="..\\"
