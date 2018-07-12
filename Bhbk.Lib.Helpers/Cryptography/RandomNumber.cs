@@ -2,7 +2,7 @@
 using System;
 using System.Security.Cryptography;
 
-namespace Bhbk.Lib.Helpers.Security
+namespace Bhbk.Lib.Helpers.Cryptography
 {
     public class RandomNumber
     {
