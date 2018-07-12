@@ -1,6 +1,6 @@
 
 variables:
-  version: "2018.7.9.1439"
+  version: "2018.7.11.2159"
 
 stages:
   - debug
@@ -16,16 +16,10 @@ debug:
   - cd .\Bhbk.Lib.Helpers
   - dotnet build "Bhbk.Lib.Helpers.csproj" --configuration Debug --framework netcoreapp2.1
   #- dotnet test "Bhbk.Lib.Helpers.Tests.csproj" --configuration Debug --framework netcoreapp2.1
-  - dotnet pack "Bhbk.Lib.Helpers.csproj" --configuration Debug -p:PackageVersion=$version --output "..\\" -p:TargetFrameworks=netcoreapp2.1
-  #- dotnet publish "Bhbk.Lib.Helpers.csproj" --output "bin\\Debug\\netcoreapp2.1\\publish\\" --configuration Debug --framework netcoreapp2.1
-  #- octo pack --id="Bhbk.Lib.Helpers" --version=$version --basePath="bin\\Debug\\netcoreapp2.1\\publish\\" --outFolder="..\\"
   -
   - cd ..\Bhbk.Lib.Waf
   - dotnet build "Bhbk.Lib.Waf.csproj" --configuration Debug --framework netcoreapp2.1
   - dotnet test "Bhbk.Lib.Waf.Tests.csproj" --configuration Debug --framework netcoreapp2.1
-  - dotnet pack "Bhbk.Lib.Waf.csproj" --configuration Debug -p:PackageVersion=$version --output "..\\" -p:TargetFrameworks=netcoreapp2.1
-  #- dotnet publish "Bhbk.Lib.Waf.csproj" --output "bin\\Debug\\netcoreapp2.1\\publish\\" --configuration Debug --framework netcoreapp2.1
-  #- octo pack --id="Bhbk.Lib.Helpers" --version=$version --basePath="bin\\Debug\\netcoreapp2.1\\publish\\" --outFolder="..\\"
 
 release:
   stage: release
@@ -34,16 +28,15 @@ release:
   script:
   - call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\Tools\VsDevCmd.bat"
   -
-  - cd Bhbk.Lib.Helpers
-  - dotnet build --verbosity minimal "Bhbk.Lib.Helpers.csproj" --configuration Release --framework netcoreapp2.1
+  - cd .\Bhbk.Lib.Helpers
+  - dotnet build "Bhbk.Lib.Helpers.csproj" --configuration Release --framework netcoreapp2.1
   #- dotnet test "Bhbk.Lib.Helpers.Tests.csproj" --configuration Release --framework netcoreapp2.1
   - dotnet pack "Bhbk.Lib.Helpers.csproj" --configuration Release -p:PackageVersion=$version --output "..\\" -p:TargetFrameworks=netcoreapp2.1
-  #- dotnet publish "Bhbk.Lib.Helpers.csproj" --output "bin\\Release\\netcoreapp2.1\\publish\\" --configuration Release --framework netcoreapp2.1
-  #- octo pack --id="Bhbk.Lib.Helpers" --basePath="bin\\Release\\netcoreapp2.1\\publish\\" --outFolder="..\\"
   -
   - cd ..\Bhbk.Lib.Waf
-  - dotnet build --verbosity minimal "Bhbk.Lib.Waf.csproj" --configuration Release --framework netcoreapp2.1
+  - dotnet build "Bhbk.Lib.Waf.csproj" --configuration Release --framework netcoreapp2.1
   - dotnet test "Bhbk.Lib.Waf.Tests.csproj" --configuration Release --framework netcoreapp2.1
   - dotnet pack "Bhbk.Lib.Waf.csproj" --configuration Release -p:PackageVersion=$version --output "..\\" -p:TargetFrameworks=netcoreapp2.1
-  #- dotnet publish "Bhbk.Lib.Waf.csproj" --output "bin\\Release\\netcoreapp2.1\\publish\\" --configuration Release --framework netcoreapp2.1
-  #- octo pack --id="Bhbk.Lib.Helpers" --basePath="bin\\Release\\netcoreapp2.1\\publish\\" --outFolder="..\\"
+  -
+  - cd ..
+  - nuget push *.nupkg -ApiKey %NUGET_FEED_KEY% -Source %NUGET_FEED_URL% -Verbosity detailed -NonInteractive

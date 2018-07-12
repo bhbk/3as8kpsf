@@ -16,12 +16,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="IPNetwork2" Version="2.1.2" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.3" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.4.1" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\LukeSkywalker.IpNetwork\LukeSkywalker.IpNetwork.csproj" />
   </ItemGroup>
 
 </Project>

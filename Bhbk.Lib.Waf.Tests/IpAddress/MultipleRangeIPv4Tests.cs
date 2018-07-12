@@ -1,6 +1,6 @@
 ﻿using Bhbk.Lib.Waf.IpAddress;
-using LukeSkywalker.IPNetwork;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Net;
 
 namespace Bhbk.Lib.Waf.Tests.IpAddress
 {

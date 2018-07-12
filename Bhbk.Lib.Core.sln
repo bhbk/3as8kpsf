@@ -9,7 +9,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.gitlab-ci.yml = .gitlab-ci.yml
 		build.ps1 = build.ps1
 		clean.ps1 = clean.ps1
-		license-ipnetwork.md = license-ipnetwork.md
 		license.md = license.md
 		readme.md = readme.md
 	EndProjectSection
@@ -17,10 +16,6 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bhbk.Lib.Waf.Tests", "Bhbk.Lib.Waf.Tests\Bhbk.Lib.Waf.Tests.csproj", "{58FB0DB4-DB96-4E9A-95AA-1A05573F6055}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bhbk.WebApi.Sample", "Bhbk.WebApi.Sample\Bhbk.WebApi.Sample.csproj", "{060A4133-3230-48AC-8724-1EED207AA568}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LukeSkywalker.IpNetwork", "LukeSkywalker.IpNetwork\LukeSkywalker.IpNetwork.csproj", "{80E6CD87-1DBE-4AD2-A66F-3BF169304062}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LukeSkywalker.IpNetwork.Tests", "LukeSkywalker.IpNetwork.Tests\LukeSkywalker.IpNetwork.Tests.csproj", "{94300F97-9159-48A0-9553-0959205A2C7D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bhbk.Lib.Waf", "Bhbk.Lib.Waf\Bhbk.Lib.Waf.csproj", "{36F11576-CF09-4FCD-BDCF-98B2D1245B8B}"
 EndProject
@@ -40,14 +35,6 @@ Global
 		{060A4133-3230-48AC-8724-1EED207AA568}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{060A4133-3230-48AC-8724-1EED207AA568}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{060A4133-3230-48AC-8724-1EED207AA568}.Release|Any CPU.Build.0 = Release|Any CPU
-		{80E6CD87-1DBE-4AD2-A66F-3BF169304062}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{80E6CD87-1DBE-4AD2-A66F-3BF169304062}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{80E6CD87-1DBE-4AD2-A66F-3BF169304062}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{80E6CD87-1DBE-4AD2-A66F-3BF169304062}.Release|Any CPU.Build.0 = Release|Any CPU
-		{94300F97-9159-48A0-9553-0959205A2C7D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{94300F97-9159-48A0-9553-0959205A2C7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{94300F97-9159-48A0-9553-0959205A2C7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{94300F97-9159-48A0-9553-0959205A2C7D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{36F11576-CF09-4FCD-BDCF-98B2D1245B8B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{36F11576-CF09-4FCD-BDCF-98B2D1245B8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{36F11576-CF09-4FCD-BDCF-98B2D1245B8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
