@@ -25,7 +25,7 @@ namespace Bhbk.Lib.Waf.IpAddress
                 throw new InvalidOperationException();
 
             else if (action == IpAddressFilterAction.Allow)
-                if (cidrList.Any(x => IPNetwork.Contains(x, client)))
+                if (cidrList.Any(x => client.Contains(x)))
                     return true;
                 else
                     return false;
@@ -34,7 +34,7 @@ namespace Bhbk.Lib.Waf.IpAddress
                 throw new NotImplementedException();
 
             else if (action == IpAddressFilterAction.Deny)
-                if (cidrList.Any(x => IPNetwork.Contains(x, client)))
+                if (cidrList.Any(x => client.Contains(x)))
                     return false;
                 else
                     return true;

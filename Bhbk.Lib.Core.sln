@@ -17,9 +17,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bhbk.Lib.Waf.Tests", "Bhbk.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bhbk.WebApi.Sample", "Bhbk.WebApi.Sample\Bhbk.WebApi.Sample.csproj", "{060A4133-3230-48AC-8724-1EED207AA568}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bhbk.Lib.Waf", "Bhbk.Lib.Waf\Bhbk.Lib.Waf.csproj", "{36F11576-CF09-4FCD-BDCF-98B2D1245B8B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bhbk.Lib.Helpers", "Bhbk.Lib.Helpers\Bhbk.Lib.Helpers.csproj", "{921FD098-C018-437D-969A-971DED19CF75}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bhbk.Lib.Helpers", "Bhbk.Lib.Helpers\Bhbk.Lib.Helpers.csproj", "{921FD098-C018-437D-969A-971DED19CF75}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bhbk.Lib.Helpers.Tests", "Bhbk.Lib.Helpers.Tests\Bhbk.Lib.Helpers.Tests.csproj", "{85F4535C-2037-4AD9-9515-D65F415428B5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bhbk.Lib.Waf", "Bhbk.Lib.Waf\Bhbk.Lib.Waf.csproj", "{AE5138B7-0A87-4539-A4A5-74F6F9D59931}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,14 +37,18 @@ Global
 		{060A4133-3230-48AC-8724-1EED207AA568}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{060A4133-3230-48AC-8724-1EED207AA568}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{060A4133-3230-48AC-8724-1EED207AA568}.Release|Any CPU.Build.0 = Release|Any CPU
-		{36F11576-CF09-4FCD-BDCF-98B2D1245B8B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{36F11576-CF09-4FCD-BDCF-98B2D1245B8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{36F11576-CF09-4FCD-BDCF-98B2D1245B8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{36F11576-CF09-4FCD-BDCF-98B2D1245B8B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{921FD098-C018-437D-969A-971DED19CF75}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{921FD098-C018-437D-969A-971DED19CF75}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{921FD098-C018-437D-969A-971DED19CF75}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{921FD098-C018-437D-969A-971DED19CF75}.Release|Any CPU.Build.0 = Release|Any CPU
+		{85F4535C-2037-4AD9-9515-D65F415428B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{85F4535C-2037-4AD9-9515-D65F415428B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{85F4535C-2037-4AD9-9515-D65F415428B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{85F4535C-2037-4AD9-9515-D65F415428B5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AE5138B7-0A87-4539-A4A5-74F6F9D59931}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE5138B7-0A87-4539-A4A5-74F6F9D59931}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AE5138B7-0A87-4539-A4A5-74F6F9D59931}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AE5138B7-0A87-4539-A4A5-74F6F9D59931}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
