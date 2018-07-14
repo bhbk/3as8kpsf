@@ -1,10 +1,10 @@
 
+variables:
+  version: "2018.7.13.6291"
+
 stages:
   - debug
   - release
-
-variables:
-  version: "2018.7.13.3291"
 
 debug:
   stage: debug
@@ -12,17 +12,17 @@ debug:
   - debug
   script:
   - call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\Tools\VsDevCmd.bat"
-  - dotnet build "Bhbk.Lib.Core.sln" --configuration Debug
-  - dotnet test "Bhbk.Lib.Helpers.Tests\Bhbk.Lib.Helpers.Tests.csproj" --configuration Debug
-  - dotnet test "Bhbk.Lib.Waf.Tests\Bhbk.Lib.Waf.Tests.csproj" --configuration Debug
+  - dotnet build "Bhbk.Lib.Core.sln" --configuration Release
+  - dotnet test "Bhbk.Lib.Helpers.Tests\Bhbk.Lib.Helpers.Tests.csproj" --configuration Release
+  - dotnet test "Bhbk.Lib.Waf.Tests\Bhbk.Lib.Waf.Tests.csproj" --configuration Release
 
 release:
   stage: release
   only:
-  - debug
+  - dummy
   script:
   - call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\Tools\VsDevCmd.bat"
-  - dotnet build "Bhbk.Lib.Core.sln" --configuration Release
-  - dotnet pack "Bhbk.Lib.Helpers\Bhbk.Lib.Helpers.csproj" --configuration Release -p:PackageVersion=$version --output "..\\" -p:TargetFrameworks=netstandard2.0
-  - dotnet pack "Bhbk.Lib.Waf\Bhbk.Lib.Waf.csproj" --configuration Release -p:PackageVersion=$version --output "..\\" -p:TargetFrameworks=netstandard2.0
+  - dotnet build --verbosity quiet "Bhbk.Lib.Core.sln" --configuration Release
+  - dotnet pack "Bhbk.Lib.Helpers\Bhbk.Lib.Helpers.csproj" -p:PackageVersion=$version --output ".." --configuration Release -p:TargetFrameworks=netstandard2.0
+  - dotnet pack "Bhbk.Lib.Waf\Bhbk.Lib.Waf.csproj" -p:PackageVersion=$version --output ".." --configuration Release -p:TargetFrameworks=netstandard2.0
   - dotnet nuget push *.nupkg --api-key %NUGET_FEED_KEY% --source %NUGET_FEED_URL%
