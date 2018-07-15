@@ -25,7 +25,7 @@ namespace Bhbk.Lib.Helpers.Options
                     return endpoint;
                 });
 
-            var certificate = Certificate.CreateX509SelfSigned(RsaKeyLength.Bits2048, SignatureType.SHA256WithECDSA);
+            var certificate = Certificate.CreateX509SelfSigned(RsaKeyLength.Bits2048, SignatureType.SHA256WithRSA);
 
             foreach (var endpoint in endpoints)
             {

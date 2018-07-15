@@ -1,5 +1,5 @@
 
-Set-Variable -Name version -Value "2018.7.13.3291"
+Set-Variable -Name version -Value "2018.7.14.3228"
 
 dotnet build "Bhbk.Lib.Core.sln" --configuration Release
 dotnet pack "Bhbk.Lib.Helpers\Bhbk.Lib.Helpers.csproj" -p:PackageVersion=$version --output ".." --configuration Release -p:TargetFrameworks=netstandard2.0
