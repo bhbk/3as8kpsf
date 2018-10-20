@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Security.Cryptography;
 
-namespace Bhbk.Lib.Helpers.Cryptography
+namespace Bhbk.Lib.Core.Cryptography
 {
     public class Hasher
     {

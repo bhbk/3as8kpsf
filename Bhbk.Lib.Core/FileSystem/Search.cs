@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System.Reflection;
 
-namespace Bhbk.Lib.Helpers.FileSystem
+namespace Bhbk.Lib.Core.FileSystem
 {
     public class Search
     {

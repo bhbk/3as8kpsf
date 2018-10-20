@@ -13,7 +13,7 @@ using System.Collections;
 using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
 
-namespace Bhbk.Lib.Helpers.Cryptography
+namespace Bhbk.Lib.Core.Cryptography
 {
     //https://github.com/bcgit/bc-csharp/blob/master/crypto/src/crypto/operators/Asn1Signature.cs
     public enum SignatureType

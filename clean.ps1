@@ -1,7 +1,7 @@
 
 Remove-Item *.nupkg
 
-cd Bhbk.Lib.Helpers
+cd Bhbk.Lib.Core
 if (Test-Path .\bin) { Remove-Item .\bin -Recurse -Force }
 if (Test-Path .\obj) { Remove-Item .\obj -Recurse -Force }
 

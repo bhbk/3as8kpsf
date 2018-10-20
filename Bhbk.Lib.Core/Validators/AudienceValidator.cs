@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System;
 
-namespace Bhbk.Lib.Helpers.Validators
+namespace Bhbk.Lib.Core.Validators
 {
     public class AudienceValidator
     {

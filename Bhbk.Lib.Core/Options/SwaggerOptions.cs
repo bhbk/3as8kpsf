@@ -1,11 +1,11 @@
-﻿using Bhbk.Lib.Helpers.Filters;
+﻿using Bhbk.Lib.Core.Filters;
 using Microsoft.AspNetCore.Builder;
 using Swashbuckle.AspNetCore.Swagger;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using Swashbuckle.AspNetCore.SwaggerUI;
 using System.Collections.Generic;
 
-namespace Bhbk.Lib.Helpers.Options
+namespace Bhbk.Lib.Core.Options
 {
     //https://github.com/domaindrivendev/Swashbuckle.AspNetCore#swashbuckleaspnetcore
     //https://ppolyzos.com/2017/10/30/add-jwt-bearer-authorization-to-swagger-and-asp-net-core/

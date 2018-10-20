@@ -12,8 +12,4 @@
     <PackageReference Include="MSTest.TestFramework" Version="1.4.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Bhbk.Lib.Waf\Bhbk.Lib.Waf.csproj" />
-  </ItemGroup>
-
 </Project>

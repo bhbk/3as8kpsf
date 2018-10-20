@@ -1,4 +1,4 @@
-﻿using Bhbk.Lib.Helpers.Cryptography;
+﻿using Bhbk.Lib.Core.Cryptography;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.Extensions.Configuration;
@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 
-namespace Bhbk.Lib.Helpers.Options
+namespace Bhbk.Lib.Core.Options
 {
     public static class KestrelOptions
     {

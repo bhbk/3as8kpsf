@@ -5,7 +5,7 @@ using System.Linq;
 using System.Linq.Dynamic.Core;
 using System.Net;
 
-namespace Bhbk.Lib.Helpers.Filters
+namespace Bhbk.Lib.Core.Filters
 {
     //https://github.com/domaindrivendev/Swashbuckle.AspNetCore#swashbuckleaspnetcore
     public class SwaggerFilter : IOperationFilter
