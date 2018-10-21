@@ -5,9 +5,9 @@ using System;
 
 namespace Bhbk.Lib.Core.Validators
 {
-    public class AudienceValidator
+    public class IdentityAudience
     {
-        public static bool MultipleAudience(IEnumerable<string> audiences, SecurityToken securityToken, TokenValidationParameters validationParameters)
+        public static bool Multiple(IEnumerable<string> audiences, SecurityToken securityToken, TokenValidationParameters validationParameters)
         {
             var audienceList = new List<string>();
 
@@ -22,7 +22,7 @@ namespace Bhbk.Lib.Core.Validators
             return false;
         }
 
-        public static bool SingleAudience(string audience, SecurityToken securityToken, TokenValidationParameters validationParameters)
+        public static bool Single(string audience, SecurityToken securityToken, TokenValidationParameters validationParameters)
         {
             throw new NotImplementedException();
         }

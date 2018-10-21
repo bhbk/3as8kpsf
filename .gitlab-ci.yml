@@ -1,6 +1,6 @@
 
 variables:
-  version: "2018.10.19.1203"
+  version: "2018.10.20.3241"
 
 stages:
   - debug
