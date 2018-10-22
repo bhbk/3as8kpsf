@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Bhbk.Lib.Primitives.Enums
+namespace Bhbk.Lib.Core.Primitives.Enums
 {
     public enum ContextType
     {

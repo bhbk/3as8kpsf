@@ -3,9 +3,9 @@ using System.Reflection;
 
 namespace Bhbk.Lib.Core.FileSystem
 {
-    public class Search
+    public class SearchRoots
     {
-        public static FileInfo DefaultPaths(string file)
+        public static FileInfo ByAssemblyContext(string file)
         {
             string result;
 

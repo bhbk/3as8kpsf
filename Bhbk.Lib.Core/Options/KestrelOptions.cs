@@ -15,7 +15,7 @@ namespace Bhbk.Lib.Core.Options
         {
             var config = options.ApplicationServices.GetRequiredService<IConfiguration>();
 
-            var endpoints = config.GetSection("HttpServer:Endpoints")
+            var endpoints = config.GetSection("KestrelServer:Endpoints")
                 .GetChildren()
                 .ToDictionary(section => section.Key, section =>
                 {

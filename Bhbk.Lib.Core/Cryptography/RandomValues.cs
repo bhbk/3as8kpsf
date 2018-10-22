@@ -1,12 +1,13 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using System;
+using System.Linq;
 using System.Security.Cryptography;
 
 namespace Bhbk.Lib.Core.Cryptography
 {
-    public class RandomNumber
+    public class RandomValues
     {
-        public static string CreateBase64(int length)
+        public static string CreateBase64String(int length)
         {
             byte[] byteValue = new byte[length];
             RNGCryptoServiceProvider.Create().GetBytes(byteValue);
@@ -23,6 +24,15 @@ namespace Bhbk.Lib.Core.Cryptography
                 result = String.Concat(result, randomNumber.Next(10).ToString());
 
             return result;
+        }
+
+        public static string CreateAlphaNumericString(int length)
+        {
+            var randomNumber = new Random();
+            var allowedChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+            return new string(Enumerable.Repeat(allowedChars, length)
+              .Select(s => s[randomNumber.Next(s.Length)]).ToArray());
         }
     }
 }
