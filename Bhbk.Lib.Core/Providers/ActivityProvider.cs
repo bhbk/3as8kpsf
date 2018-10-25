@@ -10,7 +10,7 @@ namespace Bhbk.Lib.Core.Providers
     }
 
     public class ActivityProvider<TEntity> : ActivityProvider
-        where TEntity : class, IActivity, new()
+        where TEntity : class, IGenericActivity, new()
     {
         private readonly DbContext _context;
 

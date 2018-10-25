@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Bhbk.Lib.Core.Interfaces
 {
-    public interface IActivity
+    public interface IGenericActivity
     {
         Guid Id { get; set; }
         Guid ActorId { get; set; }
@@ -14,6 +12,5 @@ namespace Bhbk.Lib.Core.Interfaces
         string OriginalValues { get; set; }
         string CurrentValues { get; set; }
         DateTime Created { get; set; }
-        bool Immutable { get; set; }
     }
 }
