@@ -8,25 +8,25 @@ namespace Bhbk.Lib.Waf.Tests.Schedule
     [TestClass]
     public class SingleYearlyTests
     {
-        [TestMethod]
+        [TestMethod, Ignore]
         public void SingleScheduleYearlyAllowMatch()
         {
             Assert.AreEqual<bool>(true, CheckActionFilterSchedule(Statics.TestWhen_1_DayOfMonth, ScheduleFilterAction.Allow, ScheduleFilterOccur.Yearly));
         }
 
-        [TestMethod]
+        [TestMethod, Ignore]
         public void SingleScheduleYearlyAllowNoMatch()
         {
             Assert.AreEqual<bool>(false, CheckActionFilterSchedule(Statics.TestWhen_3_DayOfMonth, ScheduleFilterAction.Allow, ScheduleFilterOccur.Yearly));
         }
 
-        [TestMethod]
+        [TestMethod, Ignore]
         public void SingleScheduleYearlyDenyMatch()
         {
             Assert.AreEqual<bool>(false, CheckActionFilterSchedule(Statics.TestWhen_1_DayOfMonth, ScheduleFilterAction.Deny, ScheduleFilterOccur.Yearly));
         }
 
-        [TestMethod]
+        [TestMethod, Ignore]
         public void SingleScheduleYearlyDenyNoMatch()
         {
             Assert.AreEqual<bool>(true, CheckActionFilterSchedule(Statics.TestWhen_3_DayOfMonth, ScheduleFilterAction.Deny, ScheduleFilterOccur.Yearly));
