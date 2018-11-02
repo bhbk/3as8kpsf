@@ -1,10 +1,19 @@
 ﻿using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations;
+using Bhbk.Lib.Core.Validators;
 
 namespace Bhbk.Lib.Core.Models
 {
     public class Paging
     {
+        public string Filter { get; private set; }
+
+        [Required]
+        [RegularExpression("asc|desc")]    //require integer value greater than 1
+        public string Order { get; private set; }
+
+        //[RequiredStringArray]
+        //public string [] OrderBy { get; private set; }
         [Required]
         [MinLength(1)]
         public string OrderBy { get; private set; }
@@ -19,6 +28,26 @@ namespace Bhbk.Lib.Core.Models
 
         public Paging(string orderBy, int skip, int take)
         {
+            Filter = string.Empty;
+            Order = "asc";
+            OrderBy = orderBy;
+            Skip = skip;
+            Take = take;
+        }
+
+        public Paging(string order, string orderBy, int skip, int take)
+        {
+            Filter = string.Empty;
+            Order = order;
+            OrderBy = orderBy;
+            Skip = skip;
+            Take = take;
+        }
+
+        public Paging(string filter, string order, string orderBy, int skip, int take)
+        {
+            Filter = filter;
+            Order = order;
             OrderBy = orderBy;
             Skip = skip;
             Take = take;

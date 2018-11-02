@@ -6,6 +6,7 @@
     <Company>Bhbk</Company>
     <PackageProjectUrl>https://gitlab.com/bhbk/3as8kpsf</PackageProjectUrl>
     <PackageTags>Bhbk Lib Core</PackageTags>
+    <Description>Library for general purposes.</Description>
   </PropertyGroup>
 
   <ItemGroup>

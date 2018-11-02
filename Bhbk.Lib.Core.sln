@@ -10,7 +10,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		build.cmd = build.cmd
 		clean.cmd = clean.cmd
 		license.md = license.md
-		maintenance.cmd = maintenance.cmd
 		readme.md = readme.md
 	EndProjectSection
 EndProject

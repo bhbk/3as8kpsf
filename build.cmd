@@ -13,3 +13,5 @@ dotnet pack Bhbk.Lib.Waf\Bhbk.Lib.Waf.csproj -p:PackageVersion=%VERSION% --outpu
 
 rem dotnet tool uninstall Octopus.DotNet.Cli --global
 set VERSION=
+
+rem powershell -command "& { update-package -reinstall }"
