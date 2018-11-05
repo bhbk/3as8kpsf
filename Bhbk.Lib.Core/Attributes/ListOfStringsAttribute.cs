@@ -1,15 +1,18 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
-namespace Bhbk.Lib.Core.Validators
+namespace Bhbk.Lib.Core.Attributes
 {
-    public class RequiredStringArrayAttribute : ValidationAttribute
+    public class ListOfStringsAttribute : ValidationAttribute
     {
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
-            string[] array = value as string[];
+            if (value == null)
+                return new ValidationResult(this.ErrorMessage);
 
-            if (array == null || array.Any(item => string.IsNullOrEmpty(item)))
+            var list = value as string[];
+
+            if (list.Any(x => string.IsNullOrEmpty(x)))
                 return new ValidationResult(this.ErrorMessage);
 
             return ValidationResult.Success;

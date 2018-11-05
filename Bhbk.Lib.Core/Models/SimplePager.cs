@@ -1,32 +1,31 @@
 ﻿using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations;
-using Bhbk.Lib.Core.Validators;
 
 namespace Bhbk.Lib.Core.Models
 {
-    public class Paging
+    public class SimplePager
     {
-        public string Filter { get; private set; }
+        public string Filter { get; set; }
 
-        [Required]
-        [RegularExpression("asc|desc")]    //require integer value greater than 1
-        public string Order { get; private set; }
-
-        //[RequiredStringArray]
-        //public string [] OrderBy { get; private set; }
         [Required]
         [MinLength(1)]
-        public string OrderBy { get; private set; }
+        public string OrderBy { get; set; }
+
+        [Required]
+        [RegularExpression("asc|desc")]    //require value of asc or desc
+        public string Order { get; set; }
 
         [Required]
         [RegularExpression("^[0-9]*$")]    //require integer value greater than 0
-        public int Skip { get; private set; }
+        public int Skip { get; set; }
 
         [Required]
         [RegularExpression("^[1-9][0-9]*$")]    //require integer value greater than 1
-        public int Take { get; private set; }
+        public int Take { get; set; }
 
-        public Paging(string orderBy, int skip, int take)
+        public SimplePager() { }
+
+        public SimplePager(string orderBy, int skip, int take)
         {
             Filter = string.Empty;
             Order = "asc";
@@ -35,7 +34,7 @@ namespace Bhbk.Lib.Core.Models
             Take = take;
         }
 
-        public Paging(string order, string orderBy, int skip, int take)
+        public SimplePager(string order, string orderBy, int skip, int take)
         {
             Filter = string.Empty;
             Order = order;
@@ -44,7 +43,7 @@ namespace Bhbk.Lib.Core.Models
             Take = take;
         }
 
-        public Paging(string filter, string order, string orderBy, int skip, int take)
+        public SimplePager(string filter, string order, string orderBy, int skip, int take)
         {
             Filter = filter;
             Order = order;
