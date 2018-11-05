@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Bhbk.Lib.Core.Attributes
 {
-    public class ListOfTuplesAttribute : ValidationAttribute
+    public class CascadePagerOrdersAttribute : ValidationAttribute
     {
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {

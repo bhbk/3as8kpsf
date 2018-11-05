@@ -7,35 +7,48 @@ using System.Threading.Tasks;
 
 namespace Bhbk.Lib.Core.Interfaces
 {
-    public interface IGenericRepository<TEntity, TKey> 
-        where TEntity : class
+    public interface IGenericRepository<TModel, TKey> 
+        where TModel : class
     {
-        Task<TEntity> CreateAsync(TEntity entity);
-        Task<bool> DeleteAsync(TEntity key);
+        Task<TModel> CreateAsync(TModel entity);
+        Task<bool> DeleteAsync(TModel key);
         Task<bool> ExistsAsync(TKey key);
-        Task<TEntity> GetAsync(TKey key);
-        Task<IQueryable<TEntity>> GetAsync(string sql, params object[] parameters);
-        Task<IQueryable<TEntity>> GetAsync(Expression<Func<TEntity, bool>> predicates = null,
-            Func<IQueryable<TEntity>, IQueryable<TEntity>> orderBy = null,
-            Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>> includes = null,
-            bool tracking = true);
-        Task<TEntity> UpdateAsync(TEntity entity);
+        Task<IQueryable<TModel>> GetAsync(params object[] parameters);
+        Task<IQueryable<TModel>> GetAsync(Expression<Func<TModel, bool>> predicates = null,
+            Func<IQueryable<TModel>, IQueryable<TModel>> orderBy = null,
+            Func<IQueryable<TModel>, IIncludableQueryable<TModel, object>> includes = null);
+        Task<TModel> UpdateAsync(TModel entity);
     }
 
-    public interface IGenericRepository<TCreate, TEntity, TUpdate, TKey>
+    public interface IGenericRepository<TCreate, TModel, TKey>
         where TCreate : class
-        where TEntity : class
+        where TModel : class
+    {
+        Task<TModel> CreateAsync(TCreate entity);
+        Task<bool> DeleteAsync(TKey key);
+        Task<bool> ExistsAsync(TKey key);
+        Task<IEnumerable<TModel>> GetAsync(params object[] parameters);
+        Task<IEnumerable<TModel>> GetAsync(Expression<Func<TModel, bool>> predicates = null,
+            Expression<Func<TModel, object>> orders = null,
+            Expression<Func<TModel, object>> includes = null,
+            int? skip = null,
+            int? take = null);
+    }
+
+    public interface IGenericRepository<TCreate, TModel, TUpdate, TKey>
+        where TCreate : class
+        where TModel : class
         where TUpdate : class
     {
-        Task<TEntity> CreateAsync(TCreate entity);
-        Task<bool> DeleteAsync(TEntity key);
+        Task<TModel> CreateAsync(TCreate entity);
+        Task<bool> DeleteAsync(TKey key);
         Task<bool> ExistsAsync(TKey key);
-        Task<TEntity> GetAsync(TKey key);
-        Task<IQueryable<TEntity>> GetAsync(string sql, params object[] parameters);
-        Task<IQueryable<TEntity>> GetAsync(Expression<Func<TEntity, bool>> predicates = null,
-            Func<IQueryable<TEntity>, IQueryable<TEntity>> orderBy = null,
-            Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>> includes = null,
-            bool tracking = true);
-        Task<TEntity> UpdateAsync(TUpdate entity);
+        Task<IEnumerable<TModel>> GetAsync(params object[] parameters);
+        Task<IEnumerable<TModel>> GetAsync(Expression<Func<TModel, bool>> predicates = null,
+            Expression<Func<TModel, object>> orders = null,
+            Expression<Func<TModel, object>> includes = null,
+            int? skip = null,
+            int? take = null);
+        Task<TModel> UpdateAsync(TUpdate entity);
     }
 }
