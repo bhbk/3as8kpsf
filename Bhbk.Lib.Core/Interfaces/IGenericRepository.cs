@@ -13,10 +13,11 @@ namespace Bhbk.Lib.Core.Interfaces
         Task<TModel> CreateAsync(TModel entity);
         Task<bool> DeleteAsync(TModel key);
         Task<bool> ExistsAsync(TKey key);
-        Task<IQueryable<TModel>> GetAsync(params object[] parameters);
         Task<IQueryable<TModel>> GetAsync(Expression<Func<TModel, bool>> predicates = null,
-            Func<IQueryable<TModel>, IQueryable<TModel>> orderBy = null,
-            Func<IQueryable<TModel>, IIncludableQueryable<TModel, object>> includes = null);
+            Func<IQueryable<TModel>, IIncludableQueryable<TModel, object>> includes = null,
+            Func<IQueryable<TModel>, IOrderedQueryable<TModel>> orders = null,
+            int? skip = null,
+            int? take = null);
         Task<TModel> UpdateAsync(TModel entity);
     }
 
@@ -27,9 +28,9 @@ namespace Bhbk.Lib.Core.Interfaces
         Task<TModel> CreateAsync(TCreate entity);
         Task<bool> DeleteAsync(TKey key);
         Task<bool> ExistsAsync(TKey key);
-        Task<IEnumerable<TModel>> GetAsync(params object[] parameters);
         Task<IEnumerable<TModel>> GetAsync(Expression<Func<TModel, bool>> predicates = null,
-            Expression<Func<IQueryable<TModel>, IQueryable<TModel>>> orders = null,
+            Func<IQueryable<TModel>, IIncludableQueryable<TModel, object>> includes = null,
+            Func<IQueryable<TModel>, IOrderedQueryable<TModel>> orders = null,
             int? skip = null,
             int? take = null);
         Task<TModel> UpdateAsync(TModel entity);
