@@ -29,26 +29,9 @@ namespace Bhbk.Lib.Core.Interfaces
         Task<bool> ExistsAsync(TKey key);
         Task<IEnumerable<TModel>> GetAsync(params object[] parameters);
         Task<IEnumerable<TModel>> GetAsync(Expression<Func<TModel, bool>> predicates = null,
-            Expression<Func<TModel, object>> orders = null,
-            Expression<Func<TModel, object>> includes = null,
+            Expression<Func<IQueryable<TModel>, IQueryable<TModel>>> orders = null,
             int? skip = null,
             int? take = null);
-    }
-
-    public interface IGenericRepository<TCreate, TModel, TUpdate, TKey>
-        where TCreate : class
-        where TModel : class
-        where TUpdate : class
-    {
-        Task<TModel> CreateAsync(TCreate entity);
-        Task<bool> DeleteAsync(TKey key);
-        Task<bool> ExistsAsync(TKey key);
-        Task<IEnumerable<TModel>> GetAsync(params object[] parameters);
-        Task<IEnumerable<TModel>> GetAsync(Expression<Func<TModel, bool>> predicates = null,
-            Expression<Func<TModel, object>> orders = null,
-            Expression<Func<TModel, object>> includes = null,
-            int? skip = null,
-            int? take = null);
-        Task<TModel> UpdateAsync(TUpdate entity);
+        Task<TModel> UpdateAsync(TModel entity);
     }
 }
