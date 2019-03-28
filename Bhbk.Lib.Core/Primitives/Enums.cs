@@ -10,9 +10,8 @@ namespace Bhbk.Lib.Core.Primitives.Enums
         Delete
     }
 
-    public enum ContextType
+    public enum ExecutionType
     {
-        IntegrationTest,
         UnitTest,
         Live
     }

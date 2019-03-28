@@ -7,7 +7,7 @@ namespace Bhbk.Lib.Core.Interfaces
     //https://en.wikipedia.org/wiki/Dependency_inversion_principle
     public interface IGenericUnitOfWork : IDisposable
     {
-        ContextType Situation { get; }
+        ExecutionType Situation { get; }
         Task CommitAsync();
     }
 }
