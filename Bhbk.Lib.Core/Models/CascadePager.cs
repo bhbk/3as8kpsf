@@ -1,19 +1,18 @@
-﻿using Newtonsoft.Json;
+﻿using Bhbk.Lib.Core.Attributes;
+using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace Bhbk.Lib.Core.DomainModels
+namespace Bhbk.Lib.Core.Models
 {
-    public class SimplePager
+    public class CascadePager
     {
         public string Filter { get; set; }
 
         [Required]
-        [MinLength(1)]
-        public string OrderBy { get; set; }
-
-        [Required]
-        [RegularExpression("asc|desc")]         //require value of asc or desc
-        public string Order { get; set; }
+        [CascadePagerOrders]                    //require certain things in each tuple
+        public List<Tuple<string, string>> Orders { get; set; }
 
         [Required]
         [RegularExpression("^[0-9]*$")]         //require integer value greater than 0
