@@ -4,7 +4,7 @@ namespace Bhbk.Lib.Core.CommandLine
 {
     public class StandardOutput
     {
-        internal static int FondFarewell()
+        public static int FondFarewell()
         {
             Console.WriteLine();
             Console.Write("Press key to exit...");
@@ -12,7 +12,7 @@ namespace Bhbk.Lib.Core.CommandLine
             return (int)ExitCodes.Success;
         }
 
-        internal static int AngryFarewell(Exception ex)
+        public static int AngryFarewell(Exception ex)
         {
             Console.WriteLine();
             Console.Error.WriteLine(ex.Message);
