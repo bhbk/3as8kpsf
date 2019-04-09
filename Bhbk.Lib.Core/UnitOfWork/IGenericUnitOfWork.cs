@@ -6,7 +6,7 @@ namespace Bhbk.Lib.Core.UnitOfWork
     //https://en.wikipedia.org/wiki/Dependency_inversion_principle
     public interface IGenericUnitOfWork : IDisposable
     {
-        ExecutionType Situation { get; }
+        ExecutionContext Situation { get; }
         Task Commit();
     }
 }
