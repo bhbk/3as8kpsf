@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Bhbk.Lib.Core.Primitives.Enums;
+using System;
 using System.Threading.Tasks;
 
 namespace Bhbk.Lib.Core.UnitOfWork
@@ -6,7 +7,7 @@ namespace Bhbk.Lib.Core.UnitOfWork
     //https://en.wikipedia.org/wiki/Dependency_inversion_principle
     public interface IGenericUnitOfWork : IDisposable
     {
-        ExecutionContext Situation { get; }
+        InstanceContext Instance { get; }
         Task Commit();
     }
 }
