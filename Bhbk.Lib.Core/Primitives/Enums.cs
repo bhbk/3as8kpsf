@@ -5,7 +5,8 @@ namespace Bhbk.Lib.Core.Primitives.Enums
     public enum InstanceContext
     {
         DeployedOrLocal,
-        Testing,
+        IntegrationTest,
+        UnitTest,
     }
 
     public enum LoggingLevel

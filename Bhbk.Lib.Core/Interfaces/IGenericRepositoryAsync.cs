@@ -5,7 +5,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-namespace Bhbk.Lib.Core.Repositories
+namespace Bhbk.Lib.Core.Interfaces
 {
     public interface IGenericRepositoryAsync<TModel, TKey> 
         where TModel : class

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace Bhbk.Lib.Core.Repositories
+namespace Bhbk.Lib.Core.Interfaces
 {
     public interface IGenericRepository<TModel, TKey>
         where TModel : class

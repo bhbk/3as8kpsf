@@ -2,12 +2,12 @@
 using System;
 using System.Threading.Tasks;
 
-namespace Bhbk.Lib.Core.UnitOfWork
+namespace Bhbk.Lib.Core.Interfaces
 {
     //https://en.wikipedia.org/wiki/Dependency_inversion_principle
     public interface IGenericUnitOfWork : IDisposable
     {
-        InstanceContext Instance { get; }
+        InstanceContext InstanceType { get; }
         Task Commit();
     }
 }
