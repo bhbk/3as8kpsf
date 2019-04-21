@@ -1,19 +1,25 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
     <Authors>Bhbk</Authors>
+    <Description>Library for general web application firewall purposes.</Description>
     <PackageProjectUrl>https://gitlab.com/bhbk/3as8kpsf</PackageProjectUrl>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="IPNetwork2" Version="2.1.2" />
-    <PackageReference Include="Microsoft.AspNetCore" Version="2.2.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Authentication" Version="2.2.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Hosting" Version="2.2.0" />
+    <Folder Include="DnsAddress\" />
+    <Folder Include="HttpOption\" />
+    <Folder Include="IpAddress\" />
+    <Folder Include="Properties\" />
+    <Folder Include="Schedule\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="IPNetwork2" Version="2.4.0.155" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.2.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.2.0" />
-    <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.5.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.0.1" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.6.0" />
   </ItemGroup>
 
 </Project>

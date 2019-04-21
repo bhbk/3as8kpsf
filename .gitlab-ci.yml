@@ -1,40 +1,42 @@
 
 before_script:
-  - call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\Tools\VsDevCmd.bat"
+    - call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\Tools\VsDevCmd.bat"
 
 stages:
-  - build
-  - test
-  - deploy
+    - build
+    - test
+    - deploy
 
 build:
   stage: build
   only:
-  - dummy
+    - dummy
   script:
-  - dotnet restore Bhbk.Lib.Core.sln --no-cache --verbosity minimal
-  - dotnet build Bhbk.Lib.Core.sln --configuration Release --verbosity minimal
+    - dotnet restore Bhbk.Lib.Core.sln --no-cache --verbosity minimal
+    - dotnet build Bhbk.Lib.Core.sln --configuration Release --verbosity minimal
 
 test:
   stage: test
   only:
-  - dummy
+    - dummy
   script:
-  - dotnet restore Bhbk.Lib.Core.sln --no-cache --verbosity quiet
-  - dotnet build Bhbk.Lib.Core.sln --configuration Release --verbosity quiet
-  - dotnet test Bhbk.Lib.Core.Tests\Bhbk.Lib.Core.Tests.csproj --configuration Release /p:CollectCoverage=true /p:CoverletOutput=bin\Release\
-  - dotnet test Bhbk.Lib.Waf.Tests\Bhbk.Lib.Waf.Tests.csproj --configuration Release /p:CollectCoverage=true /p:CoverletOutput=bin\Release\
+    - dotnet restore Bhbk.Lib.Core.sln --no-cache --verbosity quiet
+    - dotnet build Bhbk.Lib.Core.sln --configuration Release --verbosity quiet
+    - dotnet test Bhbk.Lib.Waf.Tests\Bhbk.Lib.Waf.Tests.csproj --configuration Release /p:CollectCoverage=true /p:CoverletOutput=bin\Release\
 
 deploy:
   stage: deploy
   only:
-  - dummy
+    - dummy
   script:
-  - powershell -command "& { get-date -format yyyy.M.d.HHmm | out-file -filepath .\version.tmp -nonewline -encoding ascii }"
-  - set /p VERSION=< .\version.tmp
-  - dotnet restore Bhbk.Lib.Core.sln --no-cache --verbosity quiet
-  - dotnet build Bhbk.Lib.Core.sln --configuration Release --verbosity quiet
-  - dotnet pack Bhbk.Lib.Core\Bhbk.Lib.Core.csproj -p:PackageVersion=%VERSION% --output .. --configuration Release -p:TargetFrameworks=netstandard2.0
-  - dotnet pack Bhbk.Lib.Waf\Bhbk.Lib.Waf.csproj -p:PackageVersion=%VERSION% --output .. --configuration Release -p:TargetFrameworks=netstandard2.0
-  - dotnet nuget push *.nupkg --api-key %NUGET_FEED_KEY% --source %NUGET_FEED_URL%
-  - set VERSION=
+    - set VERSION=2019.4.21.1030
+    - dotnet restore Bhbk.Lib.Core.sln --no-cache --verbosity quiet
+    - dotnet build Bhbk.Lib.Core.sln --configuration Release --verbosity quiet
+    - dotnet pack Bhbk.Lib.Common\Bhbk.Lib.Common.csproj -p:PackageVersion=%VERSION% --output .. --configuration Release -p:TargetFrameworks=netstandard2.1
+    - dotnet pack Bhbk.Lib.Cryptography\Bhbk.Lib.Cryptography.csproj -p:PackageVersion=%VERSION% --output .. --configuration Release -p:TargetFrameworks=netstandard2.1
+    - dotnet pack Bhbk.Lib.DataAccess\Bhbk.Lib.DataAccess.csproj -p:PackageVersion=%VERSION% --output .. --configuration Release -p:TargetFrameworks=netstandard2.1
+    - dotnet pack Bhbk.Lib.Hosting\Bhbk.Lib.Hosting.csproj -p:PackageVersion=%VERSION% --output .. --configuration Release -p:TargetFrameworks=netcoreapp3.0
+    - dotnet pack Bhbk.Lib.Paging\Bhbk.Lib.Paging.csproj -p:PackageVersion=%VERSION% --output .. --configuration Release -p:TargetFrameworks=netstandard2.1
+    - dotnet pack Bhbk.Lib.Waf\Bhbk.Lib.Waf.csproj -p:PackageVersion=%VERSION% --output .. --configuration Release -p:TargetFrameworks=netcoreapp3.0
+    - dotnet nuget push *.nupkg --api-key %NUGET_FEED_KEY% --source %NUGET_FEED_URL%
+    - set VERSION=

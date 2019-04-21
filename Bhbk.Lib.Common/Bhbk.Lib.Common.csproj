@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <Authors>Bhbk</Authors>
+    <Company>Bhbk</Company>
+    <PackageProjectUrl>https://gitlab.com/bhbk/3as8kpsf</PackageProjectUrl>
+    <PackageTags>Bhbk Lib Core</PackageTags>
+    <Description>Library for general purposes.</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+  </ItemGroup>
+
+</Project>

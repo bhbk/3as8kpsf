@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27703.2000
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29519.87
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{60E72B97-3281-4207-AEE0-91C1EE930DF4}"
 	ProjectSection(SolutionItems) = preProject
@@ -15,13 +15,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bhbk.Lib.Waf.Tests", "Bhbk.Lib.Waf.Tests\Bhbk.Lib.Waf.Tests.csproj", "{58FB0DB4-DB96-4E9A-95AA-1A05573F6055}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bhbk.WebApi.Sample", "Bhbk.WebApi.Sample\Bhbk.WebApi.Sample.csproj", "{060A4133-3230-48AC-8724-1EED207AA568}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bhbk.Lib.Paging", "Bhbk.Lib.Paging\Bhbk.Lib.Paging.csproj", "{E93BBC2B-9608-405C-BF41-2F977DE70CCD}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bhbk.Lib.Core", "Bhbk.Lib.Core\Bhbk.Lib.Core.csproj", "{921FD098-C018-437D-969A-971DED19CF75}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bhbk.Lib.Cryptography", "Bhbk.Lib.Cryptography\Bhbk.Lib.Cryptography.csproj", "{A668B734-FB56-4A39-9E1D-3151776610F1}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bhbk.Lib.Core.Tests", "Bhbk.Lib.Core.Tests\Bhbk.Lib.Core.Tests.csproj", "{85F4535C-2037-4AD9-9515-D65F415428B5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bhbk.Lib.Common", "Bhbk.Lib.Common\Bhbk.Lib.Common.csproj", "{77C10BF7-E5B5-4967-A4CB-6B034D4D5A95}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bhbk.Lib.Waf", "Bhbk.Lib.Waf\Bhbk.Lib.Waf.csproj", "{AE5138B7-0A87-4539-A4A5-74F6F9D59931}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bhbk.Lib.DataAccess", "Bhbk.Lib.DataAccess\Bhbk.Lib.DataAccess.csproj", "{C40E39AA-797E-4CB6-9DF7-9A18350A523C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bhbk.Lib.Hosting", "Bhbk.Lib.Hosting\Bhbk.Lib.Hosting.csproj", "{322AC818-63D7-4EC1-80FF-EA56BA243008}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bhbk.Lib.Waf", "Bhbk.Lib.Waf\Bhbk.Lib.Waf.csproj", "{F815729F-2A4F-4C25-B5FD-728669C51B10}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,22 +37,30 @@ Global
 		{58FB0DB4-DB96-4E9A-95AA-1A05573F6055}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{58FB0DB4-DB96-4E9A-95AA-1A05573F6055}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{58FB0DB4-DB96-4E9A-95AA-1A05573F6055}.Release|Any CPU.Build.0 = Release|Any CPU
-		{060A4133-3230-48AC-8724-1EED207AA568}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{060A4133-3230-48AC-8724-1EED207AA568}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{060A4133-3230-48AC-8724-1EED207AA568}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{060A4133-3230-48AC-8724-1EED207AA568}.Release|Any CPU.Build.0 = Release|Any CPU
-		{921FD098-C018-437D-969A-971DED19CF75}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{921FD098-C018-437D-969A-971DED19CF75}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{921FD098-C018-437D-969A-971DED19CF75}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{921FD098-C018-437D-969A-971DED19CF75}.Release|Any CPU.Build.0 = Release|Any CPU
-		{85F4535C-2037-4AD9-9515-D65F415428B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{85F4535C-2037-4AD9-9515-D65F415428B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{85F4535C-2037-4AD9-9515-D65F415428B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{85F4535C-2037-4AD9-9515-D65F415428B5}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AE5138B7-0A87-4539-A4A5-74F6F9D59931}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AE5138B7-0A87-4539-A4A5-74F6F9D59931}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AE5138B7-0A87-4539-A4A5-74F6F9D59931}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AE5138B7-0A87-4539-A4A5-74F6F9D59931}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E93BBC2B-9608-405C-BF41-2F977DE70CCD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E93BBC2B-9608-405C-BF41-2F977DE70CCD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E93BBC2B-9608-405C-BF41-2F977DE70CCD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E93BBC2B-9608-405C-BF41-2F977DE70CCD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A668B734-FB56-4A39-9E1D-3151776610F1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A668B734-FB56-4A39-9E1D-3151776610F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A668B734-FB56-4A39-9E1D-3151776610F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A668B734-FB56-4A39-9E1D-3151776610F1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{77C10BF7-E5B5-4967-A4CB-6B034D4D5A95}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77C10BF7-E5B5-4967-A4CB-6B034D4D5A95}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77C10BF7-E5B5-4967-A4CB-6B034D4D5A95}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77C10BF7-E5B5-4967-A4CB-6B034D4D5A95}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C40E39AA-797E-4CB6-9DF7-9A18350A523C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C40E39AA-797E-4CB6-9DF7-9A18350A523C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C40E39AA-797E-4CB6-9DF7-9A18350A523C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C40E39AA-797E-4CB6-9DF7-9A18350A523C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{322AC818-63D7-4EC1-80FF-EA56BA243008}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{322AC818-63D7-4EC1-80FF-EA56BA243008}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{322AC818-63D7-4EC1-80FF-EA56BA243008}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{322AC818-63D7-4EC1-80FF-EA56BA243008}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F815729F-2A4F-4C25-B5FD-728669C51B10}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F815729F-2A4F-4C25-B5FD-728669C51B10}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F815729F-2A4F-4C25-B5FD-728669C51B10}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F815729F-2A4F-4C25-B5FD-728669C51B10}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
