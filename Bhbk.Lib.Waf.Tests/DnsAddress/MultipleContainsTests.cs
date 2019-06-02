@@ -1,5 +1,6 @@
 ﻿using Bhbk.Lib.Waf.DnsAddress;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using FakeConstants = Bhbk.Lib.Waf.Tests.Primitives.Constants;
 
 namespace Bhbk.Lib.Waf.Tests.DnsAddress
 {
@@ -9,33 +10,33 @@ namespace Bhbk.Lib.Waf.Tests.DnsAddress
         [TestMethod]
         public void MultipleDnsAllowContainsMatch()
         {
-            Assert.AreEqual<bool>(true, CheckActionFilterDnsAddress(Statics.TestDns_1, DnsAddressFilterAction.AllowContains));
+            Assert.AreEqual<bool>(true, CheckActionFilterDnsAddress(FakeConstants.TestDns_1, DnsAddressFilterAction.AllowContains));
         }
 
         [TestMethod]
         public void MultipleDnsAllowContainsNoMatch()
         {
-            Assert.AreEqual<bool>(false, CheckActionFilterDnsAddress(Statics.TestDns_2, DnsAddressFilterAction.AllowContains));
+            Assert.AreEqual<bool>(false, CheckActionFilterDnsAddress(FakeConstants.TestDns_2, DnsAddressFilterAction.AllowContains));
         }
 
         [TestMethod]
         public void MultipleDnsBlockContainsMatch()
         {
-            Assert.AreEqual<bool>(false, CheckActionFilterDnsAddress(Statics.TestDns_1, DnsAddressFilterAction.DenyContains));
+            Assert.AreEqual<bool>(false, CheckActionFilterDnsAddress(FakeConstants.TestDns_1, DnsAddressFilterAction.DenyContains));
         }
 
         [TestMethod]
         public void MultipleDnsBlockContainsNoMatch()
         {
-            Assert.AreEqual<bool>(true, CheckActionFilterDnsAddress(Statics.TestDns_2, DnsAddressFilterAction.DenyContains));
+            Assert.AreEqual<bool>(true, CheckActionFilterDnsAddress(FakeConstants.TestDns_2, DnsAddressFilterAction.DenyContains));
         }
 
         private bool CheckActionFilterDnsAddress(string input, DnsAddressFilterAction action)
         {
-            ActionFilterDnsAddressAttribute attribute =
-                new ActionFilterDnsAddressAttribute(new string[] {
-                    Statics.TestDns_1_Contains,
-                    Statics.TestDns_3_Contains,
+            DnsAddressAttribute attribute =
+                new DnsAddressAttribute(new string[] {
+                    FakeConstants.TestDns_1_Contains,
+                    FakeConstants.TestDns_3_Contains,
                 }, action);
 
             return Evaluate.IsDnsAddressValid(attribute, input);

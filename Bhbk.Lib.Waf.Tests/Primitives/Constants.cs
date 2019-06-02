@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace Bhbk.Lib.Waf.Tests
+namespace Bhbk.Lib.Waf.Tests.Primitives
 {
-    internal static class Statics
+    internal static class Constants
     {
         internal static readonly String TestDns_1 = "www.debian.org";
         internal static readonly String TestDns_2 = "www.kernel.org";

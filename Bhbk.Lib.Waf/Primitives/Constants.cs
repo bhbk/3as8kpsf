@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace Bhbk.Lib.Waf
+namespace Bhbk.Lib.Waf.Primitives
 {
-    public static class Statics
+    public static class Constants
     {
         internal const String ApiDnsDynamicAllow = "DnsDynamicAllow";
         internal const String ApiDnsDynamicDeny = "DnsDynamicDeny";

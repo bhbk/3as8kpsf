@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Bhbk.Lib.Waf.Primitives;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ using System.Net;
 namespace Bhbk.Lib.Waf.Schedule
 {
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = false, Inherited = true)]
-    public class ActionFilterScheduleAttribute : ActionFilterAttribute
+    public class ScheduleAttribute : ActionFilterAttribute
     {
         #region Fields
 
@@ -33,33 +34,33 @@ namespace Bhbk.Lib.Waf.Schedule
 
         #region Constructors
 
-        public ActionFilterScheduleAttribute(ScheduleFilterAction actionInput, ScheduleFilterOccur actionOccur)
+        public ScheduleAttribute(ScheduleFilterAction actionInput, ScheduleFilterOccur actionOccur)
         {
             if (actionInput == ScheduleFilterAction.Allow)
-                this.scheduleList = ScheduleHelpers.ParseScheduleConfig(ConfigurationManager.AppSettings[Statics.ApiScheduleDynamicAllow].Split(',').Select(x => x.Trim()), actionOccur);
+                this.scheduleList = ScheduleHelpers.ParseScheduleConfig(ConfigurationManager.AppSettings[Constants.ApiScheduleDynamicAllow].Split(',').Select(x => x.Trim()), actionOccur);
 
             else if (actionInput == ScheduleFilterAction.Deny)
-                this.scheduleList = ScheduleHelpers.ParseScheduleConfig(ConfigurationManager.AppSettings[Statics.ApiScheduleDynamicDeny].Split(',').Select(x => x.Trim()), actionOccur);
+                this.scheduleList = ScheduleHelpers.ParseScheduleConfig(ConfigurationManager.AppSettings[Constants.ApiScheduleDynamicDeny].Split(',').Select(x => x.Trim()), actionOccur);
 
             this.action = actionInput;
             this.occur = actionOccur;
         }
 
-        public ActionFilterScheduleAttribute(string scheduleListInput, ScheduleFilterAction actionInput, ScheduleFilterOccur actionOccur)
+        public ScheduleAttribute(string scheduleListInput, ScheduleFilterAction actionInput, ScheduleFilterOccur actionOccur)
         {
             this.scheduleList = ScheduleHelpers.ParseScheduleConfig(scheduleListInput.Split(',').Select(x => x.Trim()), actionOccur);
             this.action = actionInput;
             this.occur = actionOccur;
         }
 
-        public ActionFilterScheduleAttribute(string[] scheduleListInput, ScheduleFilterAction actionInput, ScheduleFilterOccur actionOccur)
+        public ScheduleAttribute(string[] scheduleListInput, ScheduleFilterAction actionInput, ScheduleFilterOccur actionOccur)
         {
             this.scheduleList = ScheduleHelpers.ParseScheduleConfig(scheduleListInput, actionOccur);
             this.action = actionInput;
             this.occur = actionOccur;
         }
 
-        public ActionFilterScheduleAttribute(List<Tuple<DateTime, DateTime>> scheduleListInput, ScheduleFilterAction actionInput, ScheduleFilterOccur actionOccur)
+        public ScheduleAttribute(List<Tuple<DateTime, DateTime>> scheduleListInput, ScheduleFilterAction actionInput, ScheduleFilterOccur actionOccur)
         {
             this.scheduleList = scheduleListInput;
             this.action = actionInput;
@@ -78,7 +79,7 @@ namespace Bhbk.Lib.Waf.Schedule
                 {
                     StatusCode = Convert.ToInt32(HttpStatusCode.Unauthorized),
                     ContentType = "application/json",
-                    Content = String.Format("({0}) {1}", remoteIpAddress.ToString(), Statics.MsgApiScheduleNotAllowed),
+                    Content = String.Format("({0}) {1}", remoteIpAddress.ToString(), Constants.MsgApiScheduleNotAllowed),
                 };
                 return;
             }

@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections;
+﻿using Bhbk.Lib.Waf.Primitives;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Net;
-using System.Text.RegularExpressions;
 
 namespace Bhbk.Lib.Waf.Schedule
 {
@@ -208,8 +206,8 @@ namespace Bhbk.Lib.Waf.Schedule
                 if(PadScheduleConfig(dt[0], occur, ref start)
                     && PadScheduleConfig(dt[1], occur, ref finish))
 
-                    if (DateTime.TryParseExact(start, Statics.ApiScheduleFormatUnPadded, null, DateTimeStyles.None, out begin)
-                        && DateTime.TryParseExact(finish, Statics.ApiScheduleFormatUnPadded, null, DateTimeStyles.None, out end))
+                    if (DateTime.TryParseExact(start, Constants.ApiScheduleFormatUnPadded, null, DateTimeStyles.None, out begin)
+                        && DateTime.TryParseExact(finish, Constants.ApiScheduleFormatUnPadded, null, DateTimeStyles.None, out end))
                         schedule.Add(new Tuple<DateTime, DateTime>(begin, end));
 
                     else
@@ -232,9 +230,9 @@ namespace Bhbk.Lib.Waf.Schedule
                 {
                     case ScheduleFilterOccur.Yearly:
                         {
-                            if (DateTime.TryParseExact(input, Statics.ApiScheduleFormatMonth, null, DateTimeStyles.None, out now))
+                            if (DateTime.TryParseExact(input, Constants.ApiScheduleFormatMonth, null, DateTimeStyles.None, out now))
                             {
-                                padded = now.ToString(Statics.ApiScheduleFormatUnPadded);
+                                padded = now.ToString(Constants.ApiScheduleFormatUnPadded);
                                 return true;
                             }
                             else
@@ -243,9 +241,9 @@ namespace Bhbk.Lib.Waf.Schedule
 
                     case ScheduleFilterOccur.Monthly:
                         {
-                            if (DateTime.TryParseExact("0001:" + input + ":1T0:0:0 ", Statics.ApiScheduleFormatUnPadded, null, DateTimeStyles.None, out now))
+                            if (DateTime.TryParseExact("0001:" + input + ":1T0:0:0 ", Constants.ApiScheduleFormatUnPadded, null, DateTimeStyles.None, out now))
                             {
-                                padded = now.ToString(Statics.ApiScheduleFormatUnPadded);
+                                padded = now.ToString(Constants.ApiScheduleFormatUnPadded);
                                 return true;
                             }
                             else
@@ -263,12 +261,12 @@ namespace Bhbk.Lib.Waf.Schedule
                                 && input != DayOfWeek.Saturday.ToString())
                                 throw new InvalidOperationException();
 
-                            else if (DateTime.TryParseExact("0001:1:1T0:0:0", Statics.ApiScheduleFormatUnPadded, null, DateTimeStyles.None, out now))
+                            else if (DateTime.TryParseExact("0001:1:1T0:0:0", Constants.ApiScheduleFormatUnPadded, null, DateTimeStyles.None, out now))
                             {
                                 while (now.DayOfWeek.ToString() != input)
                                     now = now.AddDays(1);
 
-                                padded = now.ToString(Statics.ApiScheduleFormatUnPadded);
+                                padded = now.ToString(Constants.ApiScheduleFormatUnPadded);
                                 return true;
                             }
                             else
@@ -277,9 +275,9 @@ namespace Bhbk.Lib.Waf.Schedule
 
                     case ScheduleFilterOccur.Daily:
                         {
-                            if (DateTime.TryParseExact("0001:1:1T" + input + ":0:0", Statics.ApiScheduleFormatUnPadded, null, DateTimeStyles.None, out now))
+                            if (DateTime.TryParseExact("0001:1:1T" + input + ":0:0", Constants.ApiScheduleFormatUnPadded, null, DateTimeStyles.None, out now))
                             {
-                                padded = now.ToString(Statics.ApiScheduleFormatUnPadded);
+                                padded = now.ToString(Constants.ApiScheduleFormatUnPadded);
                                 return true;
                             }
                             else
@@ -288,9 +286,9 @@ namespace Bhbk.Lib.Waf.Schedule
 
                     case ScheduleFilterOccur.Hourly:
                         {
-                            if (DateTime.TryParseExact("0001:1:1T0:" + input + ":0", Statics.ApiScheduleFormatUnPadded, null, DateTimeStyles.None, out now))
+                            if (DateTime.TryParseExact("0001:1:1T0:" + input + ":0", Constants.ApiScheduleFormatUnPadded, null, DateTimeStyles.None, out now))
                             {
-                                padded = now.ToString(Statics.ApiScheduleFormatUnPadded);
+                                padded = now.ToString(Constants.ApiScheduleFormatUnPadded);
                                 return true;
                             }
                             else
@@ -299,9 +297,9 @@ namespace Bhbk.Lib.Waf.Schedule
 
                     case ScheduleFilterOccur.Once:
                         {
-                            if (DateTime.TryParseExact(input, Statics.ApiScheduleFormatUnPadded, null, DateTimeStyles.None, out now))
+                            if (DateTime.TryParseExact(input, Constants.ApiScheduleFormatUnPadded, null, DateTimeStyles.None, out now))
                             {
-                                padded = now.ToString(Statics.ApiScheduleFormatUnPadded);
+                                padded = now.ToString(Constants.ApiScheduleFormatUnPadded);
                                 return true;
                             }
                             else

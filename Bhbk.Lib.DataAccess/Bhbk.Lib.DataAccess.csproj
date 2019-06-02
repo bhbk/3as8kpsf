@@ -12,6 +12,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Extensions\" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Bhbk.Lib.Common\Bhbk.Lib.Common.csproj" />
   </ItemGroup>
 

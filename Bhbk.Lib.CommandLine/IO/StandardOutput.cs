@@ -1,6 +1,7 @@
-﻿using System;
+﻿using Bhbk.Lib.CommandLine.Primitives;
+using System;
 
-namespace Bhbk.Lib.Common.CommandLine
+namespace Bhbk.Lib.CommandLine.IO
 {
     public class StandardOutput
     {

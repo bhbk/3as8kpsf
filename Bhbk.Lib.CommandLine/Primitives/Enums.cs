@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Bhbk.Lib.Common.CommandLine
+namespace Bhbk.Lib.CommandLine.Primitives
 {
     public enum ExitCodes : int
     {

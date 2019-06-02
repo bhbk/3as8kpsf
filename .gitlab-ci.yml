@@ -29,14 +29,15 @@ deploy:
   only:
     - dummy
   script:
-    - set VERSION=2019.4.21.1030
+    - set VERSION=2019.6.1.2345
     - dotnet restore Bhbk.Lib.Core.sln --no-cache --verbosity quiet
     - dotnet build Bhbk.Lib.Core.sln --configuration Release --verbosity quiet
+    - dotnet pack Bhbk.Lib.CommandLine\Bhbk.Lib.CommandLine.csproj -p:PackageVersion=%VERSION% --output .. --configuration Release -p:TargetFrameworks=netstandard2.1
     - dotnet pack Bhbk.Lib.Common\Bhbk.Lib.Common.csproj -p:PackageVersion=%VERSION% --output .. --configuration Release -p:TargetFrameworks=netstandard2.1
     - dotnet pack Bhbk.Lib.Cryptography\Bhbk.Lib.Cryptography.csproj -p:PackageVersion=%VERSION% --output .. --configuration Release -p:TargetFrameworks=netstandard2.1
     - dotnet pack Bhbk.Lib.DataAccess\Bhbk.Lib.DataAccess.csproj -p:PackageVersion=%VERSION% --output .. --configuration Release -p:TargetFrameworks=netstandard2.1
-    - dotnet pack Bhbk.Lib.Hosting\Bhbk.Lib.Hosting.csproj -p:PackageVersion=%VERSION% --output .. --configuration Release -p:TargetFrameworks=netcoreapp3.0
+    - dotnet pack Bhbk.Lib.Hosting\Bhbk.Lib.Hosting.csproj -p:PackageVersion=%VERSION% --output .. --configuration Release -p:TargetFrameworks=netstandard2.1
     - dotnet pack Bhbk.Lib.Paging\Bhbk.Lib.Paging.csproj -p:PackageVersion=%VERSION% --output .. --configuration Release -p:TargetFrameworks=netstandard2.1
-    - dotnet pack Bhbk.Lib.Waf\Bhbk.Lib.Waf.csproj -p:PackageVersion=%VERSION% --output .. --configuration Release -p:TargetFrameworks=netcoreapp3.0
+    - dotnet pack Bhbk.Lib.Waf\Bhbk.Lib.Waf.csproj -p:PackageVersion=%VERSION% --output .. --configuration Release -p:TargetFrameworks=netstandard2.1
     - dotnet nuget push *.nupkg --api-key %NUGET_FEED_KEY% --source %NUGET_FEED_URL%
     - set VERSION=

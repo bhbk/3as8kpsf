@@ -1,17 +1,15 @@
-﻿using Bhbk.Lib.Waf.Schedule;
-using System;
-using System.Globalization;
+﻿using System;
 using System.Text.RegularExpressions;
 
-namespace Bhbk.Lib.Waf
+namespace Bhbk.Lib.Common.Validators
 {
-    public static class Helpers
+    public static class RegEx
     {
         /*
          * Simplest way to test for an invalid regular expression pattern is to try & use it then
          * catch exception if one is thrown.
          */
-        public static bool IsRegExPatternValid(string expr)
+        public static bool IsPatternValid(string expr)
         {
             if (!string.IsNullOrEmpty(expr))
             {

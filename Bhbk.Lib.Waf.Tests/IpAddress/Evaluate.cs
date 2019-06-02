@@ -5,9 +5,9 @@ namespace Bhbk.Lib.Waf.Tests.IpAddress
 {
     public class Evaluate
     {
-        public static bool IsIpAddressValid(ActionFilterIpAddressAttribute attribute, string ip)
+        public static bool IsIpAddressValid(IpAddressAttribute attribute, string ip)
         {
-            return (bool)typeof(ActionFilterIpAddressAttribute).GetMethod("IsIpAddressAllowed", BindingFlags.NonPublic | BindingFlags.Instance).Invoke(attribute, new object[] { ip });
+            return (bool)typeof(IpAddressAttribute).GetMethod("IsIpAddressAllowed", BindingFlags.NonPublic | BindingFlags.Instance).Invoke(attribute, new object[] { ip });
         }
     }
 }

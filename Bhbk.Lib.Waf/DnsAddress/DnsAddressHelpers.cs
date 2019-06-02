@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Bhbk.Lib.Common.Validators;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -117,7 +118,7 @@ namespace Bhbk.Lib.Waf.DnsAddress
                 || action == DnsAddressFilterAction.DenyRegEx)
             {
                 foreach (string entry in dnsList)
-                    if (!Helpers.IsRegExPatternValid(entry))
+                    if (!RegEx.IsPatternValid(entry))
                         throw new InvalidOperationException();
 
                 return true;

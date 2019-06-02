@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Bhbk.Lib.Waf.Primitives;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using System;
 using System.Net;
@@ -6,7 +7,7 @@ using System.Net;
 namespace Bhbk.Lib.Waf.HttpOption
 {
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = false, Inherited = true)]
-    public class ActionFilterHttpOptionAttribute : ActionFilterAttribute
+    public class HttpOptionAttribute : ActionFilterAttribute
     {
         #region Fields
 
@@ -16,7 +17,7 @@ namespace Bhbk.Lib.Waf.HttpOption
 
         #region Constructors
 
-        public ActionFilterHttpOptionAttribute(HttpFilterAction actionInput)
+        public HttpOptionAttribute(HttpFilterAction actionInput)
         {
             this.action = actionInput;
         }
@@ -33,7 +34,7 @@ namespace Bhbk.Lib.Waf.HttpOption
                 {
                     StatusCode = Convert.ToInt32(HttpStatusCode.Unauthorized),
                     ContentType = "application/json",
-                    Content = String.Format("({0}) {1}", localeUri.ToString(), Statics.MsgApiHttpSessionNotAllowed),
+                    Content = String.Format("({0}) {1}", localeUri.ToString(), Constants.MsgApiHttpSessionNotAllowed),
                 };
                 return;
             }

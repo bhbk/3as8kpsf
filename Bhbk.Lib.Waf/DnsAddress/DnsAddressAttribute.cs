@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Bhbk.Lib.Waf.Primitives;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ using System.Net;
 namespace Bhbk.Lib.Waf.DnsAddress
 {
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = false, Inherited = true)]
-    public class ActionFilterDnsAddressAttribute : ActionFilterAttribute
+    public class DnsAddressAttribute : ActionFilterAttribute
     {
         #region Fields
 
@@ -41,25 +42,25 @@ namespace Bhbk.Lib.Waf.DnsAddress
 
         #region Constructors
 
-        public ActionFilterDnsAddressAttribute(DnsAddressFilterAction actionInput)
+        public DnsAddressAttribute(DnsAddressFilterAction actionInput)
         {
             if (actionInput == DnsAddressFilterAction.Allow)
-                this.dnsList = ConfigurationManager.AppSettings[Statics.ApiDnsDynamicAllow].Split(',').Select(x => x.Trim());
+                this.dnsList = ConfigurationManager.AppSettings[Constants.ApiDnsDynamicAllow].Split(',').Select(x => x.Trim());
 
             else if (actionInput == DnsAddressFilterAction.AllowRegEx)
-                this.dnsList = ConfigurationManager.AppSettings[Statics.ApiDnsDynamicAllowRegEx].Select(x => x.ToString());
+                this.dnsList = ConfigurationManager.AppSettings[Constants.ApiDnsDynamicAllowRegEx].Select(x => x.ToString());
 
             else if (actionInput == DnsAddressFilterAction.AllowContains)
-                this.dnsList = ConfigurationManager.AppSettings[Statics.ApiDnsDynamicAllowContains].Split(',').Select(x => x.Trim());
+                this.dnsList = ConfigurationManager.AppSettings[Constants.ApiDnsDynamicAllowContains].Split(',').Select(x => x.Trim());
 
             else if (actionInput == DnsAddressFilterAction.Deny)
-                this.dnsList = ConfigurationManager.AppSettings[Statics.ApiDnsDynamicDeny].Split(',').Select(x => x.Trim());
+                this.dnsList = ConfigurationManager.AppSettings[Constants.ApiDnsDynamicDeny].Split(',').Select(x => x.Trim());
 
             else if (actionInput == DnsAddressFilterAction.DenyRegEx)
-                this.dnsList = ConfigurationManager.AppSettings[Statics.ApiDnsDynamicDenyRegEx].Select(x => x.ToString());
+                this.dnsList = ConfigurationManager.AppSettings[Constants.ApiDnsDynamicDenyRegEx].Select(x => x.ToString());
 
             else if (actionInput == DnsAddressFilterAction.DenyContains)
-                this.dnsList = ConfigurationManager.AppSettings[Statics.ApiDnsDynamicDenyContains].Split(',').Select(x => x.Trim());
+                this.dnsList = ConfigurationManager.AppSettings[Constants.ApiDnsDynamicDenyContains].Split(',').Select(x => x.Trim());
 
             else
                 throw new InvalidOperationException();
@@ -67,7 +68,7 @@ namespace Bhbk.Lib.Waf.DnsAddress
             this.action = actionInput;
         }
 
-        public ActionFilterDnsAddressAttribute(string dnsListInput, DnsAddressFilterAction actionInput)
+        public DnsAddressAttribute(string dnsListInput, DnsAddressFilterAction actionInput)
         {
             if (actionInput == DnsAddressFilterAction.AllowRegEx || actionInput == DnsAddressFilterAction.DenyRegEx)
                 this.dnsList =  new string[] { dnsListInput };
@@ -77,7 +78,7 @@ namespace Bhbk.Lib.Waf.DnsAddress
             this.action = actionInput;
         }
 
-        public ActionFilterDnsAddressAttribute(IEnumerable<string> dnsListInput, DnsAddressFilterAction actionInput)
+        public DnsAddressAttribute(IEnumerable<string> dnsListInput, DnsAddressFilterAction actionInput)
         {
             this.dnsList = dnsListInput;
             this.action = actionInput;
@@ -95,7 +96,7 @@ namespace Bhbk.Lib.Waf.DnsAddress
                 {
                     StatusCode = Convert.ToInt32(HttpStatusCode.Unauthorized),
                     ContentType = "application/json",
-                    Content = String.Format("({0}) {1}", remoteIpAddress.ToString(), Statics.MsgApiDnsAddressNotAllowed),                    
+                    Content = String.Format("({0}) {1}", remoteIpAddress.ToString(), Constants.MsgApiDnsAddressNotAllowed),                    
                 };
                 return;
             }

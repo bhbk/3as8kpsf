@@ -1,5 +1,6 @@
 ﻿using Bhbk.Lib.Waf.DnsAddress;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using FakeConstants = Bhbk.Lib.Waf.Tests.Primitives.Constants;
 
 namespace Bhbk.Lib.Waf.Tests.DnsAddress
 {
@@ -9,30 +10,30 @@ namespace Bhbk.Lib.Waf.Tests.DnsAddress
         [TestMethod]
         public void SingleDnsAllowContainsMatch()
         {
-            Assert.AreEqual<bool>(true, CheckActionFilterDnsAddress(Statics.TestDns_1, DnsAddressFilterAction.AllowContains));
+            Assert.AreEqual<bool>(true, CheckActionFilterDnsAddress(FakeConstants.TestDns_1, DnsAddressFilterAction.AllowContains));
         }
 
         [TestMethod]
         public void SingleDnsAllowContainsNoMatch()
         {
-            Assert.AreEqual<bool>(false, CheckActionFilterDnsAddress(Statics.TestDns_2, DnsAddressFilterAction.AllowContains));
+            Assert.AreEqual<bool>(false, CheckActionFilterDnsAddress(FakeConstants.TestDns_2, DnsAddressFilterAction.AllowContains));
         }
 
         [TestMethod]
         public void SingleDnsBlockContainsMatch()
         {
-            Assert.AreEqual<bool>(false, CheckActionFilterDnsAddress(Statics.TestDns_1, DnsAddressFilterAction.DenyContains));
+            Assert.AreEqual<bool>(false, CheckActionFilterDnsAddress(FakeConstants.TestDns_1, DnsAddressFilterAction.DenyContains));
         }
 
         [TestMethod]
         public void SingleDnsBlockContainsNoMatch()
         {
-            Assert.AreEqual<bool>(true, CheckActionFilterDnsAddress(Statics.TestDns_2, DnsAddressFilterAction.DenyContains));
+            Assert.AreEqual<bool>(true, CheckActionFilterDnsAddress(FakeConstants.TestDns_2, DnsAddressFilterAction.DenyContains));
         }
 
         private bool CheckActionFilterDnsAddress(string input, DnsAddressFilterAction action)
         {
-            ActionFilterDnsAddressAttribute attribute = new ActionFilterDnsAddressAttribute(Statics.TestDns_1_Contains, action);
+            DnsAddressAttribute attribute = new DnsAddressAttribute(FakeConstants.TestDns_1_Contains, action);
 
             return Evaluate.IsDnsAddressValid(attribute, input);
         }

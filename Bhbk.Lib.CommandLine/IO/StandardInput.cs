@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text;
 
-namespace Bhbk.Lib.Common.CommandLine
+namespace Bhbk.Lib.CommandLine.IO
 {
     public class StandardInput
     {
