@@ -30,7 +30,7 @@ namespace Bhbk.Lib.Common.Extensions
 
         public static async Task<T> ReadAsJsonAsync<T>(this HttpContent content)
         {
-            var data = JObject.Parse(await content.ReadAsStringAsync().ConfigureAwait(false));
+            var data = JToken.Parse(await content.ReadAsStringAsync().ConfigureAwait(false));
 
             return data.ToObject<T>();
         }

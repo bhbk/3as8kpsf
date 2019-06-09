@@ -18,11 +18,15 @@ cd ..\Bhbk.Lib.DataAccess
 powershell -command "& { if (Test-Path .\bin) { Remove-Item .\bin -Recurse -Force } }"
 powershell -command "& { if (Test-Path .\obj) { Remove-Item .\obj -Recurse -Force } }"
 
-cd ..\Bhbk.Lib.Hosting
+cd ..\Bhbk.Lib.DataState
 powershell -command "& { if (Test-Path .\bin) { Remove-Item .\bin -Recurse -Force } }"
 powershell -command "& { if (Test-Path .\obj) { Remove-Item .\obj -Recurse -Force } }"
 
-cd ..\Bhbk.Lib.Paging
+cd ..\Bhbk.Lib.DataState.Tests
+powershell -command "& { if (Test-Path .\bin) { Remove-Item .\bin -Recurse -Force } }"
+powershell -command "& { if (Test-Path .\obj) { Remove-Item .\obj -Recurse -Force } }"
+
+cd ..\Bhbk.Lib.Hosting
 powershell -command "& { if (Test-Path .\bin) { Remove-Item .\bin -Recurse -Force } }"
 powershell -command "& { if (Test-Path .\obj) { Remove-Item .\obj -Recurse -Force } }"
 
