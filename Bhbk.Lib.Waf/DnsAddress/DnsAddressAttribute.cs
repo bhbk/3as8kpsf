@@ -1,9 +1,10 @@
 ﻿using Bhbk.Lib.Waf.Primitives;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Linq;
 using System.Net;
 
@@ -14,6 +15,7 @@ namespace Bhbk.Lib.Waf.DnsAddress
     {
         #region Fields
 
+        private IConfiguration conf;
         private IEnumerable<string> dnsList;
         private IEnumerable<IPHostEntry> ipList;
         private DnsAddressFilterAction action;
@@ -44,26 +46,47 @@ namespace Bhbk.Lib.Waf.DnsAddress
 
         public DnsAddressAttribute(DnsAddressFilterAction actionInput)
         {
-            if (actionInput == DnsAddressFilterAction.Allow)
-                this.dnsList = ConfigurationManager.AppSettings[Constants.ApiDnsDynamicAllow].Split(',').Select(x => x.Trim());
+            switch (actionInput)
+            {
+                case DnsAddressFilterAction.Allow:
+                    {
+                        this.dnsList = conf.GetSection("FirewallRules:" + Constants.ApiDnsDynamicAllow).GetChildren().Select(x => x.Value.Trim());
+                    }
+                    break;
 
-            else if (actionInput == DnsAddressFilterAction.AllowRegEx)
-                this.dnsList = ConfigurationManager.AppSettings[Constants.ApiDnsDynamicAllowRegEx].Select(x => x.ToString());
+                case DnsAddressFilterAction.AllowContains:
+                    {
+                        this.dnsList = conf.GetSection("FirewallRules:" + Constants.ApiDnsDynamicAllowContains).GetChildren().Select(x => x.Value.Trim());
+                    }
+                    break;
 
-            else if (actionInput == DnsAddressFilterAction.AllowContains)
-                this.dnsList = ConfigurationManager.AppSettings[Constants.ApiDnsDynamicAllowContains].Split(',').Select(x => x.Trim());
+                case DnsAddressFilterAction.AllowRegEx:
+                    {
+                        this.dnsList = conf.GetSection("FirewallRules:" + Constants.ApiDnsDynamicAllowRegEx).GetChildren().Select(x => x.Value.Trim());
+                    }
+                    break;
 
-            else if (actionInput == DnsAddressFilterAction.Deny)
-                this.dnsList = ConfigurationManager.AppSettings[Constants.ApiDnsDynamicDeny].Split(',').Select(x => x.Trim());
+                case DnsAddressFilterAction.Deny:
+                    {
+                        this.dnsList = conf.GetSection("FirewallRules:" + Constants.ApiDnsDynamicDeny).GetChildren().Select(x => x.Value.Trim());
+                    }
+                    break;
 
-            else if (actionInput == DnsAddressFilterAction.DenyRegEx)
-                this.dnsList = ConfigurationManager.AppSettings[Constants.ApiDnsDynamicDenyRegEx].Select(x => x.ToString());
+                case DnsAddressFilterAction.DenyContains:
+                    {
+                        this.dnsList = conf.GetSection("FirewallRules:" + Constants.ApiDnsDynamicDenyContains).GetChildren().Select(x => x.Value.Trim());
+                    }
+                    break;
 
-            else if (actionInput == DnsAddressFilterAction.DenyContains)
-                this.dnsList = ConfigurationManager.AppSettings[Constants.ApiDnsDynamicDenyContains].Split(',').Select(x => x.Trim());
+                case DnsAddressFilterAction.DenyRegEx:
+                    {
+                        this.dnsList = conf.GetSection("FirewallRules:" + Constants.ApiDnsDynamicDenyRegEx).GetChildren().Select(x => x.Value.Trim());
+                    }
+                    break;
 
-            else
-                throw new InvalidOperationException();
+                default:
+                    throw new InvalidOperationException();
+            }
 
             this.action = actionInput;
         }
@@ -88,7 +111,8 @@ namespace Bhbk.Lib.Waf.DnsAddress
 
         public override void OnActionExecuting(ActionExecutingContext context)
         {
-            IPAddress remoteIpAddress = context.HttpContext.Connection.RemoteIpAddress;
+            conf = context.HttpContext.RequestServices.GetRequiredService<IConfiguration>();
+            var remoteIpAddress = context.HttpContext.Connection.RemoteIpAddress;
 
             if (!IsDnsAddressAllowed(remoteIpAddress.ToString()))
             {
@@ -108,8 +132,8 @@ namespace Bhbk.Lib.Waf.DnsAddress
             {
                 if (DnsAddressHelpers.IsDnsAddressAllowed(ref this.action, ref this.dnsList, ref this.ipList, ref request))
                     return true;
-                else
-                    return false;
+
+                return false;
             }
             else
                 throw new InvalidOperationException();

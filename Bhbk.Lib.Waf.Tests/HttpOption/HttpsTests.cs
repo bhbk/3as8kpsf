@@ -1,47 +1,46 @@
 ﻿using Bhbk.Lib.Waf.HttpOption;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using Xunit;
 using FakeConstants = Bhbk.Lib.Waf.Tests.Primitives.Constants;
 
 namespace Bhbk.Lib.Waf.Tests.HttpOption
 {
-    [TestClass]
     public class HttpsTests
     {
-        [TestMethod]
+        [Fact]
         public void HttpsNotAllowedMatch()
         {
-            Assert.AreEqual<bool>(true, CheckActionFilterHttp(FakeConstants.TestUri_1, HttpFilterAction.SslNotAllowed));
+            Assert.True(CheckActionFilterHttp(FakeConstants.TestUri_1, HttpFilterAction.SslNotAllowed));
         }
 
-        [TestMethod]
+        [Fact]
         public void HttpsNotAllowedNoMatch()
         {
-            Assert.AreEqual<bool>(false, CheckActionFilterHttp(FakeConstants.TestUri_2, HttpFilterAction.SslNotAllowed));
+            Assert.False(CheckActionFilterHttp(FakeConstants.TestUri_2, HttpFilterAction.SslNotAllowed));
         }
 
-        [TestMethod]
+        [Fact]
         public void HttpsOptionalMatch()
         {
-            Assert.AreEqual<bool>(true, CheckActionFilterHttp(FakeConstants.TestUri_1, HttpFilterAction.SslOptional));
+            Assert.True(CheckActionFilterHttp(FakeConstants.TestUri_1, HttpFilterAction.SslOptional));
         }
 
-        [TestMethod]
+        [Fact]
         public void HttpsOptionalNoMatch()
         {
-            Assert.AreEqual<bool>(false, CheckActionFilterHttp(FakeConstants.TestUri_3, HttpFilterAction.SslOptional));
+            Assert.False(CheckActionFilterHttp(FakeConstants.TestUri_3, HttpFilterAction.SslOptional));
         }
 
-        [TestMethod]
+        [Fact]
         public void HttpsRequiredMatch()
         {
-            Assert.AreEqual<bool>(true, CheckActionFilterHttp(FakeConstants.TestUri_2, HttpFilterAction.SslRequired));
+            Assert.True(CheckActionFilterHttp(FakeConstants.TestUri_2, HttpFilterAction.SslRequired));
         }
 
-        [TestMethod]
+        [Fact]
         public void HttpsRequiredNoMatch()
         {
-            Assert.AreEqual<bool>(false, CheckActionFilterHttp(FakeConstants.TestUri_1, HttpFilterAction.SslRequired));
+            Assert.False(CheckActionFilterHttp(FakeConstants.TestUri_1, HttpFilterAction.SslRequired));
         }
 
         private bool CheckActionFilterHttp(string input, HttpFilterAction action)

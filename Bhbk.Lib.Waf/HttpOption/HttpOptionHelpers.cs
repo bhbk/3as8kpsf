@@ -28,6 +28,20 @@ namespace Bhbk.Lib.Waf.HttpOption
             else
                 return false;
         }
+    }
 
+    public class HttpAddressException : Exception
+    {
+        public HttpAddressException(string message)
+            : base(message) { }
+
+        public HttpAddressException(string message, Exception innerException)
+            : base(message, innerException) { }
+    }
+
+    public class HttpAddressParseException : HttpAddressException
+    {
+        public HttpAddressParseException(string message)
+            : base(message) { }
     }
 }

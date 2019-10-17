@@ -1,26 +1,62 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore;
+﻿using Bhbk.Lib.Hosting.Options;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Hosting;
+using Serilog;
+using System.Diagnostics;
+using System.IO;
 
 namespace Bhbk.WebApi.Sample
 {
     public class Program
     {
+        public static IHostBuilder CreateIISHostBuilder(string[] args) =>
+            Host.CreateDefaultBuilder(args)
+            .ConfigureWebHostDefaults(opt =>
+            {
+                opt.CaptureStartupErrors(true);
+                opt.ConfigureAppConfiguration((hostingContext, config) =>
+                {
+                    config.SetBasePath(Directory.GetCurrentDirectory());
+                    config.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+                });
+                opt.UseIISIntegration();
+                opt.UseStartup<Startup>();
+            });
+
+        public static IHostBuilder CreateKestrelHostBuilder(string[] args) =>
+            Host.CreateDefaultBuilder(args)
+            .ConfigureWebHostDefaults(opt =>
+            {
+                opt.CaptureStartupErrors(true);
+                opt.ConfigureAppConfiguration((hostingContext, config) =>
+                {
+                    config.SetBasePath(Directory.GetCurrentDirectory());
+                    config.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+                });
+                opt.UseKestrel(options =>
+                {
+                    options.ConfigureEndpoints();
+                });
+                opt.UseUrls();
+                opt.UseStartup<Startup>();
+            });
+
         public static void Main(string[] args)
         {
-            BuildWebHost(args).Run();
-        }
+            Log.Logger = new LoggerConfiguration()
+                .MinimumLevel.Verbose()
+                .Enrich.FromLogContext()
+                .WriteTo.RollingFile(Directory.GetCurrentDirectory() + Path.DirectorySeparatorChar + "appdebug.log", retainedFileCountLimit: 7)
+                .CreateLogger();
 
-        public static IWebHost BuildWebHost(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
-                .CaptureStartupErrors(true)
-                .UseStartup<Startup>()
-                .Build();
+            var process = Process.GetCurrentProcess();
+
+            if (process.ProcessName.ToLower().Contains("iis"))
+                CreateIISHostBuilder(args).Build().Run();
+
+            else
+                CreateKestrelHostBuilder(args).Build().Run();
+        }
     }
 }

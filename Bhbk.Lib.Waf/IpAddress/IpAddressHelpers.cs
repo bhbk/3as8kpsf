@@ -60,4 +60,19 @@ namespace Bhbk.Lib.Waf.IpAddress
                 return true;
         }
     }
+
+    public class IpAddressException : Exception
+    {
+        public IpAddressException(string message)
+            : base(message) { }
+
+        public IpAddressException(string message, Exception innerException)
+            : base(message, innerException) { }
+    }
+
+    public class IpAddressParseException : IpAddressException
+    {
+        public IpAddressParseException(string message)
+            : base(message) { }
+    }
 }

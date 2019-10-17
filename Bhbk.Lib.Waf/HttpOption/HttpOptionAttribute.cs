@@ -26,7 +26,7 @@ namespace Bhbk.Lib.Waf.HttpOption
 
         public override void OnActionExecuting(ActionExecutingContext context)
         {
-            Uri localeUri = new Uri(context.HttpContext.Request.Scheme);
+            var localeUri = new Uri(context.HttpContext.Request.Scheme);
 
             if (!IsHttpOptionAllowed(localeUri))
             {

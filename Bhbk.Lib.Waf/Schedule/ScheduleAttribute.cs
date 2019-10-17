@@ -1,9 +1,10 @@
 ﻿using Bhbk.Lib.Waf.Primitives;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Linq;
 using System.Net;
 
@@ -14,6 +15,7 @@ namespace Bhbk.Lib.Waf.Schedule
     {
         #region Fields
 
+        private IConfiguration conf;
         private List<Tuple<DateTime, DateTime>> scheduleList;
         private ScheduleFilterAction action;
         private ScheduleFilterOccur occur;
@@ -36,11 +38,25 @@ namespace Bhbk.Lib.Waf.Schedule
 
         public ScheduleAttribute(ScheduleFilterAction actionInput, ScheduleFilterOccur actionOccur)
         {
-            if (actionInput == ScheduleFilterAction.Allow)
-                this.scheduleList = ScheduleHelpers.ParseScheduleConfig(ConfigurationManager.AppSettings[Constants.ApiScheduleDynamicAllow].Split(',').Select(x => x.Trim()), actionOccur);
+            switch (actionInput)
+            {
+                case ScheduleFilterAction.Allow:
+                    {
+                        this.scheduleList = ScheduleHelpers.ParseScheduleConfig(conf.GetSection("FirewallRules:" + Constants.ApiScheduleDynamicAllow).GetChildren()
+                            .Select(x => x.Value.Trim()), actionOccur);
+                    }
+                    break;
 
-            else if (actionInput == ScheduleFilterAction.Deny)
-                this.scheduleList = ScheduleHelpers.ParseScheduleConfig(ConfigurationManager.AppSettings[Constants.ApiScheduleDynamicDeny].Split(',').Select(x => x.Trim()), actionOccur);
+                case ScheduleFilterAction.Deny:
+                    {
+                        this.scheduleList = ScheduleHelpers.ParseScheduleConfig(conf.GetSection("FirewallRules:" + Constants.ApiScheduleDynamicDeny).GetChildren()
+                            .Select(x => x.Value.Trim()), actionOccur);
+                    }
+                    break;
+
+                default:
+                    throw new InvalidOperationException();
+            }
 
             this.action = actionInput;
             this.occur = actionOccur;
@@ -71,7 +87,8 @@ namespace Bhbk.Lib.Waf.Schedule
 
         public override void OnActionExecuting(ActionExecutingContext context)
         {
-            IPAddress remoteIpAddress = context.HttpContext.Connection.RemoteIpAddress;
+            conf = context.HttpContext.RequestServices.GetRequiredService<IConfiguration>();
+            var remoteIpAddress = context.HttpContext.Connection.RemoteIpAddress;
 
             if (!IsScheduleAllowed(DateTime.Now))
             {

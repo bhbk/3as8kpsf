@@ -1,37 +1,36 @@
 ﻿using Bhbk.Lib.Waf.Schedule;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Globalization;
+using Xunit;
 using FakeConstants = Bhbk.Lib.Waf.Tests.Primitives.Constants;
 using RealConstants = Bhbk.Lib.Waf.Primitives.Constants;
 
 namespace Bhbk.Lib.Waf.Tests.Schedule
 {
-    [TestClass]
     public class MultipleWeeklyTests
     {
-        [TestMethod]
+        [Fact]
         public void MultipleScheduleWeeklyAllowMatch()
         {
-            Assert.AreEqual<bool>(true, CheckActionFilterSchedule(FakeConstants.TestWhen_1_DayOfWeek, ScheduleFilterAction.Allow, ScheduleFilterOccur.Weekly));
+            Assert.True(CheckActionFilterSchedule(FakeConstants.TestWhen_1_DayOfWeek, ScheduleFilterAction.Allow, ScheduleFilterOccur.Weekly));
         }
 
-        [TestMethod]
+        [Fact]
         public void MultipleScheduleWeeklyAllowNoMatch()
         {
-            Assert.AreEqual<bool>(false, CheckActionFilterSchedule(FakeConstants.TestWhen_3_DayOfWeek, ScheduleFilterAction.Allow, ScheduleFilterOccur.Weekly));
+            Assert.False(CheckActionFilterSchedule(FakeConstants.TestWhen_3_DayOfWeek, ScheduleFilterAction.Allow, ScheduleFilterOccur.Weekly));
         }
 
-        [TestMethod]
+        [Fact]
         public void MultipleScheduleWeeklyDenyMatch()
         {
-            Assert.AreEqual<bool>(false, CheckActionFilterSchedule(FakeConstants.TestWhen_1_DayOfWeek, ScheduleFilterAction.Deny, ScheduleFilterOccur.Weekly));
+            Assert.False(CheckActionFilterSchedule(FakeConstants.TestWhen_1_DayOfWeek, ScheduleFilterAction.Deny, ScheduleFilterOccur.Weekly));
         }
 
-        [TestMethod]
+        [Fact]
         public void MultipleScheduleWeeklyDenyNoMatch()
         {
-            Assert.AreEqual<bool>(true, CheckActionFilterSchedule(FakeConstants.TestWhen_3_DayOfWeek, ScheduleFilterAction.Deny, ScheduleFilterOccur.Weekly));
+            Assert.True(CheckActionFilterSchedule(FakeConstants.TestWhen_3_DayOfWeek, ScheduleFilterAction.Deny, ScheduleFilterOccur.Weekly));
         }
 
         private bool CheckActionFilterSchedule(string input, ScheduleFilterAction action, ScheduleFilterOccur occur)

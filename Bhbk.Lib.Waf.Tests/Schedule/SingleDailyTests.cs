@@ -1,37 +1,36 @@
 ﻿using Bhbk.Lib.Waf.Schedule;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Globalization;
+using Xunit;
 using FakeConstants = Bhbk.Lib.Waf.Tests.Primitives.Constants;
 using RealConstants = Bhbk.Lib.Waf.Primitives.Constants;
 
 namespace Bhbk.Lib.Waf.Tests.Schedule
 {
-    [TestClass]
     public class SingleDailyTests
     {
-        [TestMethod]
+        [Fact]
         public void SingleScheduleDailyAllowMatch()
         {
-            Assert.AreEqual<bool>(true, CheckActionFilterSchedule(FakeConstants.TestWhen_1_Hour, ScheduleFilterAction.Allow, ScheduleFilterOccur.Daily));
+            Assert.True(CheckActionFilterSchedule(FakeConstants.TestWhen_1_Hour, ScheduleFilterAction.Allow, ScheduleFilterOccur.Daily));
         }
 
-        [TestMethod]
+        [Fact]
         public void SingleScheduleDailyAllowNoMatch()
         {
-            Assert.AreEqual<bool>(false, CheckActionFilterSchedule(FakeConstants.TestWhen_3_Hour, ScheduleFilterAction.Allow, ScheduleFilterOccur.Daily));
+            Assert.False(CheckActionFilterSchedule(FakeConstants.TestWhen_3_Hour, ScheduleFilterAction.Allow, ScheduleFilterOccur.Daily));
         }
 
-        [TestMethod]
+        [Fact]
         public void SingleScheduleDailyDenyMatch()
         {
-            Assert.AreEqual<bool>(false, CheckActionFilterSchedule(FakeConstants.TestWhen_1_Hour, ScheduleFilterAction.Deny, ScheduleFilterOccur.Daily));
+            Assert.False(CheckActionFilterSchedule(FakeConstants.TestWhen_1_Hour, ScheduleFilterAction.Deny, ScheduleFilterOccur.Daily));
         }
 
-        [TestMethod]
+        [Fact]
         public void SingleScheduleDailyDenyNoMatch()
         {
-            Assert.AreEqual<bool>(true, CheckActionFilterSchedule(FakeConstants.TestWhen_3_Hour, ScheduleFilterAction.Deny, ScheduleFilterOccur.Daily));
+            Assert.True(CheckActionFilterSchedule(FakeConstants.TestWhen_3_Hour, ScheduleFilterAction.Deny, ScheduleFilterOccur.Daily));
         }
 
         private bool CheckActionFilterSchedule(string input, ScheduleFilterAction action, ScheduleFilterOccur occur)

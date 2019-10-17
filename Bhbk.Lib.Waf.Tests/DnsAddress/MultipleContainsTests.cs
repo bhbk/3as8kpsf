@@ -1,34 +1,33 @@
 ﻿using Bhbk.Lib.Waf.DnsAddress;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 using FakeConstants = Bhbk.Lib.Waf.Tests.Primitives.Constants;
 
 namespace Bhbk.Lib.Waf.Tests.DnsAddress
 {
-    [TestClass]
     public class MultipleContainsTests
     {
-        [TestMethod]
+        [Fact]
         public void MultipleDnsAllowContainsMatch()
         {
-            Assert.AreEqual<bool>(true, CheckActionFilterDnsAddress(FakeConstants.TestDns_1, DnsAddressFilterAction.AllowContains));
+            Assert.True(CheckActionFilterDnsAddress(FakeConstants.TestDns_1, DnsAddressFilterAction.AllowContains));
         }
 
-        [TestMethod]
+        [Fact]
         public void MultipleDnsAllowContainsNoMatch()
         {
-            Assert.AreEqual<bool>(false, CheckActionFilterDnsAddress(FakeConstants.TestDns_2, DnsAddressFilterAction.AllowContains));
+            Assert.False(CheckActionFilterDnsAddress(FakeConstants.TestDns_2, DnsAddressFilterAction.AllowContains));
         }
 
-        [TestMethod]
+        [Fact]
         public void MultipleDnsBlockContainsMatch()
         {
-            Assert.AreEqual<bool>(false, CheckActionFilterDnsAddress(FakeConstants.TestDns_1, DnsAddressFilterAction.DenyContains));
+            Assert.False(CheckActionFilterDnsAddress(FakeConstants.TestDns_1, DnsAddressFilterAction.DenyContains));
         }
 
-        [TestMethod]
+        [Fact]
         public void MultipleDnsBlockContainsNoMatch()
         {
-            Assert.AreEqual<bool>(true, CheckActionFilterDnsAddress(FakeConstants.TestDns_2, DnsAddressFilterAction.DenyContains));
+            Assert.True(CheckActionFilterDnsAddress(FakeConstants.TestDns_2, DnsAddressFilterAction.DenyContains));
         }
 
         private bool CheckActionFilterDnsAddress(string input, DnsAddressFilterAction action)

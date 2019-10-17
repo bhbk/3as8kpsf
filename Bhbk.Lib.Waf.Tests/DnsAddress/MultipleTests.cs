@@ -1,34 +1,33 @@
 ﻿using Bhbk.Lib.Waf.DnsAddress;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 using FakeConstants = Bhbk.Lib.Waf.Tests.Primitives.Constants;
 
 namespace Bhbk.Lib.Waf.Tests.DnsAddress
 {
-    [TestClass]
     public class MultipleTests
     {
-        [TestMethod]
+        [Fact]
         public void MultipleDnsAllowMatch()
         {
-            Assert.AreEqual<bool>(true, CheckActionFilterDnsAddress(FakeConstants.TestDns_1, DnsAddressFilterAction.Allow));
+            Assert.True(CheckActionFilterDnsAddress(FakeConstants.TestDns_1, DnsAddressFilterAction.Allow));
         }
 
-        [TestMethod]
+        [Fact]
         public void MultipleDnsAllowNoMatch()
         {
-            Assert.AreEqual<bool>(false, CheckActionFilterDnsAddress(FakeConstants.TestDns_2, DnsAddressFilterAction.Allow));
+            Assert.False(CheckActionFilterDnsAddress(FakeConstants.TestDns_2, DnsAddressFilterAction.Allow));
         }
 
-        [TestMethod]
+        [Fact]
         public void MultipleDnsBlockMatch()
         {
-            Assert.AreEqual<bool>(false, CheckActionFilterDnsAddress(FakeConstants.TestDns_1, DnsAddressFilterAction.Deny));
+            Assert.False(CheckActionFilterDnsAddress(FakeConstants.TestDns_1, DnsAddressFilterAction.Deny));
         }
 
-        [TestMethod]
+        [Fact]
         public void MultipleDnsBlockNoMatch()
         {
-            Assert.AreEqual<bool>(true, CheckActionFilterDnsAddress(FakeConstants.TestDns_2, DnsAddressFilterAction.Deny));
+            Assert.True(CheckActionFilterDnsAddress(FakeConstants.TestDns_2, DnsAddressFilterAction.Deny));
         }
 
         private bool CheckActionFilterDnsAddress(string input, DnsAddressFilterAction action)

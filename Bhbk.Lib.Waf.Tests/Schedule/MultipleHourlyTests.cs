@@ -1,37 +1,36 @@
 ﻿using Bhbk.Lib.Waf.Schedule;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Globalization;
+using Xunit;
 using FakeConstants = Bhbk.Lib.Waf.Tests.Primitives.Constants;
 using RealConstants = Bhbk.Lib.Waf.Primitives.Constants;
 
 namespace Bhbk.Lib.Waf.Tests.Schedule
 {
-    [TestClass]
     public class MultipleHourlyTests
     {
-        [TestMethod]
+        [Fact]
         public void MultipleScheduleHourlyAllowMatch()
         {
-            Assert.AreEqual<bool>(true, CheckActionFilterSchedule(FakeConstants.TestWhen_1_Minute, ScheduleFilterAction.Allow, ScheduleFilterOccur.Hourly));
+            Assert.True(CheckActionFilterSchedule(FakeConstants.TestWhen_1_Minute, ScheduleFilterAction.Allow, ScheduleFilterOccur.Hourly));
         }
 
-        [TestMethod]
+        [Fact]
         public void MultipleScheduleHourlyAllowNoMatch()
         {
-            Assert.AreEqual<bool>(false, CheckActionFilterSchedule(FakeConstants.TestWhen_3_Minute, ScheduleFilterAction.Allow, ScheduleFilterOccur.Hourly));
+            Assert.False(CheckActionFilterSchedule(FakeConstants.TestWhen_3_Minute, ScheduleFilterAction.Allow, ScheduleFilterOccur.Hourly));
         }
 
-        [TestMethod]
+        [Fact]
         public void MultipleScheduleHourlyDenyMatch()
         {
-            Assert.AreEqual<bool>(false, CheckActionFilterSchedule(FakeConstants.TestWhen_1_Minute, ScheduleFilterAction.Deny, ScheduleFilterOccur.Hourly));
+            Assert.False(CheckActionFilterSchedule(FakeConstants.TestWhen_1_Minute, ScheduleFilterAction.Deny, ScheduleFilterOccur.Hourly));
         }
 
-        [TestMethod]
+        [Fact]
         public void MultipleScheduleHourlyDenyNoMatch()
         {
-            Assert.AreEqual<bool>(true, CheckActionFilterSchedule(FakeConstants.TestWhen_3_Minute, ScheduleFilterAction.Deny, ScheduleFilterOccur.Hourly));
+            Assert.True(CheckActionFilterSchedule(FakeConstants.TestWhen_3_Minute, ScheduleFilterAction.Deny, ScheduleFilterOccur.Hourly));
         }
 
         private bool CheckActionFilterSchedule(string input, ScheduleFilterAction action, ScheduleFilterOccur occur)

@@ -127,4 +127,19 @@ namespace Bhbk.Lib.Waf.DnsAddress
                 return true;
         }
     }
+
+    public class DnsAddressException : Exception
+    {
+        public DnsAddressException(string message)
+            : base(message) { }
+
+        public DnsAddressException(string message, Exception innerException)
+            : base(message, innerException) { }
+    }
+
+    public class DnsAddressParseException : DnsAddressException
+    {
+        public DnsAddressParseException(string message)
+            : base(message) { }
+    }
 }

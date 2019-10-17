@@ -1,37 +1,36 @@
 ﻿using Bhbk.Lib.Waf.Schedule;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Globalization;
+using Xunit;
 using FakeConstants = Bhbk.Lib.Waf.Tests.Primitives.Constants;
 using RealConstants = Bhbk.Lib.Waf.Primitives.Constants;
 
 namespace Bhbk.Lib.Waf.Tests.Schedule
 {
-    [TestClass]
     public class MultipleMonthlyTests
     {
-        [TestMethod, Ignore]
+        [Fact(Skip = "NotImplemented")]
         public void MultipleScheduleMonthlyAllowMatch()
         {
-            Assert.AreEqual<bool>(true, CheckActionFilterSchedule(FakeConstants.TestWhen_1_DayOfMonth, ScheduleFilterAction.Allow, ScheduleFilterOccur.Monthly));
+            Assert.True(CheckActionFilterSchedule(FakeConstants.TestWhen_1_DayOfMonth, ScheduleFilterAction.Allow, ScheduleFilterOccur.Monthly));
         }
 
-        [TestMethod, Ignore]
+        [Fact(Skip = "NotImplemented")]
         public void MultipleScheduleMonthlyAllowNoMatch()
         {
-            Assert.AreEqual<bool>(false, CheckActionFilterSchedule(FakeConstants.TestWhen_3_DayOfMonth, ScheduleFilterAction.Allow, ScheduleFilterOccur.Monthly));
+            Assert.False(CheckActionFilterSchedule(FakeConstants.TestWhen_3_DayOfMonth, ScheduleFilterAction.Allow, ScheduleFilterOccur.Monthly));
         }
 
-        [TestMethod, Ignore]
+        [Fact(Skip = "NotImplemented")]
         public void MultipleScheduleMonthlyDenyMatch()
         {
-            Assert.AreEqual<bool>(false, CheckActionFilterSchedule(FakeConstants.TestWhen_1_DayOfMonth, ScheduleFilterAction.Deny, ScheduleFilterOccur.Monthly));
+            Assert.False(CheckActionFilterSchedule(FakeConstants.TestWhen_1_DayOfMonth, ScheduleFilterAction.Deny, ScheduleFilterOccur.Monthly));
         }
 
-        [TestMethod, Ignore]
+        [Fact(Skip = "NotImplemented")]
         public void MultipleScheduleMonthlyDenyNoMatch()
         {
-            Assert.AreEqual<bool>(true, CheckActionFilterSchedule(FakeConstants.TestWhen_3_DayOfMonth, ScheduleFilterAction.Deny, ScheduleFilterOccur.Monthly));
+            Assert.True(CheckActionFilterSchedule(FakeConstants.TestWhen_3_DayOfMonth, ScheduleFilterAction.Deny, ScheduleFilterOccur.Monthly));
         }
 
         private bool CheckActionFilterSchedule(string input, ScheduleFilterAction action, ScheduleFilterOccur occur)

@@ -1,9 +1,10 @@
 ﻿using Bhbk.Lib.Waf.Primitives;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Linq;
 using System.Net;
 
@@ -14,6 +15,7 @@ namespace Bhbk.Lib.Waf.IpAddress
     {
         #region Fields
 
+        private IConfiguration conf;
         private IEnumerable<IPNetwork> cidrList;
         private IpAddressFilterAction action;
 
@@ -35,14 +37,23 @@ namespace Bhbk.Lib.Waf.IpAddress
 
         public IpAddressAttribute(IpAddressFilterAction actionInput)
         {
-            if (actionInput == IpAddressFilterAction.Allow)
-                this.cidrList = ConfigurationManager.AppSettings[Constants.ApiIpDynamicAllow].Split(',').Select(x => IPNetwork.Parse(x.Trim()));
+            switch (actionInput)
+            {
+                case IpAddressFilterAction.Allow:
+                    {
+                        this.cidrList = conf.GetSection("FirewallRules:" + Constants.ApiIpDynamicAllow).GetChildren().Select(x => IPNetwork.Parse(x.Value.Trim()));
+                    }
+                    break;
 
-            else if (actionInput == IpAddressFilterAction.Deny)
-                this.cidrList = ConfigurationManager.AppSettings[Constants.ApiIpDynamicDeny].Split(',').Select(x => IPNetwork.Parse(x.Trim()));
+                case IpAddressFilterAction.Deny:
+                    {
+                        this.cidrList = conf.GetSection("FirewallRules:" + Constants.ApiIpDynamicDeny).GetChildren().Select(x => IPNetwork.Parse(x.Value.Trim()));
+                    }
+                    break;
 
-            else
-                throw new InvalidOperationException();
+                default:
+                    throw new InvalidOperationException();
+            }
 
             this.action = actionInput;
         }
@@ -60,10 +71,7 @@ namespace Bhbk.Lib.Waf.IpAddress
         }
 
         public IpAddressAttribute(IEnumerable<string> cidrListInput, IpAddressFilterAction actionInput)
-            : this(cidrListInput.Select(x => IPNetwork.Parse(x)), actionInput)
-        {
-
-        }
+            : this(cidrListInput.Select(x => IPNetwork.Parse(x)), actionInput) { }
 
         public IpAddressAttribute(IEnumerable<IPNetwork> cidrListInput, IpAddressFilterAction actionInput)
         {
@@ -75,7 +83,8 @@ namespace Bhbk.Lib.Waf.IpAddress
 
         public override void OnActionExecuting(ActionExecutingContext context)
         {
-            IPAddress remoteIpAddress = context.HttpContext.Connection.RemoteIpAddress;
+            conf = context.HttpContext.RequestServices.GetRequiredService<IConfiguration>();
+            var remoteIpAddress = context.HttpContext.Connection.RemoteIpAddress;
 
             if (!IsIpAddressAllowed(remoteIpAddress.ToString()))
             {

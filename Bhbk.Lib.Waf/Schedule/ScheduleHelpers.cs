@@ -324,4 +324,19 @@ namespace Bhbk.Lib.Waf.Schedule
         //    return when;
         //}
     }
+
+    public class ScheduleAddressException : Exception
+    {
+        public ScheduleAddressException(string message)
+            : base(message) { }
+
+        public ScheduleAddressException(string message, Exception innerException)
+            : base(message, innerException) { }
+    }
+
+    public class ScheduleAddressParseException : ScheduleAddressException
+    {
+        public ScheduleAddressParseException(string message)
+            : base(message) { }
+    }
 }

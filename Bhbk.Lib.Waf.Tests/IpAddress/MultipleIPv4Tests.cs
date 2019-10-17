@@ -1,34 +1,33 @@
 ﻿using Bhbk.Lib.Waf.IpAddress;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 using FakeConstants = Bhbk.Lib.Waf.Tests.Primitives.Constants;
 
 namespace Bhbk.Lib.Waf.Tests.IpAddress
 {
-    [TestClass]
     public class MultipleIPv4Tests
     {
-        [TestMethod]
+        [Fact]
         public void MultipleIPv4AllowMatch()
         {
-            Assert.AreEqual<bool>(true, CheckActionFilterIpAddress(FakeConstants.TestIPv4_1, IpAddressFilterAction.Allow));
+            Assert.True(CheckActionFilterIpAddress(FakeConstants.TestIPv4_1, IpAddressFilterAction.Allow));
         }
 
-        [TestMethod]
+        [Fact]
         public void MultipleIPv4AllowNoMatch()
         {
-            Assert.AreEqual<bool>(false, CheckActionFilterIpAddress(FakeConstants.TestIPv4_3, IpAddressFilterAction.Allow));
+            Assert.False(CheckActionFilterIpAddress(FakeConstants.TestIPv4_3, IpAddressFilterAction.Allow));
         }
 
-        [TestMethod]
+        [Fact]
         public void MultipleIPv4DenyMatch()
         {
-            Assert.AreEqual<bool>(false, CheckActionFilterIpAddress(FakeConstants.TestIPv4_1, IpAddressFilterAction.Deny));
+            Assert.False(CheckActionFilterIpAddress(FakeConstants.TestIPv4_1, IpAddressFilterAction.Deny));
         }
 
-        [TestMethod]
+        [Fact]
         public void MultipleIPv4DenyNoMatch()
         {
-            Assert.AreEqual<bool>(true, CheckActionFilterIpAddress(FakeConstants.TestIPv4_3, IpAddressFilterAction.Deny));
+            Assert.True(CheckActionFilterIpAddress(FakeConstants.TestIPv4_3, IpAddressFilterAction.Deny));
         }
 
         private bool CheckActionFilterIpAddress(string input, IpAddressFilterAction action)
