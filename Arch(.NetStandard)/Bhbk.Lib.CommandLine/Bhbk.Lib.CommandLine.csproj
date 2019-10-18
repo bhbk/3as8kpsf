@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.0;netstandard2.1</TargetFrameworks>
+    <Authors>Bhbk</Authors>
+    <PackageProjectUrl>https://gitlab.com/bhbk/3as8kpsf</PackageProjectUrl>
+    <Description>Library for command line purposes.</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Extensions\" />
+  </ItemGroup>
+
+</Project>

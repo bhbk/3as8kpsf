@@ -1,0 +1,65 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29613.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bhbk.Lib.DataAccess.EF", "Bhbk.Lib.DataAccess.EF\Bhbk.Lib.DataAccess.EF.csproj", "{6766C58F-8E9D-49DE-909D-2F76F449A178}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bhbk.Lib.DataAccess.EF.Tests", "Bhbk.Lib.DataAccess.EF.Tests\Bhbk.Lib.DataAccess.EF.Tests.csproj", "{BE72BB16-0246-4703-B1E9-96AB1D13A5FE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{9F27E5C1-03B9-4AE0-AA18-D28AFC456DEC}"
+	ProjectSection(SolutionItems) = preProject
+		..\.gitignore = ..\.gitignore
+		..\.gitlab-ci.yml = ..\.gitlab-ci.yml
+		build.cmd = build.cmd
+		clean.cmd = clean.cmd
+		..\license.md = ..\license.md
+		..\readme.md = ..\readme.md
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bhbk.Lib.DataState", "..\Arch(.NetStandard)\Bhbk.Lib.DataState\Bhbk.Lib.DataState.csproj", "{A677C325-F28A-437F-857B-49A6DA0AF292}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bhbk.Lib.Common", "..\Arch(.NetStandard)\Bhbk.Lib.Common\Bhbk.Lib.Common.csproj", "{4FDAB5F3-E5F8-40F1-B62F-C9B57118968A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bhbk.Lib.DataState.Tests", "..\Arch(.NetStandard)\Bhbk.Lib.DataState.Tests\Bhbk.Lib.DataState.Tests.csproj", "{162AE4E8-F3C9-45AE-9428-96B68CCA584E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bhbk.Lib.Cryptography", "..\Arch(.NetStandard)\Bhbk.Lib.Cryptography\Bhbk.Lib.Cryptography.csproj", "{04211543-1201-449E-9EA1-00C8A6F39808}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6766C58F-8E9D-49DE-909D-2F76F449A178}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6766C58F-8E9D-49DE-909D-2F76F449A178}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6766C58F-8E9D-49DE-909D-2F76F449A178}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6766C58F-8E9D-49DE-909D-2F76F449A178}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BE72BB16-0246-4703-B1E9-96AB1D13A5FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE72BB16-0246-4703-B1E9-96AB1D13A5FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE72BB16-0246-4703-B1E9-96AB1D13A5FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE72BB16-0246-4703-B1E9-96AB1D13A5FE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A677C325-F28A-437F-857B-49A6DA0AF292}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A677C325-F28A-437F-857B-49A6DA0AF292}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A677C325-F28A-437F-857B-49A6DA0AF292}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A677C325-F28A-437F-857B-49A6DA0AF292}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4FDAB5F3-E5F8-40F1-B62F-C9B57118968A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4FDAB5F3-E5F8-40F1-B62F-C9B57118968A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4FDAB5F3-E5F8-40F1-B62F-C9B57118968A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4FDAB5F3-E5F8-40F1-B62F-C9B57118968A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{162AE4E8-F3C9-45AE-9428-96B68CCA584E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{162AE4E8-F3C9-45AE-9428-96B68CCA584E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{162AE4E8-F3C9-45AE-9428-96B68CCA584E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{162AE4E8-F3C9-45AE-9428-96B68CCA584E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{04211543-1201-449E-9EA1-00C8A6F39808}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04211543-1201-449E-9EA1-00C8A6F39808}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04211543-1201-449E-9EA1-00C8A6F39808}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04211543-1201-449E-9EA1-00C8A6F39808}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C5B46841-BA74-4462-A948-94D7DBF4C9A9}
+	EndGlobalSection
+EndGlobal
