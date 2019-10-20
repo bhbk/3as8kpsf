@@ -50,13 +50,9 @@ namespace Bhbk.Lib.DataAccess.EF.Extensions
             : base(message, innerException) { }
     }
 
-    #region The derivative exceptions below don't provide much value outside test scenarios.
-
     public class EntityFrameworkExtensionCastException : EntityFrameworkExtensionException
     {
         public EntityFrameworkExtensionCastException(string message)
             : base(message) { }
     }
-
-    #endregion
 }

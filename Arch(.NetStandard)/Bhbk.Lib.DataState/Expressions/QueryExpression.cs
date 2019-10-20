@@ -24,8 +24,6 @@ namespace Bhbk.Lib.DataState.Expressions
             : base(message, innerException) { }
     }
 
-    #region The derivative exceptions below don't provide much value outside test scenarios.
-
     public class QueryExpressionFilterException : QueryExpressionException
     {
         public QueryExpressionFilterException(string message)
@@ -55,6 +53,4 @@ namespace Bhbk.Lib.DataState.Expressions
         public QueryExpressionPropertyException(string entity, string field)
             : base($"The entity: \"{entity}\" does not contain field: \"{field}\".") { }
     }
-
-    #endregion
 }

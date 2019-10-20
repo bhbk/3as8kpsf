@@ -6,22 +6,18 @@ namespace Bhbk.Lib.DataState.Expressions
 {
     public static class CascadePagerExtensions
     {
-        public static LambdaExpression ToPredicateExpression<TEntity>(this CascadePager state)
+        public static LambdaExpression ToPredicateExpression<TEntity>(
+            this CascadePager state)
         {
-            QueryExpression<TEntity> expression = new QueryExpression<TEntity>();
+            var expression = new QueryExpression<TEntity>();
 
             return expression.ToLambda();
         }
 
-        public static LambdaExpression ToExpression<TEntity>(this CascadePager state)
+        public static LambdaExpression ToExpression<TEntity>(
+            this CascadePager state)
         {
-            QueryExpression<TEntity> expression = new QueryExpression<TEntity>();
-
-            if (state.Skip < 0)
-                throw new QueryExpressionSkipException(state.Skip);
-
-            if (state.Take < 1)
-                throw new QueryExpressionTakeException(state.Take);
+            var expression = new QueryExpression<TEntity>();
 
             if (state.Sort == null 
                 || state.Sort.Count == 0
@@ -29,14 +25,20 @@ namespace Bhbk.Lib.DataState.Expressions
                 || state.Sort.Any(x => !x.Value.Equals("asc") && !x.Value.Equals("desc")))
                 throw new QueryExpressionSortException($"The value for sort is invalid.");
 
+            if (state.Skip < 0)
+                throw new QueryExpressionSkipException(state.Skip);
+
+            if (state.Take < 1)
+                throw new QueryExpressionTakeException(state.Take);
+
             string method = string.Empty;
 
             foreach (var orderBy in state.Sort)
             {
                 if (method == string.Empty)
-                    method = orderBy.Value == "desc" ? "OrderByDescending" : "OrderBy";
+                    method = orderBy.Value == "asc" ? "OrderBy" : "OrderByDescending";
                 else
-                    method = orderBy.Value == "desc" ? "ThenByDescending" : "ThenBy";
+                    method = orderBy.Value == "asc" ? "ThenBy" : "ThenByDescending";
 
                 expression = expression.OrderBy(method, orderBy.Key);
             }

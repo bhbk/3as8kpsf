@@ -9,15 +9,15 @@ namespace Bhbk.Lib.DataState.Expressions
     {
         public static ConstantExpression GetConstantExpression<TEntity>(string field, string value)
         {
-            Type entityType = typeof(TEntity);
+            var entityType = typeof(TEntity);
 
-            PropertyInfo propertyInfo = entityType.GetProperty(
+            var propertyInfo = entityType.GetProperty(
                 field, BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance);
 
             if (propertyInfo == null)
                 throw new QueryExpressionPropertyException(entityType.Name, field);
 
-            Type propertyType = typeof(TEntity).GetProperties()
+            var propertyType = typeof(TEntity).GetProperties()
                 .Single(p => p.Name.ToLower() == field?.ToLower())
                 .PropertyType;
 
@@ -56,8 +56,8 @@ namespace Bhbk.Lib.DataState.Expressions
 
         public static MemberExpression GetMemberExpression<TEntity>(ParameterExpression param, string field)
         {
-            PropertyInfo property =
-                typeof(TEntity).GetProperties().Single(p => p.Name.ToLower() == field?.ToLower());
+            var property = typeof(TEntity).GetProperties()
+                .Single(p => p.Name.ToLower() == field?.ToLower());
 
             return Expression.MakeMemberAccess(param, property);
         }
@@ -65,8 +65,8 @@ namespace Bhbk.Lib.DataState.Expressions
         public static Expression GetMethodExpression<TEntity>(
             ParameterExpression param, string field, string name, string value)
         {
-            ConstantExpression constant = GetConstantExpression<TEntity>(field, value);
-            MemberExpression member = GetMemberExpression<TEntity>(param, field);
+            var constant = GetConstantExpression<TEntity>(field, value);
+            var member = GetMemberExpression<TEntity>(param, field);
             MethodInfo method;
 
             switch (name.ToLower())

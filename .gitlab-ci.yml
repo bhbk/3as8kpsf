@@ -40,7 +40,7 @@ deploy:
   only:
     - dummy
   script:
-    - set VERSION=2019.10.17.1354
+    - set VERSION=2019.10.19.2305
     - cd Arch(.NetFramework)
     - nuget restore Bhbk.Lib.Core.sln -NoCache -Verbosity quiet
     - msbuild /t:build Bhbk.Lib.Core.sln /p:Configuration=Release /verbosity:quiet

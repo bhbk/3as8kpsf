@@ -5,13 +5,13 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Bhbk.Lib.DataState.Models
 {
-    public class PageState
+    public class KendoPageState
     {
-        [PageStateFilter]
-        public PageStateFilters Filter { get; set; }
+        [KendoPageStateFilter]
+        public KendoPageStateFilters Filter { get; set; }
 
-        [PageStateSort]
-        public List<PageStateSort> Sort { get; set; }
+        [KendoPageStateSort]
+        public List<KendoPageStateSort> Sort { get; set; }
 
         /*
          * require integer value of 0 or greater
@@ -27,13 +27,13 @@ namespace Bhbk.Lib.DataState.Models
         [RegularExpression("^[1-9][0-9]*$")]
         public int Take { get; set; }
 
-        public class PageStateFilters : PageStateFilter
+        public class KendoPageStateFilters : KendoPageStateFilter
         {
             public string Logic { get; set; }
-            public List<PageStateFilters> Filters { get; set; }
+            public List<KendoPageStateFilters> Filters { get; set; }
         }
 
-        public class PageStateFilter
+        public class KendoPageStateFilter
         {
             public string Field { get; set; }
             public string Operator { get; set; }
@@ -41,7 +41,7 @@ namespace Bhbk.Lib.DataState.Models
             public bool IgnoreCase { get; set; }
         }
 
-        public class PageStateSort
+        public class KendoPageStateSort
         {
             public string Field { get; set; }
             public string Dir { get; set; }

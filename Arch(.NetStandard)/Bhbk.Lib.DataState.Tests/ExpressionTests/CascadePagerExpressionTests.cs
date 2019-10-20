@@ -10,7 +10,7 @@ namespace Bhbk.Lib.DataState.Tests.ExpressionTests
     public class CascadePagerExpressionTests
     {
         [Fact]
-        public void Expr_CascadePager_Fail_Fields_Sort()
+        public void Expr_CascadePager_Fail_Sort()
         {
             Assert.Throws<QueryExpressionPropertyException>(() =>
             {
@@ -44,7 +44,7 @@ namespace Bhbk.Lib.DataState.Tests.ExpressionTests
         }
 
         [Fact]
-        public void Expr_CascadePager_Fail_Skip()
+        public void Expr_CascadePager_Fail_Sort_Skip()
         {
             Assert.Throws<QueryExpressionSkipException>(() =>
             {
@@ -54,7 +54,7 @@ namespace Bhbk.Lib.DataState.Tests.ExpressionTests
                     {
                         new KeyValuePair<string, string>("string1", "asc"),
                     },
-                    Skip = -1000,
+                    Skip = -1,
                     Take = 1000
                 };
 
@@ -63,7 +63,7 @@ namespace Bhbk.Lib.DataState.Tests.ExpressionTests
         }
 
         [Fact]
-        public void Expr_CascadePager_Fail_Take()
+        public void Expr_CascadePager_Fail_Sort_Take()
         {
             Assert.Throws<QueryExpressionTakeException>(() =>
             {
@@ -82,30 +82,30 @@ namespace Bhbk.Lib.DataState.Tests.ExpressionTests
         }
 
         [Fact]
-        public void Expr_CascadePager_Success()
+        public void Expr_CascadePager_Success_Sort()
         {
             var state = new CascadePager()
             {
                 Sort = new List<KeyValuePair<string, string>>()
                 {
                     new KeyValuePair<string, string>("guid1", "asc"),
-                    new KeyValuePair<string, string>("guid2", "asc"),
+                    new KeyValuePair<string, string>("guid2", "desc"),
                     new KeyValuePair<string, string>("date1", "asc"),
-                    new KeyValuePair<string, string>("date2", "asc"),
+                    new KeyValuePair<string, string>("date2", "desc"),
                     new KeyValuePair<string, string>("int1", "asc"),
-                    new KeyValuePair<string, string>("int2", "asc"),
+                    new KeyValuePair<string, string>("int2", "desc"),
                     new KeyValuePair<string, string>("decimal1", "asc"),
-                    new KeyValuePair<string, string>("decimal2", "asc"),
+                    new KeyValuePair<string, string>("decimal2", "desc"),
                     new KeyValuePair<string, string>("bool1", "asc"),
-                    new KeyValuePair<string, string>("bool2", "asc"),
+                    new KeyValuePair<string, string>("bool2", "desc"),
                     new KeyValuePair<string, string>("string1", "asc"),
                 },
                 Skip = 0,
                 Take = 1000
             };
 
-            var expression = state.ToExpression<SampleEntity>();
             var predicate = state.ToPredicateExpression<SampleEntity>();
+            var expression = state.ToExpression<SampleEntity>();
         }
     }
 }

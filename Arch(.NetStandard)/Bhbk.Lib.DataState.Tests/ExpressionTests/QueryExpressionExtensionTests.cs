@@ -13,20 +13,32 @@ namespace Bhbk.Lib.DataState.Tests.ExpressionTests
         {
             Assert.Throws<QueryExpressionPropertyException>(() =>
             {
-                var orderBy = new QueryExpression<SampleEntity>().OrderBy("invalid").ToLambda();
-                orderBy = new QueryExpression<SampleEntity>().OrderByDescending("invalid").ToLambda();
+                var expression = new QueryExpression<SampleEntity>().OrderBy("invalid").ToLambda();
             });
 
             Assert.Throws<QueryExpressionSkipException>(() =>
             {
-                var skip = new QueryExpression<SampleEntity>().OrderBy("int1").Skip(-1000).Take(1000).ToLambda();
-                skip = new QueryExpression<SampleEntity>().OrderByDescending("int1").Skip(-1000).Take(1000).ToLambda();
+                var expression = new QueryExpression<SampleEntity>().OrderBy("int1").Skip(-1).Take(1000).ToLambda();
             });
 
             Assert.Throws<QueryExpressionTakeException>(() =>
             {
-                var take = new QueryExpression<SampleEntity>().OrderBy("int1").Skip(1000).Take(0).ToLambda();
-                take = new QueryExpression<SampleEntity>().OrderByDescending("int1").Skip(1000).Take(0).ToLambda();
+                var expression = new QueryExpression<SampleEntity>().OrderBy("int1").Skip(1000).Take(0).ToLambda();
+            });
+
+            Assert.Throws<QueryExpressionPropertyException>(() =>
+            {
+                var expression = new QueryExpression<SampleEntity>().OrderByDescending("invalid").ToLambda();
+            });
+
+            Assert.Throws<QueryExpressionSkipException>(() =>
+            {
+                var expression = new QueryExpression<SampleEntity>().OrderByDescending("int1").Skip(-1).Take(1000).ToLambda();
+            });
+
+            Assert.Throws<QueryExpressionTakeException>(() =>
+            {
+                var expression = new QueryExpression<SampleEntity>().OrderByDescending("int1").Skip(1000).Take(0).ToLambda();
             });
         }
 
@@ -37,19 +49,23 @@ namespace Bhbk.Lib.DataState.Tests.ExpressionTests
         }
 
         [Fact]
-        public void Expr_QueryExpressionExtensions_Success()
+        public void Expr_QueryExpressionExtensions_Success_OrderBy()
         {
-            var orderBy = new QueryExpression<SampleEntity>().OrderBy("guid1").ToLambda();
-            orderBy = new QueryExpression<SampleEntity>().OrderBy("date1").Skip(1000).ToLambda();
-            orderBy = new QueryExpression<SampleEntity>().OrderBy("int1").Skip(1000).Take(1000).ToLambda();
-            orderBy = new QueryExpression<SampleEntity>().OrderByDescending("guid1").ToLambda();
-            orderBy = new QueryExpression<SampleEntity>().OrderByDescending("date1").Skip(1000).ToLambda();
-            orderBy = new QueryExpression<SampleEntity>().OrderByDescending("int1").Skip(1000).Take(1000).ToLambda();
+            var expression = new QueryExpression<SampleEntity>().OrderBy("guid1").ToLambda();
+            expression = new QueryExpression<SampleEntity>().OrderBy("date1").Skip(1000).ToLambda();
+            expression = new QueryExpression<SampleEntity>().OrderBy("int1").Skip(1000).Take(1000).ToLambda();
+            expression = new QueryExpression<SampleEntity>().OrderByDescending("guid1").ToLambda();
+            expression = new QueryExpression<SampleEntity>().OrderByDescending("date1").Skip(1000).ToLambda();
+            expression = new QueryExpression<SampleEntity>().OrderByDescending("int1").Skip(1000).Take(1000).ToLambda();
+        }
 
-            var where = new QueryExpression<SampleEntity>().Where(x => x.guid1 == Guid.NewGuid()).ToLambda();
-            where = new QueryExpression<SampleEntity>().Where(x => x.date1 > DateTime.Now).ToLambda();
-            where = new QueryExpression<SampleEntity>().Where(x => x.int1 > 1000).ToLambda();
-            where = new QueryExpression<SampleEntity>().Where(x => x.string1.Contains("1000")).ToLambda();
+        [Fact]
+        public void Expr_QueryExpressionExtensions_Success_Where()
+        {
+            var expression = new QueryExpression<SampleEntity>().Where(x => x.guid1 == Guid.NewGuid()).ToLambda();
+            expression = new QueryExpression<SampleEntity>().Where(x => x.date1 > DateTime.Now).ToLambda();
+            expression = new QueryExpression<SampleEntity>().Where(x => x.int1 > 1000).ToLambda();
+            expression = new QueryExpression<SampleEntity>().Where(x => x.string1.Contains("1000")).ToLambda();
         }
     }
 }

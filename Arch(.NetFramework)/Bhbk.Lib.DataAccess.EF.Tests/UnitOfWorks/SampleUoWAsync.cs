@@ -3,6 +3,7 @@ using Bhbk.Lib.DataAccess.EF.Repositories;
 using Bhbk.Lib.DataAccess.EF.Tests.Models;
 using System;
 using System.Threading.Tasks;
+using FakeConstants = Bhbk.Lib.DataAccess.EF.Tests.Primitives.Constants;
 
 namespace Bhbk.Lib.DataAccess.EF.Tests.UnitOfWorks
 {
@@ -18,7 +19,7 @@ namespace Bhbk.Lib.DataAccess.EF.Tests.UnitOfWorks
         {
             InstanceType = InstanceContext.UnitTest;
 
-            //var connection = Effort.EntityConnectionFactory.CreateTransient("name=SampleContext");
+            //var connection = Effort.EntityConnectionFactory.CreateTransient("name=SampleEntities");
             var connection = Effort.DbConnectionFactory.CreateTransient();
             _context = new SampleEntities(connection);
 
@@ -49,9 +50,9 @@ namespace Bhbk.Lib.DataAccess.EF.Tests.UnitOfWorks
                 {
                     userID = userKey,
                     locationID = locationKey,
-                    int1 = 1001,
+                    int1 = FakeConstants.TestInteger,
                     date1 = DateTime.Now,
-                    decimal1 = 1001,
+                    decimal1 = FakeConstants.TestDecimal,
                 });
 
                 _context.Set<Roles>().Add(new Roles()

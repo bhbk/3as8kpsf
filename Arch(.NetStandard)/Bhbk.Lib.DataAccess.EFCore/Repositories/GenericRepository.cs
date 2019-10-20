@@ -114,7 +114,6 @@ namespace Bhbk.Lib.DataAccess.EFCore.Repositories
                 .ToList();
         }
 
-        [Obsolete]
         public virtual IEnumerable<TEntity> Get(Expression<Func<TEntity, bool>> predicates,
             Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>> includes = null,
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orders = null,

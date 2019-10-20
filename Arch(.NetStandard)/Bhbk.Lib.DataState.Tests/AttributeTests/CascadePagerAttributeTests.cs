@@ -8,7 +8,7 @@ namespace Bhbk.Lib.DataState.Tests.AttributeTests
     public class CascadePagerAttributeTests
     {
         [Fact]
-        public void Attr_CascadePager_Fail_Fields_Sort()
+        public void Attr_CascadePager_Fail_Sort()
         {
             var state = new CascadePager()
             {
@@ -17,12 +17,12 @@ namespace Bhbk.Lib.DataState.Tests.AttributeTests
             };
 
             var results = new List<ValidationResult>();
-            var actual = Validator.TryValidateObject(state, new ValidationContext(state), results, true);
-            Assert.False(actual);
+            var valid = Validator.TryValidateObject(state, new ValidationContext(state), results, true);
+            Assert.False(valid);
         }
 
         [Fact]
-        public void Attr_CascadePager_Fail_Skip()
+        public void Attr_CascadePager_Fail_Sort_Skip()
         {
             var state = new CascadePager()
             {
@@ -30,7 +30,7 @@ namespace Bhbk.Lib.DataState.Tests.AttributeTests
                 {
                     new KeyValuePair<string, string>("field1", "asc")
                 },
-                Skip = -1000,
+                Skip = -1,
                 Take = 1000
             };
 
@@ -40,7 +40,7 @@ namespace Bhbk.Lib.DataState.Tests.AttributeTests
         }
 
         [Fact]
-        public void Attr_CascadePager_Fail_Take()
+        public void Attr_CascadePager_Fail_Sort_Take()
         {
             var state = new CascadePager()
             {
@@ -53,12 +53,12 @@ namespace Bhbk.Lib.DataState.Tests.AttributeTests
             };
 
             var results = new List<ValidationResult>();
-            var actual = Validator.TryValidateObject(state, new ValidationContext(state), results, true);
-            Assert.False(actual);
+            var valid = Validator.TryValidateObject(state, new ValidationContext(state), results, true);
+            Assert.False(valid);
         }
 
         [Fact]
-        public void Attr_CascadePager_Success()
+        public void Attr_CascadePager_Success_Sort()
         {
             var state = new CascadePager()
             {
@@ -71,8 +71,8 @@ namespace Bhbk.Lib.DataState.Tests.AttributeTests
             };
 
             var results = new List<ValidationResult>();
-            var actual = Validator.TryValidateObject(state, new ValidationContext(state), results, true);
-            Assert.True(actual);
+            var valid = Validator.TryValidateObject(state, new ValidationContext(state), results, true);
+            Assert.True(valid);
         }
     }
 }

@@ -4,6 +4,7 @@ using Bhbk.Lib.DataAccess.EFCore.Tests.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Threading.Tasks;
+using FakeConstants = Bhbk.Lib.DataAccess.EFCore.Tests.Primitives.Constants;
 
 namespace Bhbk.Lib.DataAccess.EFCore.Tests.UnitOfWorks
 {
@@ -53,9 +54,9 @@ namespace Bhbk.Lib.DataAccess.EFCore.Tests.UnitOfWorks
                 {
                     userID = userKey,
                     locationID = locationKey,
-                    int1 = 1000,
+                    int1 = FakeConstants.TestInteger,
                     date1 = DateTime.Now,
-                    decimal1 = 1000,
+                    decimal1 = FakeConstants.TestDecimal,
                 });
 
                 _context.Set<Roles>().Add(new Roles()

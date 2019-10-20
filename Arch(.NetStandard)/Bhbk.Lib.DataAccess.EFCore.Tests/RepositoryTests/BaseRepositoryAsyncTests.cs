@@ -5,7 +5,7 @@ using Xunit;
 namespace Bhbk.Lib.DataAccess.EFCore.Tests.RepositoryTests
 {
     [CollectionDefinition("RepositoryAsyncTests")]
-    public class StartupAsyncTestsCollection : ICollectionFixture<BaseRepositoryAsyncTests> { }
+    public class BaseRepositoryAsyncTestsCollection : ICollectionFixture<BaseRepositoryAsyncTests> { }
 
     public class BaseRepositoryAsyncTests
     {

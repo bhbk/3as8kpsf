@@ -13,13 +13,12 @@ namespace Bhbk.Lib.DataAccess.EFCore.Tests.RepositoryTests
     [Collection("RepositoryTests")]
     public class GenericRepositoryTests : BaseRepositoryTests
     {
-        [Fact(Skip = "ThisShouldThrowAnException")]
+        [Fact(Skip = "ShouldThrowException")]
         public void Repo_Generic_Create_Fail_Entities()
         {
             Assert.Throws<DbUpdateException>(() =>
             {
                 UoW.DeleteDatasets();
-                UoW.CreateDatasets(10);
 
                 UoW.Users.Create(
                     new List<Users>() {
@@ -30,13 +29,12 @@ namespace Bhbk.Lib.DataAccess.EFCore.Tests.RepositoryTests
             });
         }
 
-        [Fact(Skip = "ThisShouldThrowAnException")]
+        [Fact(Skip = "ShouldThrowException")]
         public void Repo_Generic_Create_Fail_Entity()
         {
             Assert.Throws<DbUpdateException>(() =>
             {
                 UoW.DeleteDatasets();
-                UoW.CreateDatasets(10);
 
                 UoW.Users.Create(new Users() { userID = Guid.NewGuid(), locationID = Guid.NewGuid() });
                 UoW.Commit();

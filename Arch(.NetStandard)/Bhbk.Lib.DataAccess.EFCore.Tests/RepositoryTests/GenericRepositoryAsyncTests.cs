@@ -20,7 +20,6 @@ namespace Bhbk.Lib.DataAccess.EFCore.Tests.RepositoryTests
             await Assert.ThrowsAsync<DbUpdateException>(async () =>
             {
                 await UoW.DeleteDatasets();
-                await UoW.CreateDatasets(10);
 
                 await UoW.Users.CreateAsync(
                     new List<Users>() {
@@ -37,7 +36,6 @@ namespace Bhbk.Lib.DataAccess.EFCore.Tests.RepositoryTests
             await Assert.ThrowsAsync<DbUpdateException>(async () =>
             {
                 await UoW.DeleteDatasets();
-                await UoW.CreateDatasets(10);
 
                 await UoW.Users.CreateAsync(new Users() { userID = Guid.NewGuid(), locationID = Guid.NewGuid() });
                 await UoW.CommitAsync();

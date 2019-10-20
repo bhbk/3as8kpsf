@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Linq.Expressions;
 
@@ -39,24 +40,48 @@ namespace Bhbk.Lib.DataAccess.EFCore.Extensions
 
             return query;
         }
+
+        //https://github.com/dotnet/efcore/issues/5224
+        public static void ValidateEntities(
+            this DbContext context)
+        {
+            var entities = context.ChangeTracker.Entries();
+
+            foreach (var entry in entities)
+            {
+                var results = new List<ValidationResult>();
+                var validationContext = new ValidationContext(entry.Entity);
+
+                if (!Validator.TryValidateObject(entry.Entity, validationContext, results, true))
+                {
+                    var errors = results.Select(r => r.ErrorMessage).ToList()
+                        .Aggregate((message, nextMessage) => message + ", " + nextMessage);
+
+                    throw new EntityFrameworkExtensionValidationException(
+                        $"The entity {entry.Entity.GetType().FullName} can not be saved due to error(s): {errors}");
+                }
+            }
+        }
     }
 
-    public class EntityFrameworkExtensionException : Exception
+    public class EntityFrameworkExtensionsException : Exception
     {
-        public EntityFrameworkExtensionException(string message)
+        public EntityFrameworkExtensionsException(string message)
             : base(message) { }
 
-        public EntityFrameworkExtensionException(string message, Exception innerException)
+        public EntityFrameworkExtensionsException(string message, Exception innerException)
             : base(message, innerException) { }
     }
 
-    #region The derivative exceptions below don't provide much value outside test scenarios.
-
-    public class EntityFrameworkExtensionCastException : EntityFrameworkExtensionException
+    public class EntityFrameworkExtensionCastException : EntityFrameworkExtensionsException
     {
         public EntityFrameworkExtensionCastException(string message)
             : base(message) { }
     }
 
-    #endregion
+    public class EntityFrameworkExtensionValidationException : EntityFrameworkExtensionsException
+    {
+        public EntityFrameworkExtensionValidationException(string message)
+            : base(message) { }
+    }
 }

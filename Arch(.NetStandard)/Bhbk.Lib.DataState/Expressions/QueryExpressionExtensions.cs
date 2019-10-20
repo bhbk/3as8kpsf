@@ -20,7 +20,7 @@ namespace Bhbk.Lib.DataState.Expressions
             this QueryExpression<TEntity> query, string method, string field)
         {
             var entityType = typeof(TEntity);
-            var classParam = QueryExpressionHelpers.GetObjectParameter<TEntity>("x");
+            var classParam = QueryExpressionHelpers.GetObjectParameter<TEntity>("p");
             var propertyInfo = entityType.GetProperty(
                 field, BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance);
 

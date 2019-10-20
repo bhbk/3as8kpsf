@@ -4,7 +4,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
@@ -29,25 +28,6 @@ namespace Bhbk.Lib.DataAccess.EFCore.Repositories
             _instance = instance;
         }
 
-        public virtual async ValueTask CommitAsync()
-        {
-            var entities = from deltas in _context.ChangeTracker.Entries()
-                           where deltas.State == EntityState.Added || deltas.State == EntityState.Modified
-                           select deltas.Entity;
-
-            foreach (var entity in entities)
-            {
-                var validationContext = new ValidationContext(entity);
-
-                Validator.ValidateObject(
-                    entity,
-                    validationContext,
-                    validateAllProperties: true);
-            }
-
-            await _context.SaveChangesAsync();
-        }
-
         public virtual async ValueTask<int> CountAsync(LambdaExpression lambda = null)
         {
             return await _context.Set<TEntity>().AsQueryable()
@@ -57,10 +37,10 @@ namespace Bhbk.Lib.DataAccess.EFCore.Repositories
 
         public virtual async ValueTask<TEntity> CreateAsync(TEntity entity)
         {
-            var result = (await _context.Set<TEntity>()
-                .AddAsync(entity)).Entity;
+            var result = _context.Set<TEntity>()
+                .Add(entity).Entity;
 
-            return result;
+            return await Task.Run(() => result);
         }
 
         public virtual async ValueTask<IEnumerable<TEntity>> CreateAsync(IEnumerable<TEntity> entities)
@@ -69,13 +49,13 @@ namespace Bhbk.Lib.DataAccess.EFCore.Repositories
 
             foreach (var entity in entities)
             {
-                var result = (await _context.Set<TEntity>()
-                    .AddAsync(entity)).Entity;
+                var result = _context.Set<TEntity>()
+                    .Add(entity).Entity;
 
                 results.Add(result);
             }
 
-            return results;
+            return await Task.Run(() => results);
         }
 
         public virtual async ValueTask<TEntity> DeleteAsync(TEntity entity)
@@ -135,7 +115,6 @@ namespace Bhbk.Lib.DataAccess.EFCore.Repositories
                 .ToListAsync();
         }
 
-        [Obsolete]
         public virtual async ValueTask<IEnumerable<TEntity>> GetAsync(Expression<Func<TEntity, bool>> predicates,
             Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>> includes = null,
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orders = null,
