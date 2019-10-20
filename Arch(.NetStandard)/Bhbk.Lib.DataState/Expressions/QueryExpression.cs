@@ -41,21 +41,20 @@ namespace Bhbk.Lib.DataState.Expressions
     public class QueryExpressionSkipException : QueryExpressionException
     {
         public QueryExpressionSkipException(int skip)
-            : base(string.Format($"The value for skip: \"{skip}\" is invalid.")) { }
+            : base($"The value for skip: \"{skip}\" is invalid.") { }
     }
 
     public class QueryExpressionTakeException : QueryExpressionException
     {
         public QueryExpressionTakeException(int take)
-            : base(string.Format($"The value for take: \"{take}\" is invalid.")) { }
+            : base($"The value for take: \"{take}\" is invalid.") { }
     }
 
     public class QueryExpressionPropertyException : QueryExpressionException
     {
         public QueryExpressionPropertyException(string entity, string field)
-            : base(string.Format($"The entity: \"{entity}\" does not contain field: \"{field}\".")) { }
+            : base($"The entity: \"{entity}\" does not contain field: \"{field}\".") { }
     }
-
 
     #endregion
 }

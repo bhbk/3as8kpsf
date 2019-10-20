@@ -44,7 +44,7 @@ deploy:
     - cd Arch(.NetFramework)
     - nuget restore Bhbk.Lib.Core.sln -NoCache -Verbosity quiet
     - msbuild /t:build Bhbk.Lib.Core.sln /p:Configuration=Release /verbosity:quiet
-    - nuget pack Bhbk.Lib.DataAccess.EF\Bhbk.Lib.DataAccess.EF.csproj -Version %VERSION% -OutputDirectory . -Properties Configuration=Release -IncludeReferencedProjects
+    - nuget pack Bhbk.Lib.DataAccess.EF\Bhbk.Lib.DataAccess.EF.csproj -Version %VERSION% -OutputDirectory . -Properties Configuration=Release
     - cd ..\Arch(.NetStandard)
     - dotnet restore Bhbk.Lib.Core.sln --no-cache --verbosity quiet
     - dotnet build Bhbk.Lib.Core.sln --configuration Release --verbosity quiet

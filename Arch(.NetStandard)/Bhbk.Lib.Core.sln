@@ -35,10 +35,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bhbk.Lib.Waf.Tests", "Bhbk.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bhbk.WebApi.Sample", "Bhbk.WebApi.Sample\Bhbk.WebApi.Sample.csproj", "{5114FA0E-82EC-4FEB-BC00-0CF69DF45A3D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bhbk.Lib.DataAccess.EF", "..\Arch(.NetFramework)\Bhbk.Lib.DataAccess.EF\Bhbk.Lib.DataAccess.EF.csproj", "{6766C58F-8E9D-49DE-909D-2F76F449A178}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bhbk.Lib.DataAccess.EF.Tests", "..\Arch(.NetFramework)\Bhbk.Lib.DataAccess.EF.Tests\Bhbk.Lib.DataAccess.EF.Tests.csproj", "{BE72BB16-0246-4703-B1E9-96AB1D13A5FE}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -89,14 +85,6 @@ Global
 		{5114FA0E-82EC-4FEB-BC00-0CF69DF45A3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5114FA0E-82EC-4FEB-BC00-0CF69DF45A3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5114FA0E-82EC-4FEB-BC00-0CF69DF45A3D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6766C58F-8E9D-49DE-909D-2F76F449A178}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6766C58F-8E9D-49DE-909D-2F76F449A178}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6766C58F-8E9D-49DE-909D-2F76F449A178}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6766C58F-8E9D-49DE-909D-2F76F449A178}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BE72BB16-0246-4703-B1E9-96AB1D13A5FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BE72BB16-0246-4703-B1E9-96AB1D13A5FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BE72BB16-0246-4703-B1E9-96AB1D13A5FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BE72BB16-0246-4703-B1E9-96AB1D13A5FE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

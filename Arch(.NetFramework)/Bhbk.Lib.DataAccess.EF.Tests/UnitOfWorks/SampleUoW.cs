@@ -3,27 +3,27 @@ using Bhbk.Lib.DataAccess.EF.Repositories;
 using Bhbk.Lib.DataAccess.EF.Tests.Models;
 using System;
 
-namespace Bhbk.Lib.DataAccess.EF.Tests.UnitOfWork
+namespace Bhbk.Lib.DataAccess.EF.Tests.UnitOfWorks
 {
     public class SampleUoW : ISampleUoW
     {
         private readonly SampleEntities _context;
         public InstanceContext InstanceType { get; }
-        public IGenericRepository<Users> UserRepo { get; }
-        public IGenericRepository<Roles> RoleRepo { get; }
-        public IGenericRepository<Locations> LocationRepo { get; }
+        public IGenericRepository<Users> Users { get; }
+        public IGenericRepository<Roles> Roles { get; }
+        public IGenericRepository<Locations> Locations { get; }
 
         public SampleUoW()
         {
             InstanceType = InstanceContext.UnitTest;
 
-            //var connection = Effort.EntityConnectionFactory.CreateTransient("name=_DbContext");
+            //var connection = Effort.EntityConnectionFactory.CreateTransient("name=SampleContext");
             var connection = Effort.DbConnectionFactory.CreateTransient();
             _context = new SampleEntities(connection);
 
-            UserRepo = new GenericRepository<Users>(_context);
-            RoleRepo = new GenericRepository<Roles>(_context);
-            LocationRepo = new GenericRepository<Locations>(_context);
+            Users = new GenericRepository<Users>(_context);
+            Roles = new GenericRepository<Roles>(_context);
+            Locations = new GenericRepository<Locations>(_context);
         }
 
         public void Commit()
@@ -31,7 +31,7 @@ namespace Bhbk.Lib.DataAccess.EF.Tests.UnitOfWork
             _context.SaveChanges();
         }
 
-        public void DataCreate(int sets)
+        public void CreateDatasets(int sets)
         {
             for (int i = 0; i < sets; i++)
             {
@@ -57,12 +57,12 @@ namespace Bhbk.Lib.DataAccess.EF.Tests.UnitOfWork
                 {
                     roleID = roleKey,
                 });
-
-                _context.SaveChanges();
             }
+
+            _context.SaveChanges();
         }
 
-        public void DataDestroy()
+        public void DeleteDatasets()
         {
             _context.Set<Users>().RemoveRange(_context.Users);
             _context.Set<Roles>().RemoveRange(_context.Roles);

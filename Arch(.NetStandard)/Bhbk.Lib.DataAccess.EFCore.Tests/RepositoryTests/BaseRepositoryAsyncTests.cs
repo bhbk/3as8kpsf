@@ -1,4 +1,4 @@
-﻿using Bhbk.Lib.DataAccess.EFCore.Tests.UnitOfWork;
+﻿using Bhbk.Lib.DataAccess.EFCore.Tests.UnitOfWorks;
 using Xunit;
 
 [assembly: CollectionBehavior(DisableTestParallelization = true)]

@@ -9,7 +9,7 @@ namespace Bhbk.Lib.DataState.Expressions
     {
         public static ConstantExpression GetConstantExpression<TEntity>(string field, string value)
         {
-            Type entityType = entityType = typeof(TEntity);
+            Type entityType = typeof(TEntity);
 
             PropertyInfo propertyInfo = entityType.GetProperty(
                 field, BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance);

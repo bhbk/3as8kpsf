@@ -3,12 +3,12 @@ using System.Collections.Generic;
 
 namespace Bhbk.Lib.DataState.Tests.Models
 {
-    public class TestModel
+    public class SampleEntity
     {
-        public TestModel()
+        public SampleEntity()
         {
-            child1 = new HashSet<TestModelChild>();
-            child2 = new HashSet<TestModelChild>();
+            child1 = new HashSet<SampleEntityChildren>();
+            child2 = new HashSet<SampleEntityChildren>();
         }
 
         public bool bool1 { get; set; }
@@ -22,13 +22,13 @@ namespace Bhbk.Lib.DataState.Tests.Models
         public decimal decimal1 { get; set; }
         public decimal? decimal2 { get; set; }
         public string string1 { get; set; }
-        public virtual ICollection<TestModelChild> child1 { get; set; }
-        public virtual ICollection<TestModelChild> child2 { get; set; }
+        public virtual ICollection<SampleEntityChildren> child1 { get; set; }
+        public virtual ICollection<SampleEntityChildren> child2 { get; set; }
     }
 
-    public class TestModelChild
+    public class SampleEntityChildren
     {
-        public virtual TestModel parent1 { get; set; }
-        public virtual TestModel parent2 { get; set; }
+        public virtual SampleEntity parent1 { get; set; }
+        public virtual SampleEntity parent2 { get; set; }
     }
 }

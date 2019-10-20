@@ -1,5 +1,6 @@
 ﻿using Bhbk.Lib.Common.Primitives.Enums;
 using Bhbk.Lib.DataAccess.EF.Extensions;
+using Bhbk.Lib.DataAccess.EF.UnitOfWorks;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -35,22 +36,48 @@ namespace Bhbk.Lib.DataAccess.EF.Repositories
 
         public virtual TEntity Create(TEntity entity)
         {
-            return _context.Set<TEntity>()
+            var result = _context.Set<TEntity>()
                 .Add(entity);
+
+            return result;
+        }
+
+        public virtual IEnumerable<TEntity> Create(IEnumerable<TEntity> entities)
+        {
+            var results = new List<TEntity>();
+
+            foreach (var entity in entities)
+            {
+                var result = _context.Set<TEntity>()
+                    .Add(entity);
+
+                results.Add(result);
+            }
+
+            return results;
         }
 
         public virtual TEntity Delete(TEntity entity)
         {
-            return _context.Set<TEntity>()
+            var result = _context.Set<TEntity>()
                 .Remove(entity);
+
+            return result;
         }
 
         public virtual IEnumerable<TEntity> Delete(IEnumerable<TEntity> entities)
         {
-            _context.Set<TEntity>()
-                .RemoveRange(entities);
+            var results = new List<TEntity>();
 
-            return entities.ToList();
+            foreach (var entity in entities)
+            {
+                var result = _context.Set<TEntity>()
+                    .Remove(entity);
+
+                results.Add(result);
+            }
+
+            return results;
         }
 
         public virtual IEnumerable<TEntity> Delete(LambdaExpression lambda)
@@ -59,10 +86,7 @@ namespace Bhbk.Lib.DataAccess.EF.Repositories
                 .Compile(lambda)
                 .ToList();
 
-            _context.Set<TEntity>()
-                .RemoveRange(entities);
-
-            return entities;
+            return Delete(entities);
         }
 
         public virtual bool Exists(LambdaExpression lambda)
@@ -95,6 +119,22 @@ namespace Bhbk.Lib.DataAccess.EF.Repositories
             _context.Entry(entity).State = EntityState.Modified;
 
             return _context.Entry(entity).Entity;
+        }
+
+        public virtual IEnumerable<TEntity> Update(IEnumerable<TEntity> entities)
+        {
+            var results = new List<TEntity>();
+
+            foreach (var entity in entities)
+            {
+                _context.Entry(entity).State = EntityState.Modified;
+
+                var result = _context.Entry(entity).Entity;
+
+                results.Add(result);
+            }
+
+            return results;
         }
     }
 }

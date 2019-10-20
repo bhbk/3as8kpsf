@@ -36,22 +36,48 @@ namespace Bhbk.Lib.DataAccess.EFCore.Repositories
 
         public virtual TEntity Create(TEntity entity)
         {
-            return _context.Set<TEntity>()
+            var result = _context.Set<TEntity>()
                 .Add(entity).Entity;
+
+            return result;
+        }
+
+        public virtual IEnumerable<TEntity> Create(IEnumerable<TEntity> entities)
+        {
+            var results = new List<TEntity>();
+
+            foreach (var entity in entities)
+            {
+                var result = _context.Set<TEntity>()
+                    .Add(entity).Entity;
+
+                results.Add(result);
+            }
+
+            return results;
         }
 
         public virtual TEntity Delete(TEntity entity)
         {
-            return _context.Set<TEntity>()
+            var result = _context.Set<TEntity>()
                 .Remove(entity).Entity;
+
+            return result;
         }
 
         public virtual IEnumerable<TEntity> Delete(IEnumerable<TEntity> entities)
         {
-            _context.Set<TEntity>()
-                .RemoveRange(entities);
+            var results = new List<TEntity>();
 
-            return entities.ToList();
+            foreach (var entity in entities)
+            {
+                var result = _context.Set<TEntity>()
+                    .Remove(entity).Entity;
+
+                results.Add(result);
+            }
+
+            return results;
         }
 
         public virtual IEnumerable<TEntity> Delete(LambdaExpression lambda)
@@ -60,10 +86,7 @@ namespace Bhbk.Lib.DataAccess.EFCore.Repositories
                 .Compile(lambda)
                 .ToList();
 
-            _context.Set<TEntity>()
-                .RemoveRange(entities);
-
-            return entities;
+            return Delete(entities);
         }
 
         public virtual bool Exists(LambdaExpression lambda)
@@ -91,6 +114,7 @@ namespace Bhbk.Lib.DataAccess.EFCore.Repositories
                 .ToList();
         }
 
+        [Obsolete]
         public virtual IEnumerable<TEntity> Get(Expression<Func<TEntity, bool>> predicates,
             Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>> includes = null,
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orders = null,
@@ -117,8 +141,25 @@ namespace Bhbk.Lib.DataAccess.EFCore.Repositories
 
         public virtual TEntity Update(TEntity entity)
         {
-            return _context
+            var result = _context.Set<TEntity>()
                 .Update(entity).Entity;
+
+            return result;
+        }
+
+        public virtual IEnumerable<TEntity> Update(IEnumerable<TEntity> entities)
+        {
+            var results = new List<TEntity>();
+
+            foreach (var entity in entities)
+            {
+                var result = _context.Set<TEntity>()
+                    .Update(entity).Entity;
+
+                results.Add(result);
+            }
+
+            return results;
         }
     }
 }

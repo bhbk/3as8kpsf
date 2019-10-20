@@ -2,7 +2,7 @@
 using System;
 using System.Threading.Tasks;
 
-namespace Bhbk.Lib.DataAccess.EFCore.Interfaces
+namespace Bhbk.Lib.DataAccess.EF.UnitOfWorks
 {
     public interface IGenericUnitOfWorkAsync : IDisposable
     {

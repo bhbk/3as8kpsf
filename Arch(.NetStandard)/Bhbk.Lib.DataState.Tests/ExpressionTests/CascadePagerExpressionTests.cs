@@ -24,7 +24,7 @@ namespace Bhbk.Lib.DataState.Tests.ExpressionTests
                     Take = 1000
                 };
 
-                var expression = state.ToExpression<TestModel>();
+                var expression = state.ToExpression<SampleEntity>();
             });
 
             Assert.Throws<QueryExpressionSortException>(() =>
@@ -39,7 +39,7 @@ namespace Bhbk.Lib.DataState.Tests.ExpressionTests
                     Take = 1000
                 };
 
-                var expression = state.ToExpression<TestModel>();
+                var expression = state.ToExpression<SampleEntity>();
             });
         }
 
@@ -58,7 +58,7 @@ namespace Bhbk.Lib.DataState.Tests.ExpressionTests
                     Take = 1000
                 };
 
-                var expression = state.ToExpression<TestModel>();
+                var expression = state.ToExpression<SampleEntity>();
             });
         }
 
@@ -77,7 +77,7 @@ namespace Bhbk.Lib.DataState.Tests.ExpressionTests
                     Take = 0
                 };
 
-                var expression = state.ToExpression<TestModel>();
+                var expression = state.ToExpression<SampleEntity>();
             });
         }
 
@@ -104,8 +104,8 @@ namespace Bhbk.Lib.DataState.Tests.ExpressionTests
                 Take = 1000
             };
 
-            var expression = state.ToExpression<TestModel>();
-            var predicate = state.ToPredicateExpression<TestModel>();
+            var expression = state.ToExpression<SampleEntity>();
+            var predicate = state.ToPredicateExpression<SampleEntity>();
         }
     }
 }

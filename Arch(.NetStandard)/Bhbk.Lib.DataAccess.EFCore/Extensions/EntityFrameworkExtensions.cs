@@ -12,16 +12,20 @@ namespace Bhbk.Lib.DataAccess.EFCore.Extensions
             this IQueryable<TEntity> query, LambdaExpression lambda)
             where TEntity : class
         {
-            //if (lambda == null)
-            //    return query;
-
-            //return query.Provider.CreateQuery<TEntity>(lambda);
-
             if (lambda == null)
                 return query;
 
-            return (IQueryable<TEntity>)lambda.Compile()
-                .DynamicInvoke(query);
+            var result = lambda.Compile().DynamicInvoke(query);
+
+            try
+            {
+                return (IQueryable<TEntity>)result;
+            }
+            catch (Exception)
+            {
+                throw new EntityFrameworkExtensionCastException(
+                    $"The entity: \"{result.GetType().ToString()}\" can not be cast to: \"{typeof(IQueryable<TEntity>).ToString()}\".");
+            }
         }
 
         public static IQueryable<TEntity> Include<TEntity>(
@@ -29,13 +33,30 @@ namespace Bhbk.Lib.DataAccess.EFCore.Extensions
             IEnumerable<Expression<Func<TEntity, object>>> expressions = null)
             where TEntity : class
         {
-            if (expressions == null)
-                return query;
-
-            foreach (var expression in expressions)
-                query = query.Include(expression);
+            if (expressions != null)
+                foreach (var expression in expressions)
+                    query = query.Include(expression);
 
             return query;
         }
     }
+
+    public class EntityFrameworkExtensionException : Exception
+    {
+        public EntityFrameworkExtensionException(string message)
+            : base(message) { }
+
+        public EntityFrameworkExtensionException(string message, Exception innerException)
+            : base(message, innerException) { }
+    }
+
+    #region The derivative exceptions below don't provide much value outside test scenarios.
+
+    public class EntityFrameworkExtensionCastException : EntityFrameworkExtensionException
+    {
+        public EntityFrameworkExtensionCastException(string message)
+            : base(message) { }
+    }
+
+    #endregion
 }

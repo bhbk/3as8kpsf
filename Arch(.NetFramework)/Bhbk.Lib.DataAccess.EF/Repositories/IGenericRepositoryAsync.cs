@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
@@ -11,6 +10,7 @@ namespace Bhbk.Lib.DataAccess.EF.Repositories
     {
         Task<int> CountAsync(LambdaExpression lambda = null);
         Task<TEntity> CreateAsync(TEntity entity);
+        Task<IEnumerable<TEntity>> CreateAsync(IEnumerable<TEntity> entities);
         Task<TEntity> DeleteAsync(TEntity entity);
         Task<IEnumerable<TEntity>> DeleteAsync(IEnumerable<TEntity> entities);
         Task<IEnumerable<TEntity>> DeleteAsync(LambdaExpression lambda);
@@ -21,5 +21,6 @@ namespace Bhbk.Lib.DataAccess.EF.Repositories
         Task<IEnumerable<TEntity>> GetAsync(
             IEnumerable<Expression<Func<TEntity, object>>> expressions);
         Task<TEntity> UpdateAsync(TEntity entity);
+        Task<IEnumerable<TEntity>> UpdateAsync(IEnumerable<TEntity> entities);
     }
 }

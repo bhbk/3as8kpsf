@@ -15,14 +15,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Models\SampleDatabase.mdf" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="coverlet.msbuild" Version="2.8.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="FluentAssertions" Version="5.10.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.0">
       <PrivateAssets>all</PrivateAssets>
@@ -44,7 +41,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Bhbk.Lib.Cryptography\Bhbk.Lib.Cryptography.csproj" />
     <ProjectReference Include="..\Bhbk.Lib.DataAccess.EFCore\Bhbk.Lib.DataAccess.EFCore.csproj" />
     <ProjectReference Include="..\Bhbk.Lib.DataState\Bhbk.Lib.DataState.csproj" />
   </ItemGroup>

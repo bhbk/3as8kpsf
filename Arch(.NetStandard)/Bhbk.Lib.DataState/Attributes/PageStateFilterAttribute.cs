@@ -12,10 +12,10 @@ namespace Bhbk.Lib.DataState.Attributes
             if (value == null)
                 return ValidationResult.Success;
 
-            if (value.GetType() != typeof(RecursiveFilterModel))
+            if (value.GetType() != typeof(PageStateFilters))
                 return new ValidationResult(this.ErrorMessage);
 
-            var filter = value as RecursiveFilterModel;
+            var filter = value as PageStateFilters;
 
             if (filter.Filters == null || filter.Filters.Count == 0)
                 return new ValidationResult(this.ErrorMessage);

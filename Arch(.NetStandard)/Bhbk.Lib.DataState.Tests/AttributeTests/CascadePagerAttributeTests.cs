@@ -1,9 +1,7 @@
-﻿using Bhbk.Lib.Cryptography.Entropy;
-using Bhbk.Lib.DataState.Models;
+﻿using Bhbk.Lib.DataState.Models;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Xunit;
-using static Bhbk.Lib.DataState.Models.PageState;
 
 namespace Bhbk.Lib.DataState.Tests.AttributeTests
 {
@@ -14,10 +12,6 @@ namespace Bhbk.Lib.DataState.Tests.AttributeTests
         {
             var state = new CascadePager()
             {
-                Sort = new List<KeyValuePair<string, string>>()
-                {
-                    new KeyValuePair<string, string>("field1", AlphaNumeric.CreateString(8))
-                },
                 Skip = 0,
                 Take = 1000
             };

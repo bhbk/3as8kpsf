@@ -8,10 +8,10 @@ namespace Bhbk.Lib.DataState.Models
     public class PageState
     {
         [PageStateFilter]
-        public RecursiveFilterModel Filter { get; set; }
+        public PageStateFilters Filter { get; set; }
 
         [PageStateSort]
-        public List<SortModel> Sort { get; set; }
+        public List<PageStateSort> Sort { get; set; }
 
         /*
          * require integer value of 0 or greater
@@ -27,13 +27,13 @@ namespace Bhbk.Lib.DataState.Models
         [RegularExpression("^[1-9][0-9]*$")]
         public int Take { get; set; }
 
-        public class RecursiveFilterModel : FilterModel
+        public class PageStateFilters : PageStateFilter
         {
             public string Logic { get; set; }
-            public List<RecursiveFilterModel> Filters { get; set; }
+            public List<PageStateFilters> Filters { get; set; }
         }
 
-        public class FilterModel
+        public class PageStateFilter
         {
             public string Field { get; set; }
             public string Operator { get; set; }
@@ -41,7 +41,7 @@ namespace Bhbk.Lib.DataState.Models
             public bool IgnoreCase { get; set; }
         }
 
-        public class SortModel
+        public class PageStateSort
         {
             public string Field { get; set; }
             public string Dir { get; set; }

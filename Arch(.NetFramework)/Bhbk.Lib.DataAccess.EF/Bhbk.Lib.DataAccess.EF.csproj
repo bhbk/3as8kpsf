@@ -57,8 +57,8 @@
     <Compile Include="Repositories\GenericRepositoryAsync.cs" />
     <Compile Include="Repositories\IGenericRepository.cs" />
     <Compile Include="Repositories\IGenericRepositoryAsync.cs" />
-    <Compile Include="Interfaces\IGenericUnitOfWork.cs" />
-    <Compile Include="Interfaces\IGenericUnitOfWorkAsync.cs" />
+    <Compile Include="UnitOfWorks\IGenericUnitOfWork.cs" />
+    <Compile Include="UnitOfWorks\IGenericUnitOfWorkAsync.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

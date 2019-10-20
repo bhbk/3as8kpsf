@@ -21,7 +21,7 @@ namespace Bhbk.Lib.DataState.Expressions
             if (state.Sort == null
                 || state.Sort.Count == 0
                 || state.Sort.Any(x => string.IsNullOrEmpty(x.Field))
-                || state.Sort.Any(x => !x.Dir.Equals("asc") && !x.Dir.Equals("desc")))
+                || !state.Sort.All(x => string.IsNullOrEmpty(x.Dir) || x.Dir.Equals("asc") || x.Dir.Equals("desc")))
                 throw new QueryExpressionSortException($"The value for sort is invalid.");
 
             if (state.Filter != null && state.Filter.Filters != null && state.Filter.Filters.Count() != 0)
@@ -37,7 +37,7 @@ namespace Bhbk.Lib.DataState.Expressions
 
             string method = string.Empty;
 
-            foreach (var orderBy in state.Sort)
+            foreach (var orderBy in state.Sort.Where(x => x.Dir != null))
             {
                 if (method == string.Empty)
                     method = orderBy.Dir == "desc" ? "OrderByDescending" : "OrderBy";
@@ -72,7 +72,7 @@ namespace Bhbk.Lib.DataState.Expressions
         }
 
         private static Expression GetPredicateExpression<TEntity>(
-            RecursiveFilterModel filter, ParameterExpression param)
+            PageStateFilters filter, ParameterExpression param)
         {
             Expression predicate = null;
 

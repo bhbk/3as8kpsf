@@ -2,11 +2,11 @@
 using System;
 using System.Threading.Tasks;
 
-namespace Bhbk.Lib.DataAccess.EF.Interfaces
+namespace Bhbk.Lib.DataAccess.EFCore.UnitOfWorks
 {
-    public interface IGenericUnitOfWorkAsync : IDisposable
+    public interface IGenericUnitOfWorkAsync : IAsyncDisposable
     {
         InstanceContext InstanceType { get; }
-        Task CommitAsync();
+        ValueTask CommitAsync();
     }
 }

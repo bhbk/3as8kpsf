@@ -11,6 +11,7 @@ namespace Bhbk.Lib.DataAccess.EFCore.Repositories
     {
         int Count(LambdaExpression lambda = null);
         TEntity Create(TEntity entity);
+        IEnumerable<TEntity> Create(IEnumerable<TEntity> entities);
         TEntity Delete(TEntity entity);
         IEnumerable<TEntity> Delete(IEnumerable<TEntity> entities);
         IEnumerable<TEntity> Delete(LambdaExpression lambda);
@@ -27,6 +28,7 @@ namespace Bhbk.Lib.DataAccess.EFCore.Repositories
             int? skip = null,
             int? take = null);
         TEntity Update(TEntity entity);
+        IEnumerable<TEntity> Update(IEnumerable<TEntity> entities);
     }
 
     [Obsolete]

@@ -20,8 +20,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Bhbk.Lib.Cryptography\Bhbk.Lib.Cryptography.csproj" />
-    <ProjectReference Include="..\Bhbk.Lib.DataAccess.EFCore\Bhbk.Lib.DataAccess.EFCore.csproj" />
     <ProjectReference Include="..\Bhbk.Lib.DataState\Bhbk.Lib.DataState.csproj" />
     <ProjectReference Include="..\Bhbk.Lib.Hosting\Bhbk.Lib.Hosting.csproj" />
     <ProjectReference Include="..\Bhbk.Lib.Waf\Bhbk.Lib.Waf.csproj" />
