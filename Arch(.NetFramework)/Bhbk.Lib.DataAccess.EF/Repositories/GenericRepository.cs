@@ -1,6 +1,5 @@
 ﻿using Bhbk.Lib.Common.Primitives.Enums;
 using Bhbk.Lib.DataAccess.EF.Extensions;
-using Bhbk.Lib.DataAccess.EF.UnitOfWorks;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -9,7 +8,7 @@ using System.Linq.Expressions;
 
 namespace Bhbk.Lib.DataAccess.EF.Repositories
 {
-    public class GenericRepository<TEntity> : IGenericRepository<TEntity>
+    public class GenericRepository<TEntity> : IGenericRepository<TEntity>, IDisposable
         where TEntity : class
     {
         protected readonly InstanceContext _instance;
@@ -87,6 +86,11 @@ namespace Bhbk.Lib.DataAccess.EF.Repositories
                 .ToList();
 
             return Delete(entities);
+        }
+
+        public void Dispose()
+        {
+            _context.Dispose();
         }
 
         public virtual bool Exists(LambdaExpression lambda)

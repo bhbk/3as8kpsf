@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Bhbk.Lib.DataAccess.EFCore.Repositories
 {
-    public class GenericRepositoryAsync<TEntity> : IGenericRepositoryAsync<TEntity>
+    public class GenericRepositoryAsync<TEntity> : IGenericRepositoryAsync<TEntity>, IAsyncDisposable, IDisposable
         where TEntity : class
     {
         protected readonly InstanceContext _instance;
@@ -30,9 +30,11 @@ namespace Bhbk.Lib.DataAccess.EFCore.Repositories
 
         public virtual async ValueTask<int> CountAsync(LambdaExpression lambda = null)
         {
-            return await _context.Set<TEntity>().AsQueryable()
+            var result = _context.Set<TEntity>().AsQueryable()
                 .Compile(lambda)
-                .CountAsync();
+                .Count();
+
+            return await Task.Run(() => result);
         }
 
         public virtual async ValueTask<TEntity> CreateAsync(TEntity entity)
@@ -90,29 +92,45 @@ namespace Bhbk.Lib.DataAccess.EFCore.Repositories
             return await DeleteAsync(entities);
         }
 
+        public void Dispose()
+        {
+            _context.Dispose();
+        }
+
+        public ValueTask DisposeAsync()
+        {
+            return _context.DisposeAsync();
+        }
+
         public virtual async ValueTask<bool> ExistsAsync(LambdaExpression lambda)
         {
-            return await _context.Set<TEntity>().AsQueryable()
+            var result = _context.Set<TEntity>().AsQueryable()
                 .Compile(lambda)
-                .AnyAsync();
+                .Any();
+
+            return await Task.Run(() => result);
         }
 
         public virtual async ValueTask<IEnumerable<TEntity>> GetAsync(
             IEnumerable<Expression<Func<TEntity, object>>> expressions)
         {
-            return await _context.Set<TEntity>().AsQueryable()
+            var results = _context.Set<TEntity>().AsQueryable()
                 .Include(expressions)
-                .ToListAsync();
+                .ToList();
+
+            return await Task.Run(() => results);
         }
 
         public virtual async ValueTask<IEnumerable<TEntity>> GetAsync(
             LambdaExpression lambda = null,
             IEnumerable<Expression<Func<TEntity, object>>> expressions = null)
         {
-            return await _context.Set<TEntity>().AsQueryable()
+            var results = _context.Set<TEntity>().AsQueryable()
                 .Compile(lambda)
                 .Include(expressions)
-                .ToListAsync();
+                .ToList();
+
+            return await Task.Run(() => results);
         }
 
         public virtual async ValueTask<IEnumerable<TEntity>> GetAsync(Expression<Func<TEntity, bool>> predicates,
@@ -136,7 +154,9 @@ namespace Bhbk.Lib.DataAccess.EFCore.Repositories
                     .Take(take.Value);
             }
 
-            return await query.ToListAsync();
+            var results = query.ToList();
+
+            return await Task.Run(() => results);
         }
 
         public virtual async ValueTask<TEntity> UpdateAsync(TEntity entity)

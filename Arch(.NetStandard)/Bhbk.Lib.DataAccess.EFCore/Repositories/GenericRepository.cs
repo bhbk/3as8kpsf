@@ -9,7 +9,7 @@ using System.Linq.Expressions;
 
 namespace Bhbk.Lib.DataAccess.EFCore.Repositories
 {
-    public class GenericRepository<TEntity> : IGenericRepository<TEntity>
+    public class GenericRepository<TEntity> : IGenericRepository<TEntity>, IDisposable
         where TEntity : class
     {
         protected readonly InstanceContext _instance;
@@ -87,6 +87,11 @@ namespace Bhbk.Lib.DataAccess.EFCore.Repositories
                 .ToList();
 
             return Delete(entities);
+        }
+
+        public void Dispose()
+        {
+            _context.Dispose();
         }
 
         public virtual bool Exists(LambdaExpression lambda)
