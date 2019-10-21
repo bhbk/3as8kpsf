@@ -1,22 +1,20 @@
 ﻿using Bhbk.Lib.DataState.Models;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using static Bhbk.Lib.DataState.Models.KendoPageState;
+using static Bhbk.Lib.DataState.Models.PageStateTypeC;
 
 namespace Bhbk.Lib.DataState.Expressions
 {
-    public static class KendoPageStateExtensions
+    public static class PageStateTypeCStateExtensions
     {
         public static LambdaExpression ToExpression<TEntity>(
-            this KendoPageState state)
+            this PageStateTypeC state)
         {
             var expression = new QueryExpression<TEntity>();
 
-            if (state.Sort == null
-                || state.Sort.Count == 0
-                || state.Sort.Any(x => string.IsNullOrEmpty(x.Field))
-                || !state.Sort.All(x => string.IsNullOrEmpty(x.Dir) || x.Dir.Equals("asc") || x.Dir.Equals("desc")))
+            if (!IsSortValid(state.Sort))
                 throw new QueryExpressionSortException($"The value for sort is invalid.");
 
             if (state.Skip < 0)
@@ -25,9 +23,7 @@ namespace Bhbk.Lib.DataState.Expressions
             if (state.Take < 1)
                 throw new QueryExpressionTakeException(state.Take);
 
-            if (state.Filter != null 
-                && state.Filter.Filters != null 
-                && state.Filter.Filters.Count() != 0)
+            if (IsFilterValid(state.Filter))
             {
                 var parameter = QueryExpressionHelpers.GetObjectParameter<TEntity>("q");
 
@@ -60,13 +56,11 @@ namespace Bhbk.Lib.DataState.Expressions
         }
 
         public static LambdaExpression ToPredicateExpression<TEntity>(
-            this KendoPageState state)
+            this PageStateTypeC state)
         {
             var expression = new QueryExpression<TEntity>();
 
-            if (state.Filter != null 
-                && state.Filter.Filters != null 
-                && state.Filter.Filters.Count() != 0)
+            if (IsFilterValid(state.Filter))
             {
                 var parameter = QueryExpressionHelpers.GetObjectParameter<TEntity>("q");
 
@@ -81,7 +75,7 @@ namespace Bhbk.Lib.DataState.Expressions
         }
 
         private static Expression GetPredicateExpression<TEntity>(
-            KendoPageStateFilters filter, 
+            PageStateTypeCFilters filter, 
             ParameterExpression parameter)
         {
             Expression predicate = null;
@@ -114,6 +108,29 @@ namespace Bhbk.Lib.DataState.Expressions
             }
 
             return predicate;
+        }
+
+        internal static bool IsFilterValid(PageStateTypeCFilters filter)
+        {
+            if (filter != null
+                && filter.Filters != null
+                && filter.Filters.Count() != 0)
+                return true;
+
+            return false;
+        }
+
+        internal static bool IsSortValid(List<PageStateTypeCSort> sort)
+        {
+            if (sort == null
+                || sort.Count == 0
+                || sort.Any(x => string.IsNullOrEmpty(x.Field))
+                || !sort.All(x => string.IsNullOrEmpty(x.Dir) 
+                    || x.Dir.Equals("asc") 
+                    || x.Dir.Equals("desc")))
+                return false;
+
+            return true;
         }
     }
 }

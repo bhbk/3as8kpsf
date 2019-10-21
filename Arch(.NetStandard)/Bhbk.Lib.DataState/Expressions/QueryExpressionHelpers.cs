@@ -54,7 +54,8 @@ namespace Bhbk.Lib.DataState.Expressions
             };
         }
 
-        public static MemberExpression GetMemberExpression<TEntity>(ParameterExpression param, string field)
+        public static MemberExpression GetMemberExpression<TEntity>(
+            ParameterExpression param, string field)
         {
             var property = typeof(TEntity).GetProperties()
                 .Single(p => p.Name.ToLower() == field?.ToLower());

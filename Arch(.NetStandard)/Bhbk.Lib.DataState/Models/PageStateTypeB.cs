@@ -7,30 +7,23 @@ using System.ComponentModel.DataAnnotations;
 namespace Bhbk.Lib.DataState.Models
 {
     [Obsolete]
-    public class CascadePager
+    public class PageStateTypeB
     {
-        [CascadePagerFilter]
         public string Filter { get; set; }
 
-        [CascadePagerSort]
+        [PageStateTypeBSort]
         public List<KeyValuePair<string, string>> Sort { get; set; }
 
-        /*
-         * require integer value of 0 or greater
-         */
         [Required]
-        [RegularExpression("^[0-9]*$")]
+        [Range(0, long.MaxValue)]
         public int Skip { get; set; }
 
-        /*
-         * require integer value of 1 or greater
-         */
         [Required]
-        [RegularExpression("^[1-9][0-9]*$")]
+        [Range(1, short.MaxValue)]
         public int Take { get; set; }
     }
 
-    public class CascadePageResult<TEntity>
+    public class PageStateTypeBResult<TEntity>
     {
         public IEnumerable<TEntity> List { get; set; }
         public int Count { get; set; }

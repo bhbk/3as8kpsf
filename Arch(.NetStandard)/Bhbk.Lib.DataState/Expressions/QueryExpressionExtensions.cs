@@ -12,6 +12,72 @@ namespace Bhbk.Lib.DataState.Expressions
 {
     public static partial class QueryExpressionExtensions
     {
+        public static QueryExpression<TEntity> First<TEntity>(
+            this QueryExpression<TEntity> query)
+        {
+            throw new NotImplementedException();
+
+            var method = typeof(Queryable).GetMethods()
+                .Where(x => x.Name == "First")
+                .Single(x => x.GetParameters().Length == 1).MakeGenericMethod(typeof(TEntity));
+
+            query.Body = Expression.Call(
+                method,
+                query.Body ?? query.Param);
+
+            return query;
+        }
+
+        public static QueryExpression<TEntity> First<TEntity>(
+            this QueryExpression<TEntity> query, Expression<Func<TEntity, bool>> expression)
+        {
+            throw new NotImplementedException();
+
+            var method = typeof(Queryable).GetMethods()
+                .Where(x => x.Name == "First")
+                .Single(x => x.GetParameters().Length == 2).MakeGenericMethod(typeof(TEntity));
+
+            query.Body = Expression.Call(
+                method,
+                query.Body ?? query.Param,
+                expression);
+
+            return query;
+        }
+
+        public static QueryExpression<TEntity> Last<TEntity>(
+            this QueryExpression<TEntity> query)
+        {
+            throw new NotImplementedException();
+
+            var method = typeof(Queryable).GetMethods()
+                .Where(x => x.Name == "Last")
+                .Single(x => x.GetParameters().Length == 1).MakeGenericMethod(typeof(TEntity));
+
+            query.Body = Expression.Call(
+                method,
+                query.Body ?? query.Param);
+
+            return query;
+        }
+
+        public static QueryExpression<TEntity> Last<TEntity>(
+            this QueryExpression<TEntity> query, Expression<Func<TEntity, bool>> expression)
+        {
+            throw new NotImplementedException();
+
+            var method = typeof(Queryable).GetMethods()
+                .Where(x => x.Name == "Last")
+                .Single(x => x.GetParameters().Length == 2).MakeGenericMethod(typeof(TEntity));
+
+            query.Body = Expression.Call(
+                method,
+                query.Body ?? query.Param,
+                expression);
+
+            return query;
+        }
+
         public static QueryExpression<TEntity> OrderBy<TEntity>(
             this QueryExpression<TEntity> query, string field) =>
                 query.OrderBy("OrderBy", field);

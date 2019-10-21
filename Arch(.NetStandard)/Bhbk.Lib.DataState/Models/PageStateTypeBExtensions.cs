@@ -1,13 +1,14 @@
 ﻿using Bhbk.Lib.DataState.Models;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 
 namespace Bhbk.Lib.DataState.Expressions
 {
-    public static class CascadePagerExtensions
+    public static class PageStateTypeBExtensions
     {
         public static LambdaExpression ToPredicateExpression<TEntity>(
-            this CascadePager state)
+            this PageStateTypeB state)
         {
             var expression = new QueryExpression<TEntity>();
 
@@ -15,14 +16,11 @@ namespace Bhbk.Lib.DataState.Expressions
         }
 
         public static LambdaExpression ToExpression<TEntity>(
-            this CascadePager state)
+            this PageStateTypeB state)
         {
             var expression = new QueryExpression<TEntity>();
 
-            if (state.Sort == null 
-                || state.Sort.Count == 0
-                || state.Sort.Any(x => string.IsNullOrEmpty(x.Key))
-                || state.Sort.Any(x => !x.Value.Equals("asc") && !x.Value.Equals("desc")))
+            if (!IsSortValid(state.Sort))
                 throw new QueryExpressionSortException($"The value for sort is invalid.");
 
             if (state.Skip < 0)
@@ -47,6 +45,17 @@ namespace Bhbk.Lib.DataState.Expressions
             expression = expression.Take(state.Take);
 
             return expression.ToLambda();
+        }
+
+        internal static bool IsSortValid(List<KeyValuePair<string, string>> sort)
+        {
+            if (sort == null
+                || sort.Count == 0
+                || sort.Any(x => string.IsNullOrEmpty(x.Key))
+                || sort.Any(x => !x.Value.Equals("asc") && !x.Value.Equals("desc")))
+                return false;
+
+            return true;
         }
     }
 }

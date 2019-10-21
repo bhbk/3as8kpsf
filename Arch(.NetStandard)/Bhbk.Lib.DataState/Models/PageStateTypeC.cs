@@ -5,35 +5,29 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Bhbk.Lib.DataState.Models
 {
-    public class KendoPageState
+    public class PageStateTypeC
     {
-        [KendoPageStateFilter]
-        public KendoPageStateFilters Filter { get; set; }
+        [PageStateTypeCFilter]
+        public PageStateTypeCFilters Filter { get; set; }
 
-        [KendoPageStateSort]
-        public List<KendoPageStateSort> Sort { get; set; }
+        [PageStateTypeCSort]
+        public List<PageStateTypeCSort> Sort { get; set; }
 
-        /*
-         * require integer value of 0 or greater
-         */
         [Required]
-        [RegularExpression("^[0-9]*$")]
+        [Range(0, long.MaxValue)]
         public int Skip { get; set; }
 
-        /*
-         * require integer value of 1 or greater
-         */
         [Required]
-        [RegularExpression("^[1-9][0-9]*$")]
+        [Range(1, short.MaxValue)]
         public int Take { get; set; }
 
-        public class KendoPageStateFilters : KendoPageStateFilter
+        public class PageStateTypeCFilters : PageStateTypeCFilter
         {
             public string Logic { get; set; }
-            public List<KendoPageStateFilters> Filters { get; set; }
+            public List<PageStateTypeCFilters> Filters { get; set; }
         }
 
-        public class KendoPageStateFilter
+        public class PageStateTypeCFilter
         {
             public string Field { get; set; }
             public string Operator { get; set; }
@@ -41,14 +35,14 @@ namespace Bhbk.Lib.DataState.Models
             public bool IgnoreCase { get; set; }
         }
 
-        public class KendoPageStateSort
+        public class PageStateTypeCSort
         {
             public string Field { get; set; }
             public string Dir { get; set; }
         }
     }
 
-    public class PageStateResult<TEntity>
+    public class PageStateTypeCResult<TEntity>
     {
         public IEnumerable<TEntity> Data { get; set; }
         public int Total { get; set; }

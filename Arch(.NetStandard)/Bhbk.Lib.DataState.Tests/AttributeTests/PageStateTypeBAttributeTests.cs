@@ -5,12 +5,12 @@ using Xunit;
 
 namespace Bhbk.Lib.DataState.Tests.AttributeTests
 {
-    public class CascadePagerAttributeTests
+    public class PageStateTypeBAttributeTests
     {
         [Fact]
-        public void Attr_CascadePager_Fail_Sort()
+        public void Attr_PageStateTypeB_Fail_Sort()
         {
-            var state = new CascadePager()
+            var state = new PageStateTypeB()
             {
                 Skip = 0,
                 Take = 1000
@@ -22,9 +22,9 @@ namespace Bhbk.Lib.DataState.Tests.AttributeTests
         }
 
         [Fact]
-        public void Attr_CascadePager_Fail_Sort_Skip()
+        public void Attr_PageStateTypeB_Fail_Sort_Skip()
         {
-            var state = new CascadePager()
+            var state = new PageStateTypeB()
             {
                 Sort = new List<KeyValuePair<string, string>>()
                 {
@@ -40,9 +40,9 @@ namespace Bhbk.Lib.DataState.Tests.AttributeTests
         }
 
         [Fact]
-        public void Attr_CascadePager_Fail_Sort_Take()
+        public void Attr_PageStateTypeB_Fail_Sort_Take()
         {
-            var state = new CascadePager()
+            var state = new PageStateTypeB()
             {
                 Sort = new List<KeyValuePair<string, string>>()
                 {
@@ -58,9 +58,9 @@ namespace Bhbk.Lib.DataState.Tests.AttributeTests
         }
 
         [Fact]
-        public void Attr_CascadePager_Success_Sort()
+        public void Attr_PageStateTypeB_Success_Sort()
         {
-            var state = new CascadePager()
+            var state = new PageStateTypeB()
             {
                 Sort = new List<KeyValuePair<string, string>>()
                 {

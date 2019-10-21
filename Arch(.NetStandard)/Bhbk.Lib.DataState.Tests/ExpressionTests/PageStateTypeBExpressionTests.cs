@@ -7,14 +7,14 @@ using Xunit;
 
 namespace Bhbk.Lib.DataState.Tests.ExpressionTests
 {
-    public class CascadePagerExpressionTests
+    public class PageStateTypeBExpressionTests
     {
         [Fact]
-        public void Expr_CascadePager_Fail_Sort()
+        public void Expr_PageStateTypeB_Fail_Sort()
         {
             Assert.Throws<QueryExpressionPropertyException>(() =>
             {
-                var state = new CascadePager()
+                var state = new PageStateTypeB()
                 {
                     Sort = new List<KeyValuePair<string, string>>()
                     {
@@ -29,7 +29,7 @@ namespace Bhbk.Lib.DataState.Tests.ExpressionTests
 
             Assert.Throws<QueryExpressionSortException>(() =>
             {
-                var state = new CascadePager()
+                var state = new PageStateTypeB()
                 {
                     Sort = new List<KeyValuePair<string, string>>()
                     {
@@ -44,11 +44,11 @@ namespace Bhbk.Lib.DataState.Tests.ExpressionTests
         }
 
         [Fact]
-        public void Expr_CascadePager_Fail_Sort_Skip()
+        public void Expr_PageStateTypeB_Fail_Sort_Skip()
         {
             Assert.Throws<QueryExpressionSkipException>(() =>
             {
-                var state = new CascadePager()
+                var state = new PageStateTypeB()
                 {
                     Sort = new List<KeyValuePair<string, string>>()
                     {
@@ -63,11 +63,11 @@ namespace Bhbk.Lib.DataState.Tests.ExpressionTests
         }
 
         [Fact]
-        public void Expr_CascadePager_Fail_Sort_Take()
+        public void Expr_PageStateTypeB_Fail_Sort_Take()
         {
             Assert.Throws<QueryExpressionTakeException>(() =>
             {
-                var state = new CascadePager()
+                var state = new PageStateTypeB()
                 {
                     Sort = new List<KeyValuePair<string, string>>()
                     {
@@ -82,9 +82,9 @@ namespace Bhbk.Lib.DataState.Tests.ExpressionTests
         }
 
         [Fact]
-        public void Expr_CascadePager_Success_Sort()
+        public void Expr_PageStateTypeB_Success_Sort()
         {
-            var state = new CascadePager()
+            var state = new PageStateTypeB()
             {
                 Sort = new List<KeyValuePair<string, string>>()
                 {
