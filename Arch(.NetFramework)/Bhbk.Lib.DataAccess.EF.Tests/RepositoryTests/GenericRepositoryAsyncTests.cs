@@ -1,46 +1,47 @@
 ﻿using Bhbk.Lib.DataAccess.EF.Tests.Models;
 using Bhbk.Lib.DataState.Expressions;
 using FluentAssertions;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Threading.Tasks;
+using Xunit;
 using FakeConstants = Bhbk.Lib.DataAccess.EF.Tests.Primitives.Constants;
 
 namespace Bhbk.Lib.DataAccess.EF.Tests.RepositoryTests
 {
-    [TestClass]
     public class GenericRepositoryAsyncTests : BaseRepositoryAsyncTests
     {
-        [TestMethod]
-        [ExpectedException(typeof(DbUpdateException))]
+        [Fact]
         public async Task Repo_GenericAsync_Create_Fail_Entities()
         {
-            await UoW.DeleteDatasets();
-            await UoW.CreateDatasets(10);
+            await Assert.ThrowsAsync<DbUpdateException>(async () =>
+            {
+                await UoW.DeleteDatasets();
 
-            await UoW.Users.CreateAsync(
-                new List<Users>() {
-                    new Users() { userID = Guid.NewGuid(), locationID = Guid.NewGuid() },
-                    new Users() { userID = Guid.NewGuid(), locationID = Guid.NewGuid() },
-                });
-            await UoW.CommitAsync();
+                await UoW.Users.CreateAsync(
+                    new List<Users>() {
+                        new Users() { userID = Guid.NewGuid(), locationID = Guid.NewGuid() },
+                        new Users() { userID = Guid.NewGuid(), locationID = Guid.NewGuid() },
+                    });
+                await UoW.CommitAsync();
+            });
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(DbUpdateException))]
+        [Fact]
         public async Task Repo_GenericAsync_Create_Fail_Entity()
         {
-            await UoW.DeleteDatasets();
-            await UoW.CreateDatasets(10);
+            await Assert.ThrowsAsync<DbUpdateException>(async () =>
+            {
+                await UoW.DeleteDatasets();
 
-            await UoW.Users.CreateAsync(new Users() { userID = Guid.NewGuid(), locationID = Guid.NewGuid() });
-            await UoW.CommitAsync();
+                await UoW.Users.CreateAsync(new Users() { userID = Guid.NewGuid(), locationID = Guid.NewGuid() });
+                await UoW.CommitAsync();
+            });
         }
 
-        [TestMethod]
+        [Fact]
         public async Task Repo_GenericAsync_Create_Success_Entities()
         {
             await UoW.DeleteDatasets();
@@ -63,7 +64,7 @@ namespace Bhbk.Lib.DataAccess.EF.Tests.RepositoryTests
             await UoW.CommitAsync();
         }
 
-        [TestMethod]
+        [Fact]
         public async Task Repo_GenericAsync_Create_Success_Entity()
         {
             await UoW.DeleteDatasets();
@@ -83,46 +84,63 @@ namespace Bhbk.Lib.DataAccess.EF.Tests.RepositoryTests
             await UoW.CommitAsync();
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(InvalidOperationException))]
+        [Fact]
         public async Task Repo_GenericAsync_Delete_Fail_Entities()
         {
-            await UoW.DeleteDatasets();
-            await UoW.CreateDatasets(10);
+            await Assert.ThrowsAsync<InvalidOperationException>(async () =>
+            {
+                await UoW.DeleteDatasets();
+                await UoW.CreateDatasets(10);
 
-            await UoW.Users.DeleteAsync(
-                new List<Users>() {
-                    new Users() { userID = Guid.NewGuid() },
-                    new Users() { userID = Guid.NewGuid() },
-                });
-            await UoW.CommitAsync();
+                await UoW.Users.DeleteAsync(
+                    new List<Users>() {
+                        new Users() { userID = Guid.NewGuid() },
+                        new Users() { userID = Guid.NewGuid() },
+                    });
+                await UoW.CommitAsync();
+            });
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(InvalidOperationException))]
+        [Fact]
         public async Task Repo_GenericAsync_Delete_Fail_Entity()
         {
-            await UoW.DeleteDatasets();
-            await UoW.CreateDatasets(10);
+            await Assert.ThrowsAsync<InvalidOperationException>(async () =>
+            {
+                await UoW.DeleteDatasets();
+                await UoW.CreateDatasets(10);
 
-            await UoW.Users.DeleteAsync(new Users() { userID = Guid.NewGuid() });
-            await UoW.CommitAsync();
+                await UoW.Users.DeleteAsync(new Users() { userID = Guid.NewGuid() });
+                await UoW.CommitAsync();
+            });
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
+        [Fact]
         public async Task Repo_GenericAsync_Delete_Fail_Lambda()
         {
-            await UoW.DeleteDatasets();
-            await UoW.CreateDatasets(10);
+            await Assert.ThrowsAsync<ArgumentException>(async () =>
+            {
+                await UoW.DeleteDatasets();
+                await UoW.CreateDatasets(10);
 
-            var wrongExpr = new QueryExpression<Roles>().Where(x => x.roleID != Guid.NewGuid()).ToLambda();
+                var wrongExpr = new QueryExpression<Roles>().Where(x => x.roleID != Guid.NewGuid()).ToLambda();
 
-            await UoW.Users.DeleteAsync(wrongExpr);
-            await UoW.CommitAsync();
+                await UoW.Users.DeleteAsync(wrongExpr);
+                await UoW.CommitAsync();
+            });
+
+            await Assert.ThrowsAsync<ArgumentException>(async () =>
+            {
+                await UoW.DeleteDatasets();
+                await UoW.CreateDatasets(10);
+
+                var wrongExpr = new QueryExpression<Roles>().Where(x => x.Users.Any(y => y.userID != Guid.NewGuid())).ToLambda();
+
+                await UoW.Users.DeleteAsync(wrongExpr);
+                await UoW.CommitAsync();
+            });
         }
 
-        [TestMethod]
+        [Fact]
         public async Task Repo_GenericAsync_Delete_Success_Entities()
         {
             await UoW.DeleteDatasets();
@@ -134,7 +152,7 @@ namespace Bhbk.Lib.DataAccess.EF.Tests.RepositoryTests
             await UoW.CommitAsync();
         }
 
-        [TestMethod]
+        [Fact]
         public async Task Repo_GenericAsync_Delete_Success_Entity()
         {
             await UoW.DeleteDatasets();
@@ -146,9 +164,10 @@ namespace Bhbk.Lib.DataAccess.EF.Tests.RepositoryTests
             await UoW.CommitAsync();
         }
 
-        [TestMethod]
+        [Fact]
         public async Task Repo_GenericAsync_Delete_Success_Lambda()
         {
+            //try entity...
             await UoW.DeleteDatasets();
             await UoW.CreateDatasets(10);
 
@@ -156,21 +175,32 @@ namespace Bhbk.Lib.DataAccess.EF.Tests.RepositoryTests
 
             await UoW.Users.DeleteAsync(userExpr);
             await UoW.CommitAsync();
-        }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
-        public async Task Repo_GenericAsync_Get_Fail_Lambda()
-        {
+            //try entity navigation...
             await UoW.DeleteDatasets();
             await UoW.CreateDatasets(10);
 
-            var wrongExpr = new QueryExpression<Roles>().Where(x => x.roleID != Guid.NewGuid()).ToLambda();
+            userExpr = new QueryExpression<Users>().Where(x => x.Roles.Any(y => y.roleID != Guid.NewGuid())).ToLambda();
 
-            var users = await UoW.Users.GetAsync(wrongExpr);
+            await UoW.Users.DeleteAsync(userExpr);
+            await UoW.CommitAsync();
         }
 
-        [TestMethod]
+        [Fact]
+        public async Task Repo_GenericAsync_Get_Fail_Lambda()
+        {
+            await Assert.ThrowsAsync<ArgumentException>(async () =>
+            {
+                await UoW.DeleteDatasets();
+                await UoW.CreateDatasets(10);
+
+                var wrongExpr = new QueryExpression<Roles>().Where(x => x.roleID != Guid.NewGuid()).ToLambda();
+
+                var users = await UoW.Users.GetAsync(wrongExpr);
+            });
+        }
+
+        [Fact]
         public async Task Repo_GenericAsync_Get_Success_Lambda()
         {
             await UoW.DeleteDatasets();
@@ -181,7 +211,7 @@ namespace Bhbk.Lib.DataAccess.EF.Tests.RepositoryTests
             var users = await UoW.Users.GetAsync(userExpr);
         }
 
-        [TestMethod]
+        [Fact]
         public async Task Repo_GenericAsync_Get_Success_NoParam()
         {
             await UoW.DeleteDatasets();
@@ -191,33 +221,37 @@ namespace Bhbk.Lib.DataAccess.EF.Tests.RepositoryTests
             users.Count().Should().Be(10);
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(DbUpdateConcurrencyException))]
+        [Fact]
         public async Task Repo_GenericAsync_Update_Fail_Entities()
         {
-            await UoW.DeleteDatasets();
-            await UoW.CreateDatasets(10);
+            await Assert.ThrowsAsync<DbUpdateConcurrencyException>(async () =>
+            {
+                await UoW.DeleteDatasets();
+                await UoW.CreateDatasets(10);
 
-            await UoW.Users.UpdateAsync(
-                new List<Users>() {
+                await UoW.Users.UpdateAsync(
+                    new List<Users>() {
                     new Users() { userID = Guid.NewGuid() },
                     new Users() { userID = Guid.NewGuid() },
-                });
-            await UoW.CommitAsync();
+                    });
+                await UoW.CommitAsync();
+            });
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(DbUpdateConcurrencyException))]
+        [Fact]
         public async Task Repo_GenericAsync_Update_Fail_Entity()
         {
-            await UoW.DeleteDatasets();
-            await UoW.CreateDatasets(10);
+            await Assert.ThrowsAsync<DbUpdateConcurrencyException>(async () =>
+            {
+                await UoW.DeleteDatasets();
+                await UoW.CreateDatasets(10);
 
-            await UoW.Users.UpdateAsync(new Users() { userID = Guid.NewGuid() });
-            await UoW.CommitAsync();
+                await UoW.Users.UpdateAsync(new Users() { userID = Guid.NewGuid() });
+                await UoW.CommitAsync();
+            });
         }
 
-        [TestMethod]
+        [Fact]
         public async Task Repo_GenericAsync_Update_Success_Entities()
         {
             await UoW.DeleteDatasets();
@@ -241,7 +275,7 @@ namespace Bhbk.Lib.DataAccess.EF.Tests.RepositoryTests
             await UoW.CommitAsync();
         }
 
-        [TestMethod]
+        [Fact]
         public async Task Repo_GenericAsync_Update_Success_Entity()
         {
             await UoW.DeleteDatasets();

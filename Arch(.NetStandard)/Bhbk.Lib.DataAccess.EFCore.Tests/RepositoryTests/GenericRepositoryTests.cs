@@ -127,6 +127,17 @@ namespace Bhbk.Lib.DataAccess.EFCore.Tests.RepositoryTests
                 UoW.Users.Delete(wrongExpr);
                 UoW.Commit();
             });
+
+            Assert.Throws<ArgumentException>(() =>
+            {
+                UoW.DeleteDatasets();
+                UoW.CreateDatasets(10);
+
+                var wrongExpr = new QueryExpression<Roles>().Where(x => x.Members.Any(y => y.userID != Guid.NewGuid())).ToLambda();
+
+                UoW.Users.Delete(wrongExpr);
+                UoW.Commit();
+            });
         }
 
         [Fact]
@@ -156,10 +167,20 @@ namespace Bhbk.Lib.DataAccess.EFCore.Tests.RepositoryTests
         [Fact]
         public void Repo_Generic_Delete_Success_Lambda()
         {
+            //try entity...
             UoW.DeleteDatasets();
             UoW.CreateDatasets(10);
 
             var userExpr = new QueryExpression<Users>().Where(x => x.userID != Guid.NewGuid()).ToLambda();
+
+            UoW.Users.Delete(userExpr);
+            UoW.Commit();
+
+            //try entity navigation...
+            UoW.DeleteDatasets();
+            UoW.CreateDatasets(10);
+
+            userExpr = new QueryExpression<Users>().Where(x => x.Members.Any(y => y.roleID != Guid.NewGuid())).ToLambda();
 
             UoW.Users.Delete(userExpr);
             UoW.Commit();

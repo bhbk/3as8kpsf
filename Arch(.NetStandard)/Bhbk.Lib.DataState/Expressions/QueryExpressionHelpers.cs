@@ -57,10 +57,19 @@ namespace Bhbk.Lib.DataState.Expressions
         public static MemberExpression GetMemberExpression<TEntity>(
             ParameterExpression param, string field)
         {
-            var property = typeof(TEntity).GetProperties()
-                .Single(p => p.Name.ToLower() == field?.ToLower());
+            Expression navigation = param;
 
-            return Expression.MakeMemberAccess(param, property);
+            try
+            {
+                field.Split('.').ToList()
+                    .ForEach(segment => navigation = Expression.PropertyOrField(navigation, segment));
+            }
+            catch (ArgumentException)
+            {
+                throw new QueryExpressionPropertyException(param.Name, field);
+            }
+
+            return (MemberExpression)navigation;
         }
 
         public static Expression GetMethodExpression<TEntity>(
@@ -132,6 +141,24 @@ namespace Bhbk.Lib.DataState.Expressions
         public static ParameterExpression GetObjectParameter<TEntity>(string param)
         {
             return Expression.Parameter(typeof(TEntity), param);
+        }
+
+        public static PropertyInfo GetPropertyInfo<TEntity>(string field)
+        {
+            var entityType = typeof(TEntity);
+            PropertyInfo propertyInfo = null;
+
+            field.Split('.').ToList().ForEach(segment =>
+            {
+                propertyInfo = propertyInfo == null ?
+                    entityType.GetProperty(segment, BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance) : 
+                    propertyInfo.PropertyType.GetProperty(segment, BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance);
+            });
+
+            if (propertyInfo == null)
+                throw new QueryExpressionPropertyException(entityType.Name, field);
+
+            return propertyInfo;
         }
 
         public static ParameterExpression GetQueryParameter<TEntity>(string param = null)

@@ -128,6 +128,17 @@ namespace Bhbk.Lib.DataAccess.EFCore.Tests.RepositoryTests
                 await UoW.Users.DeleteAsync(wrongExpr);
                 await UoW.CommitAsync();
             });
+
+            await Assert.ThrowsAsync<ArgumentException>(async () =>
+            {
+                await UoW.DeleteDatasets();
+                await UoW.CreateDatasets(10);
+
+                var wrongExpr = new QueryExpression<Roles>().Where(x => x.Members.Any(y => y.userID != Guid.NewGuid())).ToLambda();
+
+                await UoW.Users.DeleteAsync(wrongExpr);
+                await UoW.CommitAsync();
+            });
         }
 
         [Fact]
@@ -157,10 +168,20 @@ namespace Bhbk.Lib.DataAccess.EFCore.Tests.RepositoryTests
         [Fact]
         public async ValueTask Repo_GenericAsync_Delete_Success_Lambda()
         {
+            //try entity...
             await UoW.DeleteDatasets();
             await UoW.CreateDatasets(10);
 
             var userExpr = new QueryExpression<Users>().Where(x => x.userID != Guid.NewGuid()).ToLambda();
+
+            await UoW.Users.DeleteAsync(userExpr);
+            await UoW.CommitAsync();
+
+            //try entity navigation...
+            await UoW.DeleteDatasets();
+            await UoW.CreateDatasets(10);
+
+            userExpr = new QueryExpression<Users>().Where(x => x.Members.Any(y => y.roleID != Guid.NewGuid())).ToLambda();
 
             await UoW.Users.DeleteAsync(userExpr);
             await UoW.CommitAsync();

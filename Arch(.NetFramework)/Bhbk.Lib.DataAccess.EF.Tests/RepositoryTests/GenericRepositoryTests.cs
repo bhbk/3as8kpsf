@@ -1,45 +1,48 @@
 ﻿using Bhbk.Lib.DataAccess.EF.Tests.Models;
 using Bhbk.Lib.DataState.Expressions;
 using FluentAssertions;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
+using Xunit;
 using FakeConstants = Bhbk.Lib.DataAccess.EF.Tests.Primitives.Constants;
 
 namespace Bhbk.Lib.DataAccess.EF.Tests.RepositoryTests
 {
-    [TestClass]
     public class GenericRepositoryTests : BaseRepositoryTests
     {
-        [TestMethod]
-        [ExpectedException(typeof(DbUpdateException))]
+        [Fact]
         public void Repo_Generic_Create_Fail_Entities()
         {
-            UoW.DeleteDatasets();
-            UoW.CreateDatasets(10);
+            Assert.Throws<DbUpdateException>(() =>
+            {
+                UoW.DeleteDatasets();
+                UoW.CreateDatasets(10);
 
-            UoW.Users.Create(
-                new List<Users>() {
+                UoW.Users.Create(
+                    new List<Users>() {
                     new Users() { userID = Guid.NewGuid(), locationID = Guid.NewGuid() },
                     new Users() { userID = Guid.NewGuid(), locationID = Guid.NewGuid() },
-                });
-            UoW.Commit();
+                    });
+                UoW.Commit();
+            });
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(DbUpdateException))]
+        [Fact]
         public void Repo_Generic_Create_Fail_Entity()
         {
-            UoW.DeleteDatasets();
-            UoW.CreateDatasets(10);
+            Assert.Throws<DbUpdateException>(() =>
+            {
+                UoW.DeleteDatasets();
+                UoW.CreateDatasets(10);
 
-            UoW.Users.Create(new Users() { userID = Guid.NewGuid(), locationID = Guid.NewGuid() });
-            UoW.Commit();
+                UoW.Users.Create(new Users() { userID = Guid.NewGuid(), locationID = Guid.NewGuid() });
+                UoW.Commit();
+            });
         }
 
-        [TestMethod]
+        [Fact]
         public void Repo_Generic_Create_Success_Entities()
         {
             UoW.DeleteDatasets();
@@ -62,7 +65,7 @@ namespace Bhbk.Lib.DataAccess.EF.Tests.RepositoryTests
             UoW.Commit();
         }
 
-        [TestMethod]
+        [Fact]
         public void Repo_Generic_Create_Success_Entity()
         {
             UoW.DeleteDatasets();
@@ -82,46 +85,63 @@ namespace Bhbk.Lib.DataAccess.EF.Tests.RepositoryTests
             UoW.Commit();
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(InvalidOperationException))]
+        [Fact]
         public void Repo_Generic_Delete_Fail_Entities()
         {
-            UoW.DeleteDatasets();
-            UoW.CreateDatasets(10);
+            Assert.Throws<InvalidOperationException>(() =>
+            {
+                UoW.DeleteDatasets();
+                UoW.CreateDatasets(10);
 
-            UoW.Users.Delete(
-                new List<Users>() {
+                UoW.Users.Delete(
+                    new List<Users>() {
                     new Users() { userID = Guid.NewGuid() },
                     new Users() { userID = Guid.NewGuid() },
-                });
-            UoW.Commit();
+                    });
+                UoW.Commit();
+            });
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(InvalidOperationException))]
+        [Fact]
         public void Repo_Generic_Delete_Fail_Entity()
         {
-            UoW.DeleteDatasets();
-            UoW.CreateDatasets(10);
+            Assert.Throws<InvalidOperationException>(() =>
+            {
+                UoW.DeleteDatasets();
+                UoW.CreateDatasets(10);
 
-            UoW.Users.Delete(new Users() { userID = Guid.NewGuid() });
-            UoW.Commit();
+                UoW.Users.Delete(new Users() { userID = Guid.NewGuid() });
+                UoW.Commit();
+            });
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
+        [Fact]
         public void Repo_Generic_Delete_Fail_Lambda()
         {
-            UoW.DeleteDatasets();
-            UoW.CreateDatasets(10);
+            Assert.Throws<ArgumentException>(() =>
+            {
+                UoW.DeleteDatasets();
+                UoW.CreateDatasets(10);
 
-            var wrongExpr = new QueryExpression<Roles>().Where(x => x.roleID != Guid.NewGuid()).ToLambda();
+                var wrongExpr = new QueryExpression<Roles>().Where(x => x.roleID != Guid.NewGuid()).ToLambda();
 
-            UoW.Users.Delete(wrongExpr);
-            UoW.Commit();
+                UoW.Users.Delete(wrongExpr);
+                UoW.Commit();
+            });
+
+            Assert.Throws<ArgumentException>(() =>
+            {
+                UoW.DeleteDatasets();
+                UoW.CreateDatasets(10);
+
+                var wrongExpr = new QueryExpression<Roles>().Where(x => x.Users.Any(y => y.userID != Guid.NewGuid())).ToLambda();
+
+                UoW.Users.Delete(wrongExpr);
+                UoW.Commit();
+            });
         }
 
-        [TestMethod]
+        [Fact]
         public void Repo_Generic_Delete_Success_Entities()
         {
             UoW.DeleteDatasets();
@@ -133,7 +153,7 @@ namespace Bhbk.Lib.DataAccess.EF.Tests.RepositoryTests
             UoW.Commit();
         }
 
-        [TestMethod]
+        [Fact]
         public void Repo_Generic_Delete_Success_Entity()
         {
             UoW.DeleteDatasets();
@@ -145,9 +165,10 @@ namespace Bhbk.Lib.DataAccess.EF.Tests.RepositoryTests
             UoW.Commit();
         }
 
-        [TestMethod]
+        [Fact]
         public void Repo_Generic_Delete_Success_Lambda()
         {
+            //try entity...
             UoW.DeleteDatasets();
             UoW.CreateDatasets(10);
 
@@ -155,21 +176,32 @@ namespace Bhbk.Lib.DataAccess.EF.Tests.RepositoryTests
 
             UoW.Users.Delete(userExpr);
             UoW.Commit();
-        }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
-        public void Repo_Generic_Get_Fail_Lambda()
-        {
+            //try entity navigation...
             UoW.DeleteDatasets();
             UoW.CreateDatasets(10);
 
-            var wrongExpr = new QueryExpression<Roles>().Where(x => x.roleID != Guid.NewGuid()).ToLambda();
+            userExpr = new QueryExpression<Users>().Where(x => x.Roles.Any(y => y.roleID != Guid.NewGuid())).ToLambda();
 
-            var users = UoW.Users.Get(wrongExpr);
+            UoW.Users.Delete(userExpr);
+            UoW.Commit();
         }
 
-        [TestMethod]
+        [Fact]
+        public void Repo_Generic_Get_Fail_Lambda()
+        {
+            Assert.Throws<ArgumentException>(() =>
+            {
+                UoW.DeleteDatasets();
+                UoW.CreateDatasets(10);
+
+                var wrongExpr = new QueryExpression<Roles>().Where(x => x.roleID != Guid.NewGuid()).ToLambda();
+
+                var users = UoW.Users.Get(wrongExpr);
+            });
+        }
+
+        [Fact]
         public void Repo_Generic_Get_Success_Lambda()
         {
             UoW.DeleteDatasets();
@@ -180,7 +212,7 @@ namespace Bhbk.Lib.DataAccess.EF.Tests.RepositoryTests
             var users = UoW.Users.Get(userExpr);
         }
 
-        [TestMethod]
+        [Fact]
         public void Repo_Generic_Get_Success_NoParam()
         {
             UoW.DeleteDatasets();
@@ -190,33 +222,37 @@ namespace Bhbk.Lib.DataAccess.EF.Tests.RepositoryTests
             users.Count().Should().Be(10);
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(DbUpdateConcurrencyException))]
+        [Fact]
         public void Repo_Generic_Update_Fail_Entities()
         {
-            UoW.DeleteDatasets();
-            UoW.CreateDatasets(10);
+            Assert.Throws<DbUpdateConcurrencyException>(() =>
+            {
+                UoW.DeleteDatasets();
+                UoW.CreateDatasets(10);
 
-            UoW.Users.Update(
-                new List<Users>() {
+                UoW.Users.Update(
+                    new List<Users>() {
                     new Users() { userID = Guid.NewGuid() },
                     new Users() { userID = Guid.NewGuid() },
-                });
-            UoW.Commit();
+                    });
+                UoW.Commit();
+            });
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(DbUpdateConcurrencyException))]
+        [Fact]
         public void Repo_Generic_Update_Fail_Entity()
         {
-            UoW.DeleteDatasets();
-            UoW.CreateDatasets(10);
+            Assert.Throws<DbUpdateConcurrencyException>(() =>
+            {
+                UoW.DeleteDatasets();
+                UoW.CreateDatasets(10);
 
-            UoW.Users.Update(new Users() { userID = Guid.NewGuid() });
-            UoW.Commit();
+                UoW.Users.Update(new Users() { userID = Guid.NewGuid() });
+                UoW.Commit();
+            });
         }
 
-        [TestMethod]
+        [Fact]
         public void Repo_Generic_Update_Success_Entities()
         {
             UoW.DeleteDatasets();
@@ -240,7 +276,7 @@ namespace Bhbk.Lib.DataAccess.EF.Tests.RepositoryTests
             UoW.Commit();
         }
 
-        [TestMethod]
+        [Fact]
         public void Repo_Generic_Update_Success_Entity()
         {
             UoW.DeleteDatasets();

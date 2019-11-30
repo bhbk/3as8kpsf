@@ -1,8 +1,8 @@
 ﻿using Bhbk.Lib.DataState.Expressions;
 using Bhbk.Lib.DataState.Tests.Models;
+using System;
 using System.Linq;
 using Xunit;
-using System;
 
 namespace Bhbk.Lib.DataState.Tests.ExpressionTests
 {
@@ -66,6 +66,16 @@ namespace Bhbk.Lib.DataState.Tests.ExpressionTests
             expression = new QueryExpression<SampleEntity>().Where(x => x.date1 > DateTime.Now).ToLambda();
             expression = new QueryExpression<SampleEntity>().Where(x => x.int1 > 1000).ToLambda();
             expression = new QueryExpression<SampleEntity>().Where(x => x.string1.Contains("1000")).ToLambda();
+
+            expression = new QueryExpression<SampleEntity>().Where(x => x.child1.guid1 == Guid.NewGuid()).ToLambda();
+            expression = new QueryExpression<SampleEntity>().Where(x => x.child1.date1 == DateTime.Now).ToLambda();
+            expression = new QueryExpression<SampleEntity>().Where(x => x.child1.int1 > 1000).ToLambda();
+            expression = new QueryExpression<SampleEntity>().Where(x => x.child1.string1.Contains("1000")).ToLambda();
+
+            expression = new QueryExpression<SampleEntity>().Where(x => x.child2.Any(y => y.guid1 == Guid.NewGuid())).ToLambda();
+            expression = new QueryExpression<SampleEntity>().Where(x => x.child2.Any(y => y.date1 == DateTime.Now)).ToLambda();
+            expression = new QueryExpression<SampleEntity>().Where(x => x.child2.Any(y => y.int1 > 1000)).ToLambda();
+            expression = new QueryExpression<SampleEntity>().Where(x => x.child2.Any(y => y.string1.Contains("1000"))).ToLambda();
         }
     }
 }
