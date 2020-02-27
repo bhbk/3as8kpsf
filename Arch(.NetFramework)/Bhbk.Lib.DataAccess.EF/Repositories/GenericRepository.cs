@@ -118,6 +118,26 @@ namespace Bhbk.Lib.DataAccess.EF.Repositories
                 .ToList();
         }
 
+        public virtual IEnumerable<TEntity> GetAsNoTracking(
+            IEnumerable<Expression<Func<TEntity, object>>> expressions)
+        {
+            return _context.Set<TEntity>().AsQueryable()
+                .Include(expressions)
+                .AsNoTracking()
+                .ToList();
+        }
+
+        public virtual IEnumerable<TEntity> GetAsNoTracking(
+            LambdaExpression lambda = null,
+            IEnumerable<Expression<Func<TEntity, object>>> expressions = null)
+        {
+            return _context.Set<TEntity>().AsQueryable()
+                .Compile(lambda)
+                .Include(expressions)
+                .AsNoTracking()
+                .ToList();
+        }
+
         public virtual TEntity Update(TEntity entity)
         {
             _context.Entry(entity).State = EntityState.Modified;

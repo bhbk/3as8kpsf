@@ -190,14 +190,19 @@ namespace Bhbk.Lib.DataAccess.EFCore.Tests.RepositoryTests
         [Fact]
         public async ValueTask Repo_GenericAsync_Get_Fail_Lambda()
         {
+            await UoW.DeleteDatasets();
+            await UoW.CreateDatasets(10);
+
+            var wrongExpr = new QueryExpression<Roles>().Where(x => x.roleID != Guid.NewGuid()).ToLambda();
+
             await Assert.ThrowsAsync<ArgumentException>(async () =>
             {
-                await UoW.DeleteDatasets();
-                await UoW.CreateDatasets(10);
-
-                var wrongExpr = new QueryExpression<Roles>().Where(x => x.roleID != Guid.NewGuid()).ToLambda();
-
                 var users = await UoW.Users.GetAsync(wrongExpr);
+            });
+
+            await Assert.ThrowsAsync<ArgumentException>(async () =>
+            {
+                var users = await UoW.Users.GetAsNoTrackingAsync(wrongExpr);
             });
         }
 
@@ -215,6 +220,15 @@ namespace Bhbk.Lib.DataAccess.EFCore.Tests.RepositoryTests
             users = await UoW.Users.GetAsync(x => x.userID != Guid.NewGuid(),
                 x => x.Include(y => y.Members),
                 x => x.OrderBy(x => x.userID), 0, 1000);
+
+            users = await UoW.Users.GetAsNoTrackingAsync(x => x.userID != Guid.NewGuid());
+
+            users = await UoW.Users.GetAsNoTrackingAsync(x => x.userID != Guid.NewGuid(),
+                x => x.Include(y => y.Members));
+
+            users = await UoW.Users.GetAsNoTrackingAsync(x => x.userID != Guid.NewGuid(),
+                x => x.Include(y => y.Members),
+                x => x.OrderBy(x => x.userID), 0, 1000);
         }
 
         [Fact]
@@ -224,7 +238,9 @@ namespace Bhbk.Lib.DataAccess.EFCore.Tests.RepositoryTests
             await UoW.CreateDatasets(10);
 
             var userExpr = new QueryExpression<Users>().Where(x => x.userID != Guid.NewGuid()).ToLambda();
+
             var users = await UoW.Users.GetAsync(userExpr);
+            users = await UoW.Users.GetAsNoTrackingAsync(userExpr);
         }
 
         [Fact]
@@ -234,6 +250,9 @@ namespace Bhbk.Lib.DataAccess.EFCore.Tests.RepositoryTests
             await UoW.CreateDatasets(10);
 
             var users = await UoW.Users.GetAsync();
+            users.Count().Should().Be(10);
+
+            users = await UoW.Users.GetAsNoTrackingAsync();
             users.Count().Should().Be(10);
         }
 

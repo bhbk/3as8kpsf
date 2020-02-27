@@ -2,19 +2,20 @@
 using Bhbk.Lib.DataAccess.EF.Repositories;
 using Bhbk.Lib.DataAccess.EF.Tests.Models;
 using System;
+using System.Threading.Tasks;
 using FakeConstants = Bhbk.Lib.DataAccess.EF.Tests.Primitives.Constants;
 
 namespace Bhbk.Lib.DataAccess.EF.Tests.UnitOfWorks
 {
-    public class SampleUoW : ISampleUoW
+    public class UnitOfWorkAsync : IUnitOfWorkAsync
     {
         private readonly SampleEntities _context;
         public InstanceContext InstanceType { get; }
-        public IGenericRepository<Users> Users { get; }
-        public IGenericRepository<Roles> Roles { get; }
-        public IGenericRepository<Locations> Locations { get; }
+        public IGenericRepositoryAsync<Users> Users { get; }
+        public IGenericRepositoryAsync<Roles> Roles { get; }
+        public IGenericRepositoryAsync<Locations> Locations { get; }
 
-        public SampleUoW()
+        public UnitOfWorkAsync()
         {
             InstanceType = InstanceContext.UnitTest;
 
@@ -22,17 +23,17 @@ namespace Bhbk.Lib.DataAccess.EF.Tests.UnitOfWorks
             var connection = Effort.DbConnectionFactory.CreateTransient();
             _context = new SampleEntities(connection);
 
-            Users = new GenericRepository<Users>(_context);
-            Roles = new GenericRepository<Roles>(_context);
-            Locations = new GenericRepository<Locations>(_context);
+            Users = new GenericRepositoryAsync<Users>(_context);
+            Roles = new GenericRepositoryAsync<Roles>(_context);
+            Locations = new GenericRepositoryAsync<Locations>(_context);
         }
 
-        public void Commit()
+        public async Task CommitAsync()
         {
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
-        public void CreateDatasets(int sets)
+        public async Task CreateDatasets(int sets)
         {
             for (int i = 0; i < sets; i++)
             {
@@ -60,16 +61,16 @@ namespace Bhbk.Lib.DataAccess.EF.Tests.UnitOfWorks
                 });
             }
 
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
-        public void DeleteDatasets()
+        public async Task DeleteDatasets()
         {
             _context.Set<Users>().RemoveRange(_context.Users);
             _context.Set<Roles>().RemoveRange(_context.Roles);
             _context.Set<Locations>().RemoveRange(_context.Locations);
 
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
         public void Dispose()

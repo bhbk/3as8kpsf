@@ -8,15 +8,15 @@ using FakeConstants = Bhbk.Lib.DataAccess.EFCore.Tests.Primitives.Constants;
 
 namespace Bhbk.Lib.DataAccess.EFCore.Tests.UnitOfWorks
 {
-    public class SampleUoWAsync : ISampleUoWAsync
+    public class UnitOfWork : IUnitOfWork
     {
         private readonly SampleEntities _context;
         public InstanceContext InstanceType { get; }
-        public IGenericRepositoryAsync<Users> Users { get; private set; }
-        public IGenericRepositoryAsync<Roles> Roles { get; private set; }
-        public IGenericRepositoryAsync<Locations> Locations { get; private set; }
+        public IGenericRepository<Users> Users { get; private set; }
+        public IGenericRepository<Roles> Roles { get; private set; }
+        public IGenericRepository<Locations> Locations { get; private set; }
 
-        public SampleUoWAsync()
+        public UnitOfWork()
         {
             InstanceType = InstanceContext.UnitTest;
 
@@ -27,17 +27,17 @@ namespace Bhbk.Lib.DataAccess.EFCore.Tests.UnitOfWorks
 
             _context = new SampleEntities(options.Options);
 
-            Users = new GenericRepositoryAsync<Users>(_context, InstanceContext.UnitTest);
-            Roles = new GenericRepositoryAsync<Roles>(_context, InstanceContext.UnitTest);
-            Locations = new GenericRepositoryAsync<Locations>(_context, InstanceContext.UnitTest);
+            Users = new GenericRepository<Users>(_context, InstanceContext.UnitTest);
+            Roles = new GenericRepository<Roles>(_context, InstanceContext.UnitTest);
+            Locations = new GenericRepository<Locations>(_context, InstanceContext.UnitTest);
         }
 
-        public async ValueTask CommitAsync()
+        public void Commit()
         {
-            await _context.SaveChangesAsync();
+            _context.SaveChanges();
         }
 
-        public async ValueTask CreateDatasets(int sets)
+        public void CreateDatasets(int sets)
         {
             for (int i = 0; i < sets; i++)
             {
@@ -65,21 +65,26 @@ namespace Bhbk.Lib.DataAccess.EFCore.Tests.UnitOfWorks
                 });
             }
 
-            await _context.SaveChangesAsync();
+            _context.SaveChanges();
         }
 
-        public async ValueTask DeleteDatasets()
+        public void DeleteDatasets()
         {
             _context.Set<Users>().RemoveRange(_context.Users);
             _context.Set<Roles>().RemoveRange(_context.Roles);
             _context.Set<Locations>().RemoveRange(_context.Locations);
 
-            await _context.SaveChangesAsync();
+            _context.SaveChanges();
         }
 
-        public async ValueTask DisposeAsync()
+        public void Dispose()
         {
-            await _context.DisposeAsync();
+            _context.Dispose();
+        }
+
+        public ValueTask DisposeAsync()
+        {
+            return _context.DisposeAsync();
         }
     }
 }

@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace Bhbk.Lib.DataAccess.EFCore.UnitOfWorks
 {
-    public interface IGenericUnitOfWorkAsync : IAsyncDisposable
+    public interface IGenericUnitOfWorkAsync : IDisposable, IAsyncDisposable
     {
         InstanceContext InstanceType { get; }
         ValueTask CommitAsync();

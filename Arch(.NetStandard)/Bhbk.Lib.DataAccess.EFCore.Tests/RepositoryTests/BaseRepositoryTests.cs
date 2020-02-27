@@ -8,11 +8,11 @@ namespace Bhbk.Lib.DataAccess.EFCore.Tests.RepositoryTests
 
     public class BaseRepositoryTests
     {
-        protected ISampleUoW UoW;
+        protected IUnitOfWork UoW;
 
         public BaseRepositoryTests()
         {
-            UoW = new SampleUoW();
+            UoW = new UnitOfWork();
         }
     }
 }

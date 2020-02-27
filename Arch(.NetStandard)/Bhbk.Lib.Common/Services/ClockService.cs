@@ -23,10 +23,12 @@ namespace Bhbk.Lib.Common.Services
         {
             get
             {
-                if (_instance == InstanceContext.DeployedOrLocal || _instance == InstanceContext.IntegrationTest)
+                if (_instance == InstanceContext.DeployedOrLocal)
                     return DateTime.UtcNow;
 
-                else if (_instance == InstanceContext.UnitTest)
+                else if (_instance == InstanceContext.End2EndTest
+                    || _instance == InstanceContext.IntegrationTest
+                    || _instance == InstanceContext.UnitTest)
                 {
                     if (_future)
                         return DateTime.UtcNow.Add(_offset);
@@ -39,10 +41,12 @@ namespace Bhbk.Lib.Common.Services
             }
             set
             {
-                if (_instance == InstanceContext.DeployedOrLocal || _instance == InstanceContext.IntegrationTest)
+                if (_instance == InstanceContext.DeployedOrLocal)
                     throw new NotSupportedException();
 
-                else if (_instance == InstanceContext.UnitTest)
+                else if (_instance == InstanceContext.End2EndTest
+                    || _instance == InstanceContext.IntegrationTest
+                    || _instance == InstanceContext.UnitTest)
                 {
                     _moment = value;
 

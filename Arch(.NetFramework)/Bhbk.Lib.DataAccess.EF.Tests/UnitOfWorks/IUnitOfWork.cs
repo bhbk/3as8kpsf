@@ -4,7 +4,7 @@ using Bhbk.Lib.DataAccess.EF.UnitOfWorks;
 
 namespace Bhbk.Lib.DataAccess.EF.Tests.UnitOfWorks
 {
-    public interface ISampleUoW : IGenericUnitOfWork
+    public interface IUnitOfWork : IGenericUnitOfWork
     {
         IGenericRepository<Users> Users { get; }
         IGenericRepository<Roles> Roles { get; }

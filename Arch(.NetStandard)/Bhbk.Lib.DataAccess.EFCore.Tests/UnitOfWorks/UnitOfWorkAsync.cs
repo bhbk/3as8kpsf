@@ -1,39 +1,38 @@
 ﻿using Bhbk.Lib.Common.Primitives.Enums;
-using Bhbk.Lib.DataAccess.EF.Repositories;
-using Bhbk.Lib.DataAccess.EF.Tests.Models;
+using Bhbk.Lib.DataAccess.EFCore.Repositories;
+using Bhbk.Lib.DataAccess.EFCore.Tests.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Threading.Tasks;
-using FakeConstants = Bhbk.Lib.DataAccess.EF.Tests.Primitives.Constants;
+using FakeConstants = Bhbk.Lib.DataAccess.EFCore.Tests.Primitives.Constants;
 
-namespace Bhbk.Lib.DataAccess.EF.Tests.UnitOfWorks
+namespace Bhbk.Lib.DataAccess.EFCore.Tests.UnitOfWorks
 {
-    public class SampleUoWAsync : ISampleUoWAsync
+    public class UnitOfWorkAsync : IUnitOfWorkAsync
     {
         private readonly SampleEntities _context;
         public InstanceContext InstanceType { get; }
-        public IGenericRepositoryAsync<Users> Users { get; }
-        public IGenericRepositoryAsync<Roles> Roles { get; }
-        public IGenericRepositoryAsync<Locations> Locations { get; }
+        public IGenericRepositoryAsync<Users> Users { get; private set; }
+        public IGenericRepositoryAsync<Roles> Roles { get; private set; }
+        public IGenericRepositoryAsync<Locations> Locations { get; private set; }
 
-        public SampleUoWAsync()
+        public UnitOfWorkAsync()
         {
             InstanceType = InstanceContext.UnitTest;
 
-            //var connection = Effort.EntityConnectionFactory.CreateTransient("name=SampleEntities");
-            var connection = Effort.DbConnectionFactory.CreateTransient();
-            _context = new SampleEntities(connection);
+            var options = new DbContextOptionsBuilder<SampleEntities>()
+                .EnableSensitiveDataLogging();
 
-            Users = new GenericRepositoryAsync<Users>(_context);
-            Roles = new GenericRepositoryAsync<Roles>(_context);
-            Locations = new GenericRepositoryAsync<Locations>(_context);
+            InMemoryDbContextOptionsExtensions.UseInMemoryDatabase(options, ":InMemory:");
+
+            _context = new SampleEntities(options.Options);
+
+            Users = new GenericRepositoryAsync<Users>(_context, InstanceContext.UnitTest);
+            Roles = new GenericRepositoryAsync<Roles>(_context, InstanceContext.UnitTest);
+            Locations = new GenericRepositoryAsync<Locations>(_context, InstanceContext.UnitTest);
         }
 
-        public async Task CommitAsync()
-        {
-            await _context.SaveChangesAsync();
-        }
-
-        public async Task CreateDatasets(int sets)
+        public async ValueTask CreateDatasets(int sets)
         {
             for (int i = 0; i < sets; i++)
             {
@@ -64,7 +63,7 @@ namespace Bhbk.Lib.DataAccess.EF.Tests.UnitOfWorks
             await _context.SaveChangesAsync();
         }
 
-        public async Task DeleteDatasets()
+        public async ValueTask DeleteDatasets()
         {
             _context.Set<Users>().RemoveRange(_context.Users);
             _context.Set<Roles>().RemoveRange(_context.Roles);
@@ -73,9 +72,18 @@ namespace Bhbk.Lib.DataAccess.EF.Tests.UnitOfWorks
             await _context.SaveChangesAsync();
         }
 
+        public async ValueTask CommitAsync()
+        {
+            await _context.SaveChangesAsync();
+        }
+
         public void Dispose()
         {
             _context.Dispose();
+        }
+        public async ValueTask DisposeAsync()
+        {
+            await _context.DisposeAsync();
         }
     }
 }

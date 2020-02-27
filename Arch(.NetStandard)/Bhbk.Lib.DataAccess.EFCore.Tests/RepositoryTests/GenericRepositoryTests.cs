@@ -189,14 +189,19 @@ namespace Bhbk.Lib.DataAccess.EFCore.Tests.RepositoryTests
         [Fact]
         public void Repo_Generic_Get_Fail_Lambda()
         {
+            UoW.DeleteDatasets();
+            UoW.CreateDatasets(10);
+
+            var wrongExpr = new QueryExpression<Roles>().Where(x => x.roleID != Guid.NewGuid()).ToLambda();
+
             Assert.Throws<ArgumentException>(() =>
             {
-                UoW.DeleteDatasets();
-                UoW.CreateDatasets(10);
-
-                var wrongExpr = new QueryExpression<Roles>().Where(x => x.roleID != Guid.NewGuid()).ToLambda();
-
                 var users = UoW.Users.Get(wrongExpr);
+            });
+
+            Assert.Throws<ArgumentException>(() =>
+            {
+                var users = UoW.Users.GetAsNoTracking(wrongExpr);
             });
         }
 
@@ -214,6 +219,15 @@ namespace Bhbk.Lib.DataAccess.EFCore.Tests.RepositoryTests
             users = UoW.Users.Get(x => x.userID != Guid.NewGuid(),
                 x => x.Include(y => y.Members),
                 x => x.OrderBy(x => x.userID), 0, 1000);
+
+            users = UoW.Users.GetAsNoTracking(x => x.userID != Guid.NewGuid());
+
+            users = UoW.Users.GetAsNoTracking(x => x.userID != Guid.NewGuid(),
+                x => x.Include(y => y.Members));
+
+            users = UoW.Users.GetAsNoTracking(x => x.userID != Guid.NewGuid(),
+                x => x.Include(y => y.Members),
+                x => x.OrderBy(x => x.userID), 0, 1000);
         }
 
         [Fact]
@@ -225,6 +239,7 @@ namespace Bhbk.Lib.DataAccess.EFCore.Tests.RepositoryTests
             var userExpr = new QueryExpression<Users>().Where(x => x.userID != Guid.NewGuid()).ToLambda();
 
             var users = UoW.Users.Get(userExpr);
+            users = UoW.Users.GetAsNoTracking(userExpr);
         }
 
         [Fact]
@@ -234,6 +249,9 @@ namespace Bhbk.Lib.DataAccess.EFCore.Tests.RepositoryTests
             UoW.CreateDatasets(10);
 
             var users = UoW.Users.Get();
+            users.Count().Should().Be(10);
+
+            users = UoW.Users.GetAsNoTracking();
             users.Count().Should().Be(10);
         }
 

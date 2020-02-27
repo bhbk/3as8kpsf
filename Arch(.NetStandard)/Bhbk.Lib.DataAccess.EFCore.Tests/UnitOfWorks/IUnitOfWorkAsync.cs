@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Bhbk.Lib.DataAccess.EFCore.Tests.UnitOfWorks
 {
-    public interface ISampleUoWAsync : IGenericUnitOfWorkAsync
+    public interface IUnitOfWorkAsync : IGenericUnitOfWorkAsync
     {
         IGenericRepositoryAsync<Users> Users { get; }
         IGenericRepositoryAsync<Roles> Roles { get; }

@@ -5,6 +5,7 @@ namespace Bhbk.Lib.Common.Primitives.Enums
     public enum InstanceContext
     {
         DeployedOrLocal,
+        End2EndTest,
         IntegrationTest,
         UnitTest,
     }

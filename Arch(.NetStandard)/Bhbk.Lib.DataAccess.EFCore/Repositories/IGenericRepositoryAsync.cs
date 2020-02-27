@@ -28,6 +28,17 @@ namespace Bhbk.Lib.DataAccess.EFCore.Repositories
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orders = null,
             int? skip = null,
             int? take = null);
+        ValueTask<IEnumerable<TEntity>> GetAsNoTrackingAsync(
+            IEnumerable<Expression<Func<TEntity, object>>> expressions);
+        ValueTask<IEnumerable<TEntity>> GetAsNoTrackingAsync(
+            LambdaExpression lambda = null,
+            IEnumerable<Expression<Func<TEntity, object>>> expressions = null);
+        ValueTask<IEnumerable<TEntity>> GetAsNoTrackingAsync(
+            Expression<Func<TEntity, bool>> predicates,
+            Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>> includes = null,
+            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orders = null,
+            int? skip = null,
+            int? take = null);
         ValueTask<TEntity> UpdateAsync(TEntity entity);
         ValueTask<IEnumerable<TEntity>> UpdateAsync(IEnumerable<TEntity> entities);
     }

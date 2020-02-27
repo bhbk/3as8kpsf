@@ -127,6 +127,30 @@ namespace Bhbk.Lib.DataAccess.EF.Repositories
             return await Task.Run(() => results);
         }
 
+        public virtual async Task<IEnumerable<TEntity>> GetAsNoTrackingAsync(
+            IEnumerable<Expression<Func<TEntity, object>>> expressions)
+        {
+            var results = _context.Set<TEntity>()
+                .Include(expressions)
+                .AsNoTracking()
+                .ToList();
+
+            return await Task.Run(() => results);
+        }
+
+        public virtual async Task<IEnumerable<TEntity>> GetAsNoTrackingAsync(
+            LambdaExpression lambda = null,
+            IEnumerable<Expression<Func<TEntity, object>>> expressions = null)
+        {
+            var results = _context.Set<TEntity>()
+                .Compile(lambda)
+                .Include(expressions)
+                .AsNoTracking()
+                .ToList();
+
+            return await Task.Run(() => results);
+        }
+
         public virtual async Task<TEntity> UpdateAsync(TEntity entity)
         {
             _context.Entry(entity).State = EntityState.Modified;

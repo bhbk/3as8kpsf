@@ -1,17 +1,20 @@
 
 rem call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\Common7\Tools\VsDevCmd.bat"
-rem dotnet tool install Octopus.DotNet.Cli --global --version 5.2.2
-powershell -command "& { get-date -format yyyy.M.d.HHmm | out-file -filepath .\version.tmp -nonewline -encoding ascii }"
+rem dotnet tool install Octopus.DotNet.Cli --global
+powershell -command "& { write-output 2020.2.25.1630 | out-file -filepath .\version.tmp -nonewline -encoding ascii }"
+rem powershell -command "& { get-date -format yyyy.M.d.HHmm | out-file -filepath .\version.tmp -nonewline -encoding ascii }"
 set /p VERSION=< .\version.tmp
 
-nuget restore Bhbk.Lib.Core.sln -NoCache -Verbosity quiet
-msbuild /t:build Bhbk.Lib.Core.sln /p:Configuration=Release /verbosity:quiet
+rem build and test .net framework assemblies...
+dotnet restore Bhbk.Lib.Core.sln --no-cache --verbosity quiet
+nuget restore Bhbk.Lib.DataAccess.EF\Bhbk.Lib.DataAccess.EF.csproj -SolutionDirectory . -NoCache -Verbosity quiet
+nuget restore Bhbk.Lib.DataAccess.EF.Tests\Bhbk.Lib.DataAccess.EF.Tests.csproj -SolutionDirectory . -NoCache -Verbosity quiet
+dotnet build Bhbk.Lib.Core.sln --configuration Release --verbosity quiet /p:platform=x64
+dotnet test Bhbk.Lib.DataAccess.EF.Tests\Bhbk.Lib.DataAccess.EF.Tests.csproj --configuration Release /p:platform=x64
 
-mstest /testcontainer:Bhbk.Lib.DataAccess.EF.Tests\bin\Release\Bhbk.Lib.DataAccess.EF.Tests.dll
+rem package .net framework assemblies...
+nuget pack Bhbk.Lib.DataAccess.EF\Bhbk.Lib.DataAccess.EF.csproj -Version %VERSION% -OutputDirectory . -Properties Configuration=Release -Properties Platform=x64
 
-nuget pack Bhbk.Lib.DataAccess.EF\Bhbk.Lib.DataAccess.EF.csproj -Version %VERSION% -OutputDirectory . -Properties Configuration=Release
-
-rem dotnet tool uninstall Octopus.DotNet.Cli --global
 set VERSION=
-
+rem dotnet tool uninstall Octopus.DotNet.Cli --global
 rem powershell -command "& { update-package -reinstall }"

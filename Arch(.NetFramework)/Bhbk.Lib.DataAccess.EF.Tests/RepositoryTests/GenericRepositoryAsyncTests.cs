@@ -189,14 +189,19 @@ namespace Bhbk.Lib.DataAccess.EF.Tests.RepositoryTests
         [Fact]
         public async Task Repo_GenericAsync_Get_Fail_Lambda()
         {
+            await UoW.DeleteDatasets();
+            await UoW.CreateDatasets(10);
+
+            var wrongExpr = new QueryExpression<Roles>().Where(x => x.roleID != Guid.NewGuid()).ToLambda();
+
             await Assert.ThrowsAsync<ArgumentException>(async () =>
             {
-                await UoW.DeleteDatasets();
-                await UoW.CreateDatasets(10);
-
-                var wrongExpr = new QueryExpression<Roles>().Where(x => x.roleID != Guid.NewGuid()).ToLambda();
-
                 var users = await UoW.Users.GetAsync(wrongExpr);
+            });
+
+            await Assert.ThrowsAsync<ArgumentException>(async () =>
+            {
+                var users = await UoW.Users.GetAsNoTrackingAsync(wrongExpr);
             });
         }
 
@@ -209,6 +214,7 @@ namespace Bhbk.Lib.DataAccess.EF.Tests.RepositoryTests
             var userExpr = new QueryExpression<Users>().Where(x => x.userID != Guid.NewGuid()).ToLambda();
 
             var users = await UoW.Users.GetAsync(userExpr);
+            users = await UoW.Users.GetAsNoTrackingAsync(userExpr);
         }
 
         [Fact]
@@ -218,6 +224,9 @@ namespace Bhbk.Lib.DataAccess.EF.Tests.RepositoryTests
             await UoW.CreateDatasets(10);
 
             var users = await UoW.Users.GetAsync();
+            users.Count().Should().Be(10);
+
+            users = await UoW.Users.GetAsNoTrackingAsync();
             users.Count().Should().Be(10);
         }
 

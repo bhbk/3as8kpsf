@@ -143,6 +143,50 @@ namespace Bhbk.Lib.DataAccess.EFCore.Repositories
             return query.ToList();
         }
 
+        public virtual IEnumerable<TEntity> GetAsNoTracking(
+            IEnumerable<Expression<Func<TEntity, object>>> expressions)
+        {
+            return _context.Set<TEntity>().AsQueryable()
+                .Include(expressions)
+                .AsNoTracking()
+                .ToList();
+        }
+
+        public virtual IEnumerable<TEntity> GetAsNoTracking(
+            LambdaExpression lambda = null,
+            IEnumerable<Expression<Func<TEntity, object>>> expressions = null)
+        {
+            return _context.Set<TEntity>().AsQueryable()
+                .Compile(lambda)
+                .Include(expressions)
+                .AsNoTracking()
+                .ToList();
+        }
+
+        public virtual IEnumerable<TEntity> GetAsNoTracking(Expression<Func<TEntity, bool>> predicates,
+            Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>> includes = null,
+            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orders = null,
+            int? skip = null,
+            int? take = null)
+        {
+            var query = _context.Set<TEntity>().AsQueryable();
+
+            if (predicates != null)
+                query = query.Where(predicates);
+
+            if (includes != null)
+                query = includes(query);
+
+            if (orders != null)
+            {
+                query = orders(query)
+                    .Skip(skip.Value)
+                    .Take(take.Value);
+            }
+
+            return query.AsNoTracking().ToList();
+        }
+
         public virtual TEntity Update(TEntity entity)
         {
             var result = _context.Set<TEntity>()

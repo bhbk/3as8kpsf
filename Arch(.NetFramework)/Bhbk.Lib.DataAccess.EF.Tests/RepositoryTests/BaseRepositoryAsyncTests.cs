@@ -9,11 +9,11 @@ namespace Bhbk.Lib.DataAccess.EF.Tests.RepositoryTests
 
     public class BaseRepositoryAsyncTests
     {
-        protected ISampleUoWAsync UoW;
+        protected IUnitOfWorkAsync UoW;
 
         public BaseRepositoryAsyncTests()
         {
-            UoW = new SampleUoWAsync();
+            UoW = new UnitOfWorkAsync();
         }
     }
 }

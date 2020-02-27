@@ -19,6 +19,11 @@ namespace Bhbk.Lib.DataAccess.EF.Repositories
         IEnumerable<TEntity> Get(
             LambdaExpression lambda = null,
             IEnumerable<Expression<Func<TEntity, object>>> expressions = null);
+        IEnumerable<TEntity> GetAsNoTracking(
+            IEnumerable<Expression<Func<TEntity, object>>> expressions);
+        IEnumerable<TEntity> GetAsNoTracking(
+            LambdaExpression lambda = null,
+            IEnumerable<Expression<Func<TEntity, object>>> expressions = null);
         TEntity Update(TEntity entity);
         IEnumerable<TEntity> Update(IEnumerable<TEntity> entities);
     }

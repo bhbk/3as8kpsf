@@ -1,34 +1,30 @@
 ﻿using Bhbk.Lib.Common.Primitives.Enums;
-using Bhbk.Lib.DataAccess.EFCore.Repositories;
-using Bhbk.Lib.DataAccess.EFCore.Tests.Models;
-using Microsoft.EntityFrameworkCore;
+using Bhbk.Lib.DataAccess.EF.Repositories;
+using Bhbk.Lib.DataAccess.EF.Tests.Models;
 using System;
-using FakeConstants = Bhbk.Lib.DataAccess.EFCore.Tests.Primitives.Constants;
+using FakeConstants = Bhbk.Lib.DataAccess.EF.Tests.Primitives.Constants;
 
-namespace Bhbk.Lib.DataAccess.EFCore.Tests.UnitOfWorks
+namespace Bhbk.Lib.DataAccess.EF.Tests.UnitOfWorks
 {
-    public class SampleUoW : ISampleUoW
+    public class UnitOfWork : IUnitOfWork
     {
         private readonly SampleEntities _context;
         public InstanceContext InstanceType { get; }
-        public IGenericRepository<Users> Users { get; private set; }
-        public IGenericRepository<Roles> Roles { get; private set; }
-        public IGenericRepository<Locations> Locations { get; private set; }
+        public IGenericRepository<Users> Users { get; }
+        public IGenericRepository<Roles> Roles { get; }
+        public IGenericRepository<Locations> Locations { get; }
 
-        public SampleUoW()
+        public UnitOfWork()
         {
             InstanceType = InstanceContext.UnitTest;
 
-            var options = new DbContextOptionsBuilder<SampleEntities>()
-                .EnableSensitiveDataLogging();
+            //var connection = Effort.EntityConnectionFactory.CreateTransient("name=SampleEntities");
+            var connection = Effort.DbConnectionFactory.CreateTransient();
+            _context = new SampleEntities(connection);
 
-            InMemoryDbContextOptionsExtensions.UseInMemoryDatabase(options, ":InMemory:");
-
-            _context = new SampleEntities(options.Options);
-
-            Users = new GenericRepository<Users>(_context, InstanceContext.UnitTest);
-            Roles = new GenericRepository<Roles>(_context, InstanceContext.UnitTest);
-            Locations = new GenericRepository<Locations>(_context, InstanceContext.UnitTest);
+            Users = new GenericRepository<Users>(_context);
+            Roles = new GenericRepository<Roles>(_context);
+            Locations = new GenericRepository<Locations>(_context);
         }
 
         public void Commit()
