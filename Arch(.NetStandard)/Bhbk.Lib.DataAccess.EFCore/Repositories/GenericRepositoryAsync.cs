@@ -1,5 +1,4 @@
-﻿using Bhbk.Lib.Common.Primitives.Enums;
-using Bhbk.Lib.DataAccess.EFCore.Extensions;
+﻿using Bhbk.Lib.DataAccess.EFCore.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query;
 using System;
@@ -13,19 +12,11 @@ namespace Bhbk.Lib.DataAccess.EFCore.Repositories
     public class GenericRepositoryAsync<TEntity> : IGenericRepositoryAsync<TEntity>, IAsyncDisposable, IDisposable
         where TEntity : class
     {
-        protected readonly InstanceContext _instance;
         protected readonly DbContext _context;
 
         public GenericRepositoryAsync(DbContext context)
         {
             _context = context ?? throw new NullReferenceException();
-            _instance = InstanceContext.DeployedOrLocal;
-        }
-
-        public GenericRepositoryAsync(DbContext context, InstanceContext instance)
-        {
-            _context = context ?? throw new NullReferenceException();
-            _instance = instance;
         }
 
         public virtual async ValueTask<int> CountAsync(LambdaExpression lambda = null)

@@ -10,18 +10,18 @@ namespace Bhbk.Lib.DataAccess.EF.Tests.UnitOfWorks
     public class UnitOfWorkAsync : IUnitOfWorkAsync
     {
         private readonly SampleEntities _context;
-        public InstanceContext InstanceType { get; }
+        public InstanceContext InstanceType { get; private set; }
         public IGenericRepositoryAsync<Users> Users { get; }
         public IGenericRepositoryAsync<Roles> Roles { get; }
         public IGenericRepositoryAsync<Locations> Locations { get; }
 
         public UnitOfWorkAsync()
         {
-            InstanceType = InstanceContext.UnitTest;
-
             //var connection = Effort.EntityConnectionFactory.CreateTransient("name=SampleEntities");
             var connection = Effort.DbConnectionFactory.CreateTransient();
             _context = new SampleEntities(connection);
+
+            InstanceType = InstanceContext.UnitTest;
 
             Users = new GenericRepositoryAsync<Users>(_context);
             Roles = new GenericRepositoryAsync<Roles>(_context);

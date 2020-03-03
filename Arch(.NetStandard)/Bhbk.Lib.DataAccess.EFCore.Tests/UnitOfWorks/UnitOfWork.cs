@@ -11,25 +11,23 @@ namespace Bhbk.Lib.DataAccess.EFCore.Tests.UnitOfWorks
     public class UnitOfWork : IUnitOfWork
     {
         private readonly SampleEntities _context;
-        public InstanceContext InstanceType { get; }
+        public InstanceContext InstanceType { get; private set; }
         public IGenericRepository<Users> Users { get; private set; }
         public IGenericRepository<Roles> Roles { get; private set; }
         public IGenericRepository<Locations> Locations { get; private set; }
 
         public UnitOfWork()
         {
-            InstanceType = InstanceContext.UnitTest;
-
             var options = new DbContextOptionsBuilder<SampleEntities>()
-                .EnableSensitiveDataLogging();
-
-            InMemoryDbContextOptionsExtensions.UseInMemoryDatabase(options, ":InMemory:");
+                .UseInMemoryDatabase(":InMemory:");
 
             _context = new SampleEntities(options.Options);
 
-            Users = new GenericRepository<Users>(_context, InstanceContext.UnitTest);
-            Roles = new GenericRepository<Roles>(_context, InstanceContext.UnitTest);
-            Locations = new GenericRepository<Locations>(_context, InstanceContext.UnitTest);
+            InstanceType = InstanceContext.UnitTest;
+
+            Users = new GenericRepository<Users>(_context);
+            Roles = new GenericRepository<Roles>(_context);
+            Locations = new GenericRepository<Locations>(_context);
         }
 
         public void Commit()

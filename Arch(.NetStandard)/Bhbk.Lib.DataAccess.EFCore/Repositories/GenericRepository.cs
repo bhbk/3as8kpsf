@@ -1,5 +1,4 @@
-﻿using Bhbk.Lib.Common.Primitives.Enums;
-using Bhbk.Lib.DataAccess.EFCore.Extensions;
+﻿using Bhbk.Lib.DataAccess.EFCore.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query;
 using System;
@@ -12,19 +11,11 @@ namespace Bhbk.Lib.DataAccess.EFCore.Repositories
     public class GenericRepository<TEntity> : IGenericRepository<TEntity>, IDisposable
         where TEntity : class
     {
-        protected readonly InstanceContext _instance;
         protected readonly DbContext _context;
 
         public GenericRepository(DbContext context)
         {
             _context = context ?? throw new NullReferenceException();
-            _instance = InstanceContext.DeployedOrLocal;
-        }
-
-        public GenericRepository(DbContext context, InstanceContext instance)
-        {
-            _context = context ?? throw new NullReferenceException();
-            _instance = instance;
         }
 
         public virtual int Count(LambdaExpression lambda = null)

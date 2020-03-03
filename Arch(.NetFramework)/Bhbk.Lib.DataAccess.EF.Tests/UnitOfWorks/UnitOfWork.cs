@@ -9,18 +9,18 @@ namespace Bhbk.Lib.DataAccess.EF.Tests.UnitOfWorks
     public class UnitOfWork : IUnitOfWork
     {
         private readonly SampleEntities _context;
-        public InstanceContext InstanceType { get; }
+        public InstanceContext InstanceType { get; private set; }
         public IGenericRepository<Users> Users { get; }
         public IGenericRepository<Roles> Roles { get; }
         public IGenericRepository<Locations> Locations { get; }
 
         public UnitOfWork()
         {
-            InstanceType = InstanceContext.UnitTest;
-
             //var connection = Effort.EntityConnectionFactory.CreateTransient("name=SampleEntities");
             var connection = Effort.DbConnectionFactory.CreateTransient();
             _context = new SampleEntities(connection);
+
+            InstanceType = InstanceContext.UnitTest;
 
             Users = new GenericRepository<Users>(_context);
             Roles = new GenericRepository<Roles>(_context);

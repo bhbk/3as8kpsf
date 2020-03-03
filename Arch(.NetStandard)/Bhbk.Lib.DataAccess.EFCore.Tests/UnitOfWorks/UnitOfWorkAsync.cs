@@ -11,15 +11,13 @@ namespace Bhbk.Lib.DataAccess.EFCore.Tests.UnitOfWorks
     public class UnitOfWorkAsync : IUnitOfWorkAsync
     {
         private readonly SampleEntities _context;
-        public InstanceContext InstanceType { get; }
+        public InstanceContext InstanceType { get; private set; }
         public IGenericRepositoryAsync<Users> Users { get; private set; }
         public IGenericRepositoryAsync<Roles> Roles { get; private set; }
         public IGenericRepositoryAsync<Locations> Locations { get; private set; }
 
         public UnitOfWorkAsync()
         {
-            InstanceType = InstanceContext.UnitTest;
-
             var options = new DbContextOptionsBuilder<SampleEntities>()
                 .EnableSensitiveDataLogging();
 
@@ -27,9 +25,11 @@ namespace Bhbk.Lib.DataAccess.EFCore.Tests.UnitOfWorks
 
             _context = new SampleEntities(options.Options);
 
-            Users = new GenericRepositoryAsync<Users>(_context, InstanceContext.UnitTest);
-            Roles = new GenericRepositoryAsync<Roles>(_context, InstanceContext.UnitTest);
-            Locations = new GenericRepositoryAsync<Locations>(_context, InstanceContext.UnitTest);
+            InstanceType = InstanceContext.UnitTest;
+
+            Users = new GenericRepositoryAsync<Users>(_context);
+            Roles = new GenericRepositoryAsync<Roles>(_context);
+            Locations = new GenericRepositoryAsync<Locations>(_context);
         }
 
         public async ValueTask CreateDatasets(int sets)
