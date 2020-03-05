@@ -1,11 +1,12 @@
-﻿using System;
+﻿using Bhbk.Lib.QueryExpression.Exceptions;
+using System;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 
-namespace Bhbk.Lib.DataState.Expressions
+namespace Bhbk.Lib.QueryExpression.Factories
 {
-    public static class QueryExpressionHelpers
+    public static class ExpressionFactory
     {
         public static ConstantExpression GetConstantExpression<TEntity>(string field, string value)
         {

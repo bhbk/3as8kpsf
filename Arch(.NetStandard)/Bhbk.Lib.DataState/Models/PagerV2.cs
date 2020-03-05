@@ -1,5 +1,5 @@
 ﻿using Bhbk.Lib.DataState.Attributes;
-using Newtonsoft.Json;
+using Bhbk.Lib.DataState.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -7,23 +7,23 @@ using System.ComponentModel.DataAnnotations;
 namespace Bhbk.Lib.DataState.Models
 {
     [Obsolete]
-    public class PageStateTypeB
+    [Serializable]
+    [PagerV2]
+    public class PagerV2 : IPager
     {
         public string Filter { get; set; }
 
-        [PageStateTypeBSort]
-        public List<KeyValuePair<string, string>> Sort { get; set; }
+        public ICollection<KeyValuePair<string, string>> Sort { get; set; }
 
-        [Required]
         [Range(0, long.MaxValue)]
         public int Skip { get; set; }
 
-        [Required]
         [Range(1, short.MaxValue)]
         public int Take { get; set; }
     }
 
-    public class PageStateTypeBResult<TEntity>
+    [Obsolete]
+    public class PagerV2Result<TEntity> : IPageResult<TEntity>
     {
         public IEnumerable<TEntity> List { get; set; }
         public int Count { get; set; }

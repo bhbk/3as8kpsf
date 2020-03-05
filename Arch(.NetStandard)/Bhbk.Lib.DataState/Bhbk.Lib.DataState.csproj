@@ -53,4 +53,8 @@
     <PackageReference Include="System.ComponentModel.Annotations" Version="4.7.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Bhbk.Lib.QueryExpression\Bhbk.Lib.QueryExpression.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -1,5 +1,6 @@
 ﻿using Bhbk.Lib.DataAccess.EF.Tests.Models;
-using Bhbk.Lib.DataState.Expressions;
+using Bhbk.Lib.QueryExpression;
+using Bhbk.Lib.QueryExpression.Extensions;
 using FluentAssertions;
 using System;
 using System.Collections.Generic;

@@ -1,5 +1,6 @@
 ﻿using Bhbk.Lib.DataAccess.EFCore.Tests.Models;
-using Bhbk.Lib.DataState.Expressions;
+using Bhbk.Lib.QueryExpression.Extensions;
+using Bhbk.Lib.QueryExpression.Factories;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -122,7 +123,7 @@ namespace Bhbk.Lib.DataAccess.EFCore.Tests.RepositoryTests
                 UoW.DeleteDatasets();
                 UoW.CreateDatasets(10);
 
-                var wrongExpr = new QueryExpression<Roles>().Where(x => x.roleID != Guid.NewGuid()).ToLambda();
+                var wrongExpr = QueryExpressionFactory.GetQueryExpression<Roles>().Where(x => x.roleID != Guid.NewGuid()).ToLambda();
 
                 UoW.Users.Delete(wrongExpr);
                 UoW.Commit();
@@ -133,7 +134,7 @@ namespace Bhbk.Lib.DataAccess.EFCore.Tests.RepositoryTests
                 UoW.DeleteDatasets();
                 UoW.CreateDatasets(10);
 
-                var wrongExpr = new QueryExpression<Roles>().Where(x => x.Members.Any(y => y.userID != Guid.NewGuid())).ToLambda();
+                var wrongExpr = QueryExpressionFactory.GetQueryExpression<Roles>().Where(x => x.Members.Any(y => y.userID != Guid.NewGuid())).ToLambda();
 
                 UoW.Users.Delete(wrongExpr);
                 UoW.Commit();
@@ -171,7 +172,7 @@ namespace Bhbk.Lib.DataAccess.EFCore.Tests.RepositoryTests
             UoW.DeleteDatasets();
             UoW.CreateDatasets(10);
 
-            var userExpr = new QueryExpression<Users>().Where(x => x.userID != Guid.NewGuid()).ToLambda();
+            var userExpr = QueryExpressionFactory.GetQueryExpression<Users>().Where(x => x.userID != Guid.NewGuid()).ToLambda();
 
             UoW.Users.Delete(userExpr);
             UoW.Commit();
@@ -180,7 +181,7 @@ namespace Bhbk.Lib.DataAccess.EFCore.Tests.RepositoryTests
             UoW.DeleteDatasets();
             UoW.CreateDatasets(10);
 
-            userExpr = new QueryExpression<Users>().Where(x => x.Members.Any(y => y.roleID != Guid.NewGuid())).ToLambda();
+            userExpr = QueryExpressionFactory.GetQueryExpression<Users>().Where(x => x.Members.Any(y => y.roleID != Guid.NewGuid())).ToLambda();
 
             UoW.Users.Delete(userExpr);
             UoW.Commit();
@@ -192,7 +193,7 @@ namespace Bhbk.Lib.DataAccess.EFCore.Tests.RepositoryTests
             UoW.DeleteDatasets();
             UoW.CreateDatasets(10);
 
-            var wrongExpr = new QueryExpression<Roles>().Where(x => x.roleID != Guid.NewGuid()).ToLambda();
+            var wrongExpr = QueryExpressionFactory.GetQueryExpression<Roles>().Where(x => x.roleID != Guid.NewGuid()).ToLambda();
 
             Assert.Throws<ArgumentException>(() =>
             {
@@ -236,7 +237,7 @@ namespace Bhbk.Lib.DataAccess.EFCore.Tests.RepositoryTests
             UoW.DeleteDatasets();
             UoW.CreateDatasets(10);
 
-            var userExpr = new QueryExpression<Users>().Where(x => x.userID != Guid.NewGuid()).ToLambda();
+            var userExpr = QueryExpressionFactory.GetQueryExpression<Users>().Where(x => x.userID != Guid.NewGuid()).ToLambda();
 
             var users = UoW.Users.Get(userExpr);
             users = UoW.Users.GetAsNoTracking(userExpr);

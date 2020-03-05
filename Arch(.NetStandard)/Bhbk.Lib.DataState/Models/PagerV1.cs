@@ -1,11 +1,11 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Bhbk.Lib.DataState.Models
 {
     [Obsolete]
-    public class PageStateTypeA
+    public class PagerV1
     {
         public string Filter { get; set; }
 
@@ -24,5 +24,13 @@ namespace Bhbk.Lib.DataState.Models
         [Required]
         [Range(1, short.MaxValue)]
         public int Take { get; set; }
+
+    }
+
+    [Obsolete]
+    public class PagerV1Result<TEntity>
+    {
+        public IEnumerable<TEntity> List { get; set; }
+        public int Count { get; set; }
     }
 }

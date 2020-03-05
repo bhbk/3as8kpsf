@@ -1,25 +1,24 @@
-﻿using Bhbk.Lib.DataState.Models;
+﻿using Bhbk.Lib.DataState.Interfaces;
+using Bhbk.Lib.QueryExpression;
+using Bhbk.Lib.QueryExpression.Exceptions;
+using Bhbk.Lib.QueryExpression.Extensions;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace Bhbk.Lib.DataState.Expressions
+namespace Bhbk.Lib.DataState.Extensions
 {
-    public static class PageStateTypeBExtensions
+    public static class PagerV2Extensions
     {
-        public static LambdaExpression ToPredicateExpression<TEntity>(
-            this PageStateTypeB state)
+        public static LambdaExpression ApplyPredicate<TEntity>(
+            this IQueryExpression<TEntity> query, IPager state)
         {
-            var expression = new QueryExpression<TEntity>();
-
-            return expression.ToLambda();
+            return query.ToLambda();
         }
 
-        public static LambdaExpression ToExpression<TEntity>(
-            this PageStateTypeB state)
+        public static LambdaExpression ApplyState<TEntity>(
+            this IQueryExpression<TEntity> query, IPager state)
         {
-            var expression = new QueryExpression<TEntity>();
-
             if (!IsSortValid(state.Sort))
                 throw new QueryExpressionSortException($"The value for sort is invalid.");
 
@@ -38,16 +37,16 @@ namespace Bhbk.Lib.DataState.Expressions
                 else
                     method = orderBy.Value == "asc" ? "ThenBy" : "ThenByDescending";
 
-                expression = expression.OrderBy(method, orderBy.Key);
+                query = query.OrderBy(method, orderBy.Key);
             }
 
-            expression = expression.Skip(state.Skip);
-            expression = expression.Take(state.Take);
+            query = query.Skip(state.Skip);
+            query = query.Take(state.Take);
 
-            return expression.ToLambda();
+            return query.ToLambda();
         }
 
-        internal static bool IsSortValid(List<KeyValuePair<string, string>> sort)
+        internal static bool IsSortValid(ICollection<KeyValuePair<string, string>> sort)
         {
             if (sort == null
                 || sort.Count == 0

@@ -1,20 +1,7 @@
 ﻿using System;
-using System.Linq.Expressions;
 
-namespace Bhbk.Lib.DataState.Expressions
+namespace Bhbk.Lib.QueryExpression.Exceptions
 {
-    public class QueryExpression<TEntity>
-    {
-        public Expression Body { get; set; }
-        public ParameterExpression Param { get; set; }
-
-        public QueryExpression(string param = null)
-        {
-            Body = null;
-            Param = QueryExpressionHelpers.GetQueryParameter<TEntity>(param);
-        }
-    }
-
     public class QueryExpressionException : Exception
     {
         public QueryExpressionException(string message)

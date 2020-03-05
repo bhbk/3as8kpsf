@@ -1,20 +1,22 @@
 ﻿using Bhbk.Lib.Cryptography.Entropy;
-using Bhbk.Lib.DataState.Expressions;
+using Bhbk.Lib.DataState.Extensions;
 using Bhbk.Lib.DataState.Models;
 using Bhbk.Lib.DataState.Tests.Models;
+using Bhbk.Lib.QueryExpression.Exceptions;
+using Bhbk.Lib.QueryExpression.Factories;
 using System.Collections.Generic;
 using Xunit;
 
 namespace Bhbk.Lib.DataState.Tests.ExpressionTests
 {
-    public class PageStateTypeBExpressionTests
+    public class PagerV2ExpressionTests
     {
         [Fact]
-        public void Expr_PageStateTypeB_Fail_Sort()
+        public void Expr_PagerV2_Fail_Sort()
         {
             Assert.Throws<QueryExpressionPropertyException>(() =>
             {
-                var state = new PageStateTypeB()
+                var state = new PagerV2()
                 {
                     Sort = new List<KeyValuePair<string, string>>()
                     {
@@ -24,12 +26,12 @@ namespace Bhbk.Lib.DataState.Tests.ExpressionTests
                     Take = 1000
                 };
 
-                var expression = state.ToExpression<SampleEntity>();
+                var expression = QueryExpressionFactory.GetQueryExpression<DataStateModel>().ApplyState(state);
             });
 
             Assert.Throws<QueryExpressionSortException>(() =>
             {
-                var state = new PageStateTypeB()
+                var state = new PagerV2()
                 {
                     Sort = new List<KeyValuePair<string, string>>()
                     {
@@ -39,16 +41,16 @@ namespace Bhbk.Lib.DataState.Tests.ExpressionTests
                     Take = 1000
                 };
 
-                var expression = state.ToExpression<SampleEntity>();
+                var expression = QueryExpressionFactory.GetQueryExpression<DataStateModel>().ApplyState(state);
             });
         }
 
         [Fact]
-        public void Expr_PageStateTypeB_Fail_Sort_Skip()
+        public void Expr_PagerV2_Fail_Sort_Skip()
         {
             Assert.Throws<QueryExpressionSkipException>(() =>
             {
-                var state = new PageStateTypeB()
+                var state = new PagerV2()
                 {
                     Sort = new List<KeyValuePair<string, string>>()
                     {
@@ -58,16 +60,16 @@ namespace Bhbk.Lib.DataState.Tests.ExpressionTests
                     Take = 1000
                 };
 
-                var expression = state.ToExpression<SampleEntity>();
+                var expression = QueryExpressionFactory.GetQueryExpression<DataStateModel>().ApplyState(state);
             });
         }
 
         [Fact]
-        public void Expr_PageStateTypeB_Fail_Sort_Take()
+        public void Expr_PagerV2_Fail_Sort_Take()
         {
             Assert.Throws<QueryExpressionTakeException>(() =>
             {
-                var state = new PageStateTypeB()
+                var state = new PagerV2()
                 {
                     Sort = new List<KeyValuePair<string, string>>()
                     {
@@ -77,14 +79,14 @@ namespace Bhbk.Lib.DataState.Tests.ExpressionTests
                     Take = 0
                 };
 
-                var expression = state.ToExpression<SampleEntity>();
+                var expression = QueryExpressionFactory.GetQueryExpression<DataStateModel>().ApplyState(state);
             });
         }
 
         [Fact]
-        public void Expr_PageStateTypeB_Success_Sort()
+        public void Expr_PagerV2_Success_Sort()
         {
-            var state = new PageStateTypeB()
+            var state = new PagerV2()
             {
                 Sort = new List<KeyValuePair<string, string>>()
                 {
@@ -104,8 +106,8 @@ namespace Bhbk.Lib.DataState.Tests.ExpressionTests
                 Take = 1000
             };
 
-            var predicate = state.ToPredicateExpression<SampleEntity>();
-            var expression = state.ToExpression<SampleEntity>();
+            var predicate = QueryExpressionFactory.GetQueryExpression<DataStateModel>().ApplyPredicate(state);
+            var expression = QueryExpressionFactory.GetQueryExpression<DataStateModel>().ApplyState(state);
         }
     }
 }

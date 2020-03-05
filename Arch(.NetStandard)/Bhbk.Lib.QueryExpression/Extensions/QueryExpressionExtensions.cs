@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Bhbk.Lib.QueryExpression.Exceptions;
+using Bhbk.Lib.QueryExpression.Factories;
+using System;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
@@ -8,12 +10,12 @@ using System.Reflection;
  * https://entityframework-extensions.net/
  */
 
-namespace Bhbk.Lib.DataState.Expressions
+namespace Bhbk.Lib.QueryExpression.Extensions
 {
     public static partial class QueryExpressionExtensions
     {
-        public static QueryExpression<TEntity> First<TEntity>(
-            this QueryExpression<TEntity> query)
+        public static IQueryExpression<TEntity> First<TEntity>(
+            this IQueryExpression<TEntity> query)
         {
             throw new NotImplementedException();
 
@@ -28,8 +30,8 @@ namespace Bhbk.Lib.DataState.Expressions
             return query;
         }
 
-        public static QueryExpression<TEntity> First<TEntity>(
-            this QueryExpression<TEntity> query, Expression<Func<TEntity, bool>> expression)
+        public static IQueryExpression<TEntity> First<TEntity>(
+            this IQueryExpression<TEntity> query, Expression<Func<TEntity, bool>> expression)
         {
             throw new NotImplementedException();
 
@@ -45,8 +47,8 @@ namespace Bhbk.Lib.DataState.Expressions
             return query;
         }
 
-        public static QueryExpression<TEntity> Last<TEntity>(
-            this QueryExpression<TEntity> query)
+        public static IQueryExpression<TEntity> Last<TEntity>(
+            this IQueryExpression<TEntity> query)
         {
             throw new NotImplementedException();
 
@@ -61,8 +63,8 @@ namespace Bhbk.Lib.DataState.Expressions
             return query;
         }
 
-        public static QueryExpression<TEntity> Last<TEntity>(
-            this QueryExpression<TEntity> query, Expression<Func<TEntity, bool>> expression)
+        public static IQueryExpression<TEntity> Last<TEntity>(
+            this IQueryExpression<TEntity> query, Expression<Func<TEntity, bool>> expression)
         {
             throw new NotImplementedException();
 
@@ -78,15 +80,15 @@ namespace Bhbk.Lib.DataState.Expressions
             return query;
         }
 
-        public static QueryExpression<TEntity> OrderBy<TEntity>(
-            this QueryExpression<TEntity> query, string field) =>
+        public static IQueryExpression<TEntity> OrderBy<TEntity>(
+            this IQueryExpression<TEntity> query, string field) =>
                 query.OrderBy("OrderBy", field);
 
-        public static QueryExpression<TEntity> OrderBy<TEntity>(
-            this QueryExpression<TEntity> query, string method, string field)
+        public static IQueryExpression<TEntity> OrderBy<TEntity>(
+            this IQueryExpression<TEntity> query, string method, string field)
         {
             var entityType = typeof(TEntity);
-            var classParam = QueryExpressionHelpers.GetObjectParameter<TEntity>("p");
+            var classParam = ExpressionFactory.GetObjectParameter<TEntity>("p");
             var propertyInfo = entityType.GetProperty(
                 field, BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance);
 
@@ -106,8 +108,8 @@ namespace Bhbk.Lib.DataState.Expressions
             return query;
         }
 
-        public static QueryExpression<TEntity> OrderBy<TEntity>(
-            this QueryExpression<TEntity> query, Expression<Func<TEntity, bool>> expression)
+        public static IQueryExpression<TEntity> OrderBy<TEntity>(
+            this IQueryExpression<TEntity> query, Expression<Func<TEntity, bool>> expression)
         {
             var method = typeof(Queryable).GetMethods()
                 .Where(x => x.Name == "OrderBy")
@@ -134,12 +136,12 @@ namespace Bhbk.Lib.DataState.Expressions
             return query;
         }
 
-        public static QueryExpression<TEntity> OrderByDescending<TEntity>(
-            this QueryExpression<TEntity> query, string field) =>
+        public static IQueryExpression<TEntity> OrderByDescending<TEntity>(
+            this IQueryExpression<TEntity> query, string field) =>
                 query.OrderBy("OrderByDescending", field);
 
-        public static QueryExpression<TEntity> Skip<TEntity>(
-            this QueryExpression<TEntity> query, int skip)
+        public static IQueryExpression<TEntity> Skip<TEntity>(
+            this IQueryExpression<TEntity> query, int skip)
         {
             if (skip < 0)
                 throw new QueryExpressionSkipException(skip);
@@ -155,8 +157,8 @@ namespace Bhbk.Lib.DataState.Expressions
             return query;
         }
 
-        public static QueryExpression<TEntity> Skip<TEntity>(
-            this QueryExpression<TEntity> query, int skip, int take)
+        public static IQueryExpression<TEntity> Skip<TEntity>(
+            this IQueryExpression<TEntity> query, int skip, int take)
         {
             if (skip < 0)
                 throw new QueryExpressionSkipException(skip);
@@ -175,8 +177,8 @@ namespace Bhbk.Lib.DataState.Expressions
             return query;
         }
 
-        public static QueryExpression<TEntity> Take<TEntity>(
-            this QueryExpression<TEntity> query, int take)
+        public static IQueryExpression<TEntity> Take<TEntity>(
+            this IQueryExpression<TEntity> query, int take)
         {
             if (take < 1)
                 throw new QueryExpressionTakeException(take);
@@ -192,16 +194,16 @@ namespace Bhbk.Lib.DataState.Expressions
             return query;
         }
 
-        public static QueryExpression<TEntity> ThenBy<TEntity>(
-            this QueryExpression<TEntity> query, string field) =>
+        public static IQueryExpression<TEntity> ThenBy<TEntity>(
+            this IQueryExpression<TEntity> query, string field) =>
                 query.OrderBy("ThenBy", field);
 
-        public static QueryExpression<TEntity> ThenByDescending<TEntity>(
-            this QueryExpression<TEntity> query, string field) =>
+        public static IQueryExpression<TEntity> ThenByDescending<TEntity>(
+            this IQueryExpression<TEntity> query, string field) =>
                 query.OrderBy("ThenByDescending", field);
 
-        public static QueryExpression<TEntity> Where<TEntity>(
-            this QueryExpression<TEntity> query, Expression<Func<TEntity, bool>> expression)
+        public static IQueryExpression<TEntity> Where<TEntity>(
+            this IQueryExpression<TEntity> query, Expression<Func<TEntity, bool>> expression)
         {
             var method = typeof(Queryable).GetMethods()
                 .Where(x => x.Name == "Where")
@@ -228,8 +230,8 @@ namespace Bhbk.Lib.DataState.Expressions
             return query;
         }
 
-        public static QueryExpression<TEntity> Where<TEntity>(
-            this QueryExpression<TEntity> query, Expression<Func<TEntity, int, bool>> expression)
+        public static IQueryExpression<TEntity> Where<TEntity>(
+            this IQueryExpression<TEntity> query, Expression<Func<TEntity, int, bool>> expression)
         {
             var method = typeof(Queryable).GetMethods()
                 .Where(x => x.Name == "Where")
@@ -258,7 +260,7 @@ namespace Bhbk.Lib.DataState.Expressions
         }
 
         public static LambdaExpression ToLambda<TEntity>(
-            this QueryExpression<TEntity> query)
+            this IQueryExpression<TEntity> query)
         {
             if (query.Body == null)
                 return null;
