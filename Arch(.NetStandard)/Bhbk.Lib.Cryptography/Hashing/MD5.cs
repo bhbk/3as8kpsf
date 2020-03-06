@@ -5,7 +5,7 @@ namespace Bhbk.Lib.Cryptography.Hashing
 {
     public class MD5
     {
-        public static string CreateMD5(string input)
+        public static string Create(string input)
         {
             var algo = new MD5CryptoServiceProvider();
 

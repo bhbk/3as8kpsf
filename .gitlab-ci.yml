@@ -13,12 +13,12 @@ build:
     - dummy
   script:
     - cd Arch(.NetFramework)
-    - dotnet restore Bhbk.Lib.Core.sln --no-cache --verbosity quiet
+    - dotnet restore Bhbk.Lib.sln --no-cache --verbosity quiet
     - nuget restore Bhbk.Lib.DataAccess.EF\Bhbk.Lib.DataAccess.EF.csproj -SolutionDirectory . -NoCache -Verbosity quiet
-    - dotnet build Bhbk.Lib.Core.sln --configuration Release --verbosity quiet /p:platform=x64
+    - dotnet build Bhbk.Lib.sln --configuration Release --verbosity quiet /p:platform=x64
     - cd ..\Arch(.NetStandard)
-    - dotnet restore Bhbk.Lib.Core.sln --no-cache --verbosity quiet
-    - dotnet build Bhbk.Lib.Core.sln --configuration Release --verbosity quiet /p:platform=x64
+    - dotnet restore Bhbk.Lib.sln --no-cache --verbosity quiet
+    - dotnet build Bhbk.Lib.sln --configuration Release --verbosity quiet /p:platform=x64
 
 test:
   stage: test
@@ -26,14 +26,14 @@ test:
     - dummy
   script:
     - cd Arch(.NetFramework)
-    - dotnet restore Bhbk.Lib.Core.sln --no-cache --verbosity quiet
+    - dotnet restore Bhbk.Lib.sln --no-cache --verbosity quiet
     - nuget restore Bhbk.Lib.DataAccess.EF\Bhbk.Lib.DataAccess.EF.csproj -SolutionDirectory . -NoCache -Verbosity quiet
     - nuget restore Bhbk.Lib.DataAccess.EF.Tests\Bhbk.Lib.DataAccess.EF.Tests.csproj -SolutionDirectory . -NoCache -Verbosity quiet
-    - dotnet build Bhbk.Lib.Core.sln --configuration Release --verbosity quiet /p:platform=x64
+    - dotnet build Bhbk.Lib.sln --configuration Release --verbosity quiet /p:platform=x64
     - dotnet test Bhbk.Lib.DataAccess.EF.Tests\Bhbk.Lib.DataAccess.EF.Tests.csproj --configuration Release /p:platform=x64
     - cd ..\Arch(.NetStandard)
-    - dotnet restore Bhbk.Lib.Core.sln --no-cache --verbosity quiet
-    - dotnet build Bhbk.Lib.Core.sln --configuration Release --verbosity quiet /p:platform=x64
+    - dotnet restore Bhbk.Lib.sln --no-cache --verbosity quiet
+    - dotnet build Bhbk.Lib.sln --configuration Release --verbosity quiet /p:platform=x64
     - dotnet test Bhbk.Lib.DataAccess.EFCore.Tests\Bhbk.Lib.DataAccess.EFCore.Tests.csproj --configuration Release /p:platform=x64 /p:CollectCoverage=true /p:CoverletOutput=bin\Release\
     - dotnet test Bhbk.Lib.DataState.Tests\Bhbk.Lib.DataState.Tests.csproj --configuration Release /p:platform=x64 /p:CollectCoverage=true /p:CoverletOutput=bin\Release\
     - dotnet test Bhbk.Lib.QueryExpression.Tests\Bhbk.Lib.DataState.Tests.csproj --configuration Release /p:platform=x64 /p:CollectCoverage=true /p:CoverletOutput=bin\Release\
@@ -46,14 +46,14 @@ deploy:
   script:
     - set VERSION=2020.03.04.2045
     - cd Arch(.NetFramework)
-    - dotnet restore Bhbk.Lib.Core.sln --no-cache --verbosity quiet
+    - dotnet restore Bhbk.Lib.sln --no-cache --verbosity quiet
     - nuget restore Bhbk.Lib.DataAccess.EF\Bhbk.Lib.DataAccess.EF.csproj -SolutionDirectory . -NoCache -Verbosity quiet
     - nuget restore Bhbk.Lib.DataAccess.EF.Tests\Bhbk.Lib.DataAccess.EF.Tests.csproj -SolutionDirectory . -NoCache -Verbosity quiet
-    - dotnet build Bhbk.Lib.Core.sln --configuration Release --verbosity quiet /p:platform=x64
+    - dotnet build Bhbk.Lib.sln --configuration Release --verbosity quiet /p:platform=x64
     - nuget pack Bhbk.Lib.DataAccess.EF\Bhbk.Lib.DataAccess.EF.csproj -Version %VERSION% -OutputDirectory . -Properties Configuration=Release -Properties Platform=x64
     - cd ..\Arch(.NetStandard)
-    - dotnet restore Bhbk.Lib.Core.sln --no-cache --verbosity quiet
-    - dotnet build Bhbk.Lib.Core.sln --configuration Release --verbosity quiet /p:platform=x64
+    - dotnet restore Bhbk.Lib.sln --no-cache --verbosity quiet
+    - dotnet build Bhbk.Lib.sln --configuration Release --verbosity quiet /p:platform=x64
     - dotnet pack Bhbk.Lib.CommandLine\Bhbk.Lib.CommandLine.csproj -p:PackageVersion=%VERSION% --output . --configuration Release /p:platform=x64
     - dotnet pack Bhbk.Lib.Common\Bhbk.Lib.Common.csproj -p:PackageVersion=%VERSION% --output . --configuration Release /p:platform=x64
     - dotnet pack Bhbk.Lib.Cryptography\Bhbk.Lib.Cryptography.csproj -p:PackageVersion=%VERSION% --output . --configuration Release /p:platform=x64

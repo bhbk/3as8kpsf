@@ -5,10 +5,10 @@ namespace Bhbk.Lib.QueryExpression.Factories
 {
     public static class QueryExpressionFactory
     {
-        public static QueryExpression<TEntity> GetQueryExpression<TEntity>() =>
+        public static IQueryExpression<TEntity> GetQueryExpression<TEntity>() =>
             new QueryExpression<TEntity>();
 
-        public async static Task<QueryExpression<TEntity>> GetQueryExpressionAsync<TEntity>() =>
+        public async static Task<IQueryExpression<TEntity>> GetQueryExpressionAsync<TEntity>() =>
             await Task.FromResult(new QueryExpression<TEntity>());
     }
 }
