@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Security.Cryptography;
+using System.Text;
 
 namespace Bhbk.Lib.Cryptography.Hashing
 {
@@ -9,10 +10,10 @@ namespace Bhbk.Lib.Cryptography.Hashing
         {
             var algo = new SHA512CryptoServiceProvider();
 
-            byte[] byteValue = System.Text.Encoding.UTF8.GetBytes(input);
+            byte[] byteValue = Encoding.UTF8.GetBytes(input);
             byte[] byteHash = algo.ComputeHash(byteValue);
 
-            return Convert.ToBase64String(byteHash);
+            return Helpers.GetHexString(byteHash);
         }
     }
 }

@@ -8,7 +8,9 @@ namespace Bhbk.Lib.CommandLine.IO
         public static int FondFarewell()
         {
             Console.WriteLine();
-            Console.Write("Press key to exit...");
+            Console.WriteLine("Press key to exit...");
+            Console.WriteLine();
+
             Console.ReadKey();
             return (int)ExitCodes.Success;
         }
@@ -19,7 +21,8 @@ namespace Bhbk.Lib.CommandLine.IO
             Console.Error.WriteLine(ex.Message);
             Console.Error.WriteLine(ex.StackTrace);
             Console.WriteLine();
-            Console.Write("Press key to exit...");
+            Console.WriteLine("Press key to exit...");
+            Console.WriteLine();
 
             Console.ReadKey();
             return (int)ExitCodes.Exception;

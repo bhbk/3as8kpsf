@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -27,8 +28,8 @@ namespace Bhbk.Lib.Cryptography.Encryption
             }
             catch (Exception ex)
             {
-                Console.WriteLine(System.Reflection.Assembly.GetExecutingAssembly().GetName().Name + " "
-                    + System.Reflection.MethodBase.GetCurrentMethod().ToString());
+                Console.WriteLine(Assembly.GetExecutingAssembly().GetName().Name + " "
+                    + MethodBase.GetCurrentMethod().ToString());
                 Console.WriteLine(Environment.NewLine + Environment.NewLine + "EXCEPTION: " + ex.Message);
                 Console.WriteLine(Environment.NewLine + Environment.NewLine + "STACK TRACE: " + ex.StackTrace);
             }
@@ -62,8 +63,8 @@ namespace Bhbk.Lib.Cryptography.Encryption
             }
             catch (Exception ex)
             {
-                Console.WriteLine(System.Reflection.Assembly.GetExecutingAssembly().GetName().Name + " "
-                    + System.Reflection.MethodBase.GetCurrentMethod().ToString());
+                Console.WriteLine(Assembly.GetExecutingAssembly().GetName().Name + " "
+                    + MethodBase.GetCurrentMethod().ToString());
                 Console.WriteLine(Environment.NewLine + Environment.NewLine + "EXCEPTION: " + ex.Message);
                 Console.WriteLine(Environment.NewLine + Environment.NewLine + "STACK TRACE: " + ex.StackTrace);
             }
