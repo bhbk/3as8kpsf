@@ -1,0 +1,4 @@
+LIBRARY	Bhbk.Lib.Msft.Proc.Trampoline.Reporter.dll
+
+EXPORTS
+	NullExport

@@ -1,0 +1,39 @@
+LIBRARY	Bhbk.Lib.Msft.Proc.Trampoline.dll
+
+EXPORTS
+	Detoured @1
+	DetourCopyInstruction
+	DetourTransactionBegin
+	DetourUpdateThread 
+	DetourAttach 
+	DetourAttachEx 
+	DetourDetach 
+	DetourSetIgnoreTooSmall 
+	DetourTransactionAbort 
+	DetourTransactionCommit 
+	DetourTransactionCommitEx 
+	DetourFindFunction 
+	DetourCodeFromPointer 
+	DetourEnumerateModules 
+	DetourGetEntryPoint 
+	DetourGetModuleSize 
+	DetourEnumerateExports 
+	DetourFindPayload 
+	DetourGetSizeOfPayloads 
+	DetourBinaryOpen 
+	DetourBinaryEnumeratePayloads 
+	DetourBinaryFindPayload 
+	DetourBinarySetPayload 
+	DetourBinaryDeletePayload 
+	DetourBinaryPurgePayloads 
+	DetourBinaryEditImports 
+	DetourBinaryResetImports 
+	DetourBinaryWrite 
+	DetourBinaryClose 
+	DetourCreateProcessWithDllAsUserA
+	DetourCreateProcessWithDllAsUserW
+	DetourCreateProcessWithDllA
+	DetourCreateProcessWithDllW
+	DetourCopyPayloadToProcess 
+	DetourGetDetouredMarker 
+	DetourRestoreAfterWith 
