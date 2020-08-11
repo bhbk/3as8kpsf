@@ -13,4 +13,8 @@
     <PackageReference Include="Portable.BouncyCastle" Version="1.8.6.7" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Bhbk.Lib.Common\Bhbk.Lib.Common.csproj" />
+  </ItemGroup>
+
 </Project>

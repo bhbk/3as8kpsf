@@ -1,4 +1,4 @@
-﻿using System;
+﻿using Bhbk.Lib.Common.Primitives;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -13,7 +13,7 @@ namespace Bhbk.Lib.Cryptography.Hashing
             byte[] byteValue = Encoding.UTF8.GetBytes(input);
             byte[] byteHash = algo.ComputeHash(byteValue);
 
-            return Helpers.GetHexString(byteHash);
+            return Strings.GetHexString(byteHash);
         }
     }
 }

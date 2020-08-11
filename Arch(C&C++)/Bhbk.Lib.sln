@@ -21,8 +21,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bhbk.Lib.Msft.Proc.Trampoli
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{54A99DF8-155E-4F3A-86B3-5537F14F4D8C}"
 	ProjectSection(SolutionItems) = preProject
+		..\.gitignore = ..\.gitignore
+		..\.gitlab-ci.yml = ..\.gitlab-ci.yml
 		build.cmd = build.cmd
 		clean.cmd = clean.cmd
+		..\license.md = ..\license.md
+		..\readme.md = ..\readme.md
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Bhbk.Lib.Msft.Proc.Thread", "fb51f08e382192dbad7a307120ccf33b\Bhbk.Lib.Msft.Proc.Thread.vcxproj", "{6193B97A-058C-4C8C-AFDF-942D9F1E45FE}"

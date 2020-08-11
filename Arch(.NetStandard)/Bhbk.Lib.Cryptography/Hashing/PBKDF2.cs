@@ -1,4 +1,5 @@
 ﻿using CryptoHelper;
+using Bhbk.Lib.Common.Primitives;
 
 namespace Bhbk.Lib.Cryptography.Hashing
 {
