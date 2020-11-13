@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 
+#nullable disable
+
 namespace Bhbk.Lib.DataAccess.EFCore.Tests.Models
 {
-    public partial class Users
+    public partial class User
     {
-        public Users()
+        public User()
         {
-            Members = new HashSet<Members>();
+            Members = new HashSet<Member>();
         }
 
         public Guid userID { get; set; }
@@ -20,7 +22,7 @@ namespace Bhbk.Lib.DataAccess.EFCore.Tests.Models
         public decimal decimal1 { get; set; }
         public decimal? decimal2 { get; set; }
 
-        public virtual Locations location { get; set; }
-        public virtual ICollection<Members> Members { get; set; }
+        public virtual Location location { get; set; }
+        public virtual ICollection<Member> Members { get; set; }
     }
 }

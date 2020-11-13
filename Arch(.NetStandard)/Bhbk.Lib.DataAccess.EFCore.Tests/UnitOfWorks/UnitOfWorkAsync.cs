@@ -12,9 +12,9 @@ namespace Bhbk.Lib.DataAccess.EFCore.Tests.UnitOfWorks
     {
         private readonly SampleEntities _context;
         public InstanceContext InstanceType { get; private set; }
-        public IGenericRepositoryAsync<Users> Users { get; private set; }
-        public IGenericRepositoryAsync<Roles> Roles { get; private set; }
-        public IGenericRepositoryAsync<Locations> Locations { get; private set; }
+        public IGenericRepositoryAsync<User> Users { get; private set; }
+        public IGenericRepositoryAsync<Role> Roles { get; private set; }
+        public IGenericRepositoryAsync<Location> Locations { get; private set; }
 
         public UnitOfWorkAsync()
         {
@@ -27,9 +27,9 @@ namespace Bhbk.Lib.DataAccess.EFCore.Tests.UnitOfWorks
 
             InstanceType = InstanceContext.UnitTest;
 
-            Users = new GenericRepositoryAsync<Users>(_context);
-            Roles = new GenericRepositoryAsync<Roles>(_context);
-            Locations = new GenericRepositoryAsync<Locations>(_context);
+            Users = new GenericRepositoryAsync<User>(_context);
+            Roles = new GenericRepositoryAsync<Role>(_context);
+            Locations = new GenericRepositoryAsync<Location>(_context);
         }
 
         public async ValueTask CreateDatasets(int sets)
@@ -40,12 +40,12 @@ namespace Bhbk.Lib.DataAccess.EFCore.Tests.UnitOfWorks
                 var userKey = Guid.NewGuid();
                 var roleKey = Guid.NewGuid();
 
-                _context.Set<Locations>().Add(new Locations()
+                _context.Set<Location>().Add(new Location()
                 {
                     locationID = locationKey,
                 });
 
-                _context.Set<Users>().Add(new Users()
+                _context.Set<User>().Add(new User()
                 {
                     userID = userKey,
                     locationID = locationKey,
@@ -54,7 +54,7 @@ namespace Bhbk.Lib.DataAccess.EFCore.Tests.UnitOfWorks
                     decimal1 = FakeConstants.TestDecimal,
                 });
 
-                _context.Set<Roles>().Add(new Roles()
+                _context.Set<Role>().Add(new Role()
                 {
                     roleID = roleKey,
                 });
@@ -65,9 +65,9 @@ namespace Bhbk.Lib.DataAccess.EFCore.Tests.UnitOfWorks
 
         public async ValueTask DeleteDatasets()
         {
-            _context.Set<Users>().RemoveRange(_context.Users);
-            _context.Set<Roles>().RemoveRange(_context.Roles);
-            _context.Set<Locations>().RemoveRange(_context.Locations);
+            _context.Set<User>().RemoveRange(_context.Users);
+            _context.Set<Role>().RemoveRange(_context.Roles);
+            _context.Set<Location>().RemoveRange(_context.Locations);
 
             await _context.SaveChangesAsync();
         }

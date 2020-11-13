@@ -1,7 +1,7 @@
 
 rem call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\Common7\Tools\VsDevCmd.bat"
 rem dotnet tool install Octopus.DotNet.Cli --global
-powershell -command "& { write-output 2020.08.11.1945 | out-file -filepath .\version.tmp -nonewline -encoding ascii }"
+powershell -command "& { write-output 2020.11.11.1800 | out-file -filepath .\version.tmp -nonewline -encoding ascii }"
 rem powershell -command "& { get-date -format yyyy.M.d.HHmm | out-file -filepath .\version.tmp -nonewline -encoding ascii }"
 set /p VERSION=< .\version.tmp
 
@@ -9,7 +9,7 @@ rem build and test .net framework assemblies...
 dotnet restore Bhbk.Lib.sln --no-cache --verbosity quiet
 nuget restore Bhbk.Lib.DataAccess.EF\Bhbk.Lib.DataAccess.EF.csproj -SolutionDirectory . -NoCache -Verbosity quiet
 nuget restore Bhbk.Lib.DataAccess.EF.Tests\Bhbk.Lib.DataAccess.EF.Tests.csproj -SolutionDirectory . -NoCache -Verbosity quiet
-dotnet build Bhbk.Lib.Core.sln --configuration Release --verbosity quiet /p:platform=x64
+dotnet build Bhbk.Lib.sln --configuration Release --verbosity quiet /p:platform=x64
 dotnet test Bhbk.Lib.DataAccess.EF.Tests\Bhbk.Lib.DataAccess.EF.Tests.csproj --configuration Release /p:platform=x64
 
 rem package .net framework assemblies...

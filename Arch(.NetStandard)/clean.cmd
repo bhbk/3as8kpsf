@@ -1,8 +1,6 @@
 
-powershell -command "& { if (Test-Path *.nupkg) { Remove-Item *.nupkg -Recurse -Force } }"
-powershell -command "& { if (Test-Path *.tmp) { Remove-Item *.tmp -Recurse -Force } }"
-powershell -command "& { if (Test-Path .\Packages) { Remove-Item .\Packages -Recurse -Force } }"
-powershell -command "& { if (Test-Path .\TestResults) { Remove-Item .\TestResults -Recurse -Force } }"
+powershell -command "& { Remove-Item *.nupkg }"
+powershell -command "& { Remove-Item *.tmp }"
 
 cd Bhbk.Lib.CommandLine
 powershell -command "& { if (Test-Path .\bin) { Remove-Item .\bin -Recurse -Force } }"
@@ -13,6 +11,10 @@ powershell -command "& { if (Test-Path .\bin) { Remove-Item .\bin -Recurse -Forc
 powershell -command "& { if (Test-Path .\obj) { Remove-Item .\obj -Recurse -Force } }"
 
 cd ..\Bhbk.Lib.Cryptography
+powershell -command "& { if (Test-Path .\bin) { Remove-Item .\bin -Recurse -Force } }"
+powershell -command "& { if (Test-Path .\obj) { Remove-Item .\obj -Recurse -Force } }"
+
+cd ..\Bhbk.Lib.Cryptography.Tests
 powershell -command "& { if (Test-Path .\bin) { Remove-Item .\bin -Recurse -Force } }"
 powershell -command "& { if (Test-Path .\obj) { Remove-Item .\obj -Recurse -Force } }"
 

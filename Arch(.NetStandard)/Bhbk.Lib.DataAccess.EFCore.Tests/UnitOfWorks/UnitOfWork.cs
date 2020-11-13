@@ -11,9 +11,9 @@ namespace Bhbk.Lib.DataAccess.EFCore.Tests.UnitOfWorks
     {
         private readonly SampleEntities _context;
         public InstanceContext InstanceType { get; private set; }
-        public IGenericRepository<Users> Users { get; private set; }
-        public IGenericRepository<Roles> Roles { get; private set; }
-        public IGenericRepository<Locations> Locations { get; private set; }
+        public IGenericRepository<User> Users { get; private set; }
+        public IGenericRepository<Role> Roles { get; private set; }
+        public IGenericRepository<Location> Locations { get; private set; }
 
         public UnitOfWork()
         {
@@ -24,9 +24,9 @@ namespace Bhbk.Lib.DataAccess.EFCore.Tests.UnitOfWorks
 
             InstanceType = InstanceContext.UnitTest;
 
-            Users = new GenericRepository<Users>(_context);
-            Roles = new GenericRepository<Roles>(_context);
-            Locations = new GenericRepository<Locations>(_context);
+            Users = new GenericRepository<User>(_context);
+            Roles = new GenericRepository<Role>(_context);
+            Locations = new GenericRepository<Location>(_context);
         }
 
         public void Commit()
@@ -42,12 +42,12 @@ namespace Bhbk.Lib.DataAccess.EFCore.Tests.UnitOfWorks
                 var userKey = Guid.NewGuid();
                 var roleKey = Guid.NewGuid();
 
-                _context.Set<Locations>().Add(new Locations()
+                _context.Set<Location>().Add(new Location()
                 {
                     locationID = locationKey,
                 });
 
-                _context.Set<Users>().Add(new Users()
+                _context.Set<User>().Add(new User()
                 {
                     userID = userKey,
                     locationID = locationKey,
@@ -56,7 +56,7 @@ namespace Bhbk.Lib.DataAccess.EFCore.Tests.UnitOfWorks
                     decimal1 = FakeConstants.TestDecimal,
                 });
 
-                _context.Set<Roles>().Add(new Roles()
+                _context.Set<Role>().Add(new Role()
                 {
                     roleID = roleKey,
                 });
@@ -67,9 +67,9 @@ namespace Bhbk.Lib.DataAccess.EFCore.Tests.UnitOfWorks
 
         public void DeleteDatasets()
         {
-            _context.Set<Users>().RemoveRange(_context.Users);
-            _context.Set<Roles>().RemoveRange(_context.Roles);
-            _context.Set<Locations>().RemoveRange(_context.Locations);
+            _context.Set<User>().RemoveRange(_context.Users);
+            _context.Set<Role>().RemoveRange(_context.Roles);
+            _context.Set<Location>().RemoveRange(_context.Locations);
 
             _context.SaveChanges();
         }

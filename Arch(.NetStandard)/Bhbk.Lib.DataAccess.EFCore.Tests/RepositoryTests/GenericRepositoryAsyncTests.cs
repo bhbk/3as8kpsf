@@ -23,9 +23,9 @@ namespace Bhbk.Lib.DataAccess.EFCore.Tests.RepositoryTests
                 await UoW.DeleteDatasets();
 
                 await UoW.Users.CreateAsync(
-                    new List<Users>() {
-                        new Users() { userID = Guid.NewGuid(), locationID = Guid.NewGuid() },
-                        new Users() { userID = Guid.NewGuid(), locationID = Guid.NewGuid() },
+                    new List<User>() {
+                        new User() { userID = Guid.NewGuid(), locationID = Guid.NewGuid() },
+                        new User() { userID = Guid.NewGuid(), locationID = Guid.NewGuid() },
                     });
                 await UoW.CommitAsync();
             });
@@ -38,7 +38,7 @@ namespace Bhbk.Lib.DataAccess.EFCore.Tests.RepositoryTests
             {
                 await UoW.DeleteDatasets();
 
-                await UoW.Users.CreateAsync(new Users() { userID = Guid.NewGuid(), locationID = Guid.NewGuid() });
+                await UoW.Users.CreateAsync(new User() { userID = Guid.NewGuid(), locationID = Guid.NewGuid() });
                 await UoW.CommitAsync();
             });
         }
@@ -50,10 +50,10 @@ namespace Bhbk.Lib.DataAccess.EFCore.Tests.RepositoryTests
             await UoW.CreateDatasets(10);
 
             var location = (await UoW.Locations.GetAsync()).First();
-            var users = new List<Users>();
+            var users = new List<User>();
 
             for (int i = 0; i < 3; i++)
-                users.Add(new Users()
+                users.Add(new User()
                 {
                     userID = Guid.NewGuid(),
                     locationID = location.locationID,
@@ -75,7 +75,7 @@ namespace Bhbk.Lib.DataAccess.EFCore.Tests.RepositoryTests
             var location = (await UoW.Locations.GetAsync()).First();
 
             await UoW.Users.CreateAsync(
-                new Users()
+                new User()
                 {
                     userID = Guid.NewGuid(),
                     locationID = location.locationID,
@@ -95,9 +95,9 @@ namespace Bhbk.Lib.DataAccess.EFCore.Tests.RepositoryTests
                 await UoW.CreateDatasets(10);
 
                 await UoW.Users.DeleteAsync(
-                    new List<Users>() {
-                        new Users() { userID = Guid.NewGuid() },
-                        new Users() { userID = Guid.NewGuid() },
+                    new List<User>() {
+                        new User() { userID = Guid.NewGuid() },
+                        new User() { userID = Guid.NewGuid() },
                     });
                 await UoW.CommitAsync();
             });
@@ -111,7 +111,7 @@ namespace Bhbk.Lib.DataAccess.EFCore.Tests.RepositoryTests
                 await UoW.DeleteDatasets();
                 await UoW.CreateDatasets(10);
 
-                await UoW.Users.DeleteAsync(new Users() { userID = Guid.NewGuid() });
+                await UoW.Users.DeleteAsync(new User() { userID = Guid.NewGuid() });
                 await UoW.CommitAsync();
             });
         }
@@ -124,7 +124,7 @@ namespace Bhbk.Lib.DataAccess.EFCore.Tests.RepositoryTests
                 await UoW.DeleteDatasets();
                 await UoW.CreateDatasets(10);
 
-                var wrongExpr = QueryExpressionFactory.GetQueryExpression<Roles>().Where(x => x.roleID != Guid.NewGuid()).ToLambda();
+                var wrongExpr = QueryExpressionFactory.GetQueryExpression<Role>().Where(x => x.roleID != Guid.NewGuid()).ToLambda();
 
                 await UoW.Users.DeleteAsync(wrongExpr);
                 await UoW.CommitAsync();
@@ -135,7 +135,7 @@ namespace Bhbk.Lib.DataAccess.EFCore.Tests.RepositoryTests
                 await UoW.DeleteDatasets();
                 await UoW.CreateDatasets(10);
 
-                var wrongExpr = QueryExpressionFactory.GetQueryExpression<Roles>().Where(x => x.Members.Any(y => y.userID != Guid.NewGuid())).ToLambda();
+                var wrongExpr = QueryExpressionFactory.GetQueryExpression<Role>().Where(x => x.Members.Any(y => y.userID != Guid.NewGuid())).ToLambda();
 
                 await UoW.Users.DeleteAsync(wrongExpr);
                 await UoW.CommitAsync();
@@ -150,7 +150,7 @@ namespace Bhbk.Lib.DataAccess.EFCore.Tests.RepositoryTests
 
             var user = (await UoW.Users.GetAsync()).First();
 
-            await UoW.Users.DeleteAsync(new List<Users>() { user });
+            await UoW.Users.DeleteAsync(new List<User>() { user });
             await UoW.CommitAsync();
         }
 
@@ -173,7 +173,7 @@ namespace Bhbk.Lib.DataAccess.EFCore.Tests.RepositoryTests
             await UoW.DeleteDatasets();
             await UoW.CreateDatasets(10);
 
-            var userExpr = QueryExpressionFactory.GetQueryExpression<Users>().Where(x => x.userID != Guid.NewGuid()).ToLambda();
+            var userExpr = QueryExpressionFactory.GetQueryExpression<User>().Where(x => x.userID != Guid.NewGuid()).ToLambda();
 
             await UoW.Users.DeleteAsync(userExpr);
             await UoW.CommitAsync();
@@ -182,7 +182,7 @@ namespace Bhbk.Lib.DataAccess.EFCore.Tests.RepositoryTests
             await UoW.DeleteDatasets();
             await UoW.CreateDatasets(10);
 
-            userExpr = QueryExpressionFactory.GetQueryExpression<Users>().Where(x => x.Members.Any(y => y.roleID != Guid.NewGuid())).ToLambda();
+            userExpr = QueryExpressionFactory.GetQueryExpression<User>().Where(x => x.Members.Any(y => y.roleID != Guid.NewGuid())).ToLambda();
 
             await UoW.Users.DeleteAsync(userExpr);
             await UoW.CommitAsync();
@@ -194,7 +194,7 @@ namespace Bhbk.Lib.DataAccess.EFCore.Tests.RepositoryTests
             await UoW.DeleteDatasets();
             await UoW.CreateDatasets(10);
 
-            var wrongExpr = QueryExpressionFactory.GetQueryExpression<Roles>().Where(x => x.roleID != Guid.NewGuid()).ToLambda();
+            var wrongExpr = QueryExpressionFactory.GetQueryExpression<Role>().Where(x => x.roleID != Guid.NewGuid()).ToLambda();
 
             await Assert.ThrowsAsync<ArgumentException>(async () =>
             {
@@ -238,7 +238,7 @@ namespace Bhbk.Lib.DataAccess.EFCore.Tests.RepositoryTests
             await UoW.DeleteDatasets();
             await UoW.CreateDatasets(10);
 
-            var userExpr = QueryExpressionFactory.GetQueryExpression<Users>().Where(x => x.userID != Guid.NewGuid()).ToLambda();
+            var userExpr = QueryExpressionFactory.GetQueryExpression<User>().Where(x => x.userID != Guid.NewGuid()).ToLambda();
 
             var users = await UoW.Users.GetAsync(userExpr);
             users = await UoW.Users.GetAsNoTrackingAsync(userExpr);
@@ -266,9 +266,9 @@ namespace Bhbk.Lib.DataAccess.EFCore.Tests.RepositoryTests
                 await UoW.CreateDatasets(10);
 
                 await UoW.Users.UpdateAsync(
-                    new List<Users>() {
-                        new Users() { userID = Guid.NewGuid() },
-                        new Users() { userID = Guid.NewGuid() },
+                    new List<User>() {
+                        new User() { userID = Guid.NewGuid() },
+                        new User() { userID = Guid.NewGuid() },
                     });
                 await UoW.CommitAsync();
             });
@@ -282,7 +282,7 @@ namespace Bhbk.Lib.DataAccess.EFCore.Tests.RepositoryTests
                 await UoW.DeleteDatasets();
                 await UoW.CreateDatasets(10);
 
-                await UoW.Users.UpdateAsync(new Users() { userID = Guid.NewGuid() });
+                await UoW.Users.UpdateAsync(new User() { userID = Guid.NewGuid() });
                 await UoW.CommitAsync();
             });
         }
@@ -307,7 +307,7 @@ namespace Bhbk.Lib.DataAccess.EFCore.Tests.RepositoryTests
             user2.locationID = location1.locationID;
             user2.description = FakeConstants.TestDesc;
 
-            await UoW.Users.UpdateAsync(new List<Users> { user1, user2 });
+            await UoW.Users.UpdateAsync(new List<User> { user1, user2 });
             await UoW.CommitAsync();
         }
 

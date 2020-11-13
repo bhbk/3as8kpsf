@@ -2,6 +2,8 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
+#nullable disable
+
 namespace Bhbk.Lib.DataAccess.EFCore.Tests.Models
 {
     public partial class SampleEntities : DbContext
@@ -15,38 +17,28 @@ namespace Bhbk.Lib.DataAccess.EFCore.Tests.Models
         {
         }
 
-        public virtual DbSet<Locations> Locations { get; set; }
-        public virtual DbSet<Members> Members { get; set; }
-        public virtual DbSet<Roles> Roles { get; set; }
-        public virtual DbSet<Users> Users { get; set; }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            if (!optionsBuilder.IsConfigured)
-            {
-
-            }
-        }
+        public virtual DbSet<Location> Locations { get; set; }
+        public virtual DbSet<Member> Members { get; set; }
+        public virtual DbSet<Role> Roles { get; set; }
+        public virtual DbSet<User> Users { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Locations>(entity =>
-            {
-                entity.HasKey(e => e.locationID);
+            modelBuilder.HasAnnotation("Relational:Collation", "SQL_Latin1_General_CP1_CI_AS");
 
-                entity.HasIndex(e => e.locationID)
-                    .HasName("IX_Locations")
+            modelBuilder.Entity<Location>(entity =>
+            {
+                entity.HasIndex(e => e.locationID, "IX_Locations")
                     .IsUnique();
 
                 entity.Property(e => e.locationID).ValueGeneratedNever();
             });
 
-            modelBuilder.Entity<Members>(entity =>
+            modelBuilder.Entity<Member>(entity =>
             {
                 entity.HasKey(e => new { e.userID, e.roleID });
 
-                entity.HasIndex(e => new { e.userID, e.roleID })
-                    .HasName("IX_Members")
+                entity.HasIndex(e => new { e.userID, e.roleID }, "IX_Members")
                     .IsUnique();
 
                 entity.HasOne(d => d.role)
@@ -60,23 +52,17 @@ namespace Bhbk.Lib.DataAccess.EFCore.Tests.Models
                     .HasConstraintName("FK_Members_UserID");
             });
 
-            modelBuilder.Entity<Roles>(entity =>
+            modelBuilder.Entity<Role>(entity =>
             {
-                entity.HasKey(e => e.roleID);
-
-                entity.HasIndex(e => e.roleID)
-                    .HasName("IX_Roles")
+                entity.HasIndex(e => e.roleID, "IX_Roles")
                     .IsUnique();
 
                 entity.Property(e => e.roleID).ValueGeneratedNever();
             });
 
-            modelBuilder.Entity<Users>(entity =>
+            modelBuilder.Entity<User>(entity =>
             {
-                entity.HasKey(e => e.userID);
-
-                entity.HasIndex(e => e.userID)
-                    .HasName("IX_Users")
+                entity.HasIndex(e => e.userID, "IX_Users")
                     .IsUnique();
 
                 entity.Property(e => e.userID).ValueGeneratedNever();

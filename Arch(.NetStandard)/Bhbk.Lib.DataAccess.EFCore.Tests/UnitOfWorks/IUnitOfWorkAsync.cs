@@ -7,9 +7,9 @@ namespace Bhbk.Lib.DataAccess.EFCore.Tests.UnitOfWorks
 {
     public interface IUnitOfWorkAsync : IGenericUnitOfWorkAsync
     {
-        IGenericRepositoryAsync<Users> Users { get; }
-        IGenericRepositoryAsync<Roles> Roles { get; }
-        IGenericRepositoryAsync<Locations> Locations { get; }
+        IGenericRepositoryAsync<User> Users { get; }
+        IGenericRepositoryAsync<Role> Roles { get; }
+        IGenericRepositoryAsync<Location> Locations { get; }
         ValueTask CreateDatasets(int sets);
         ValueTask DeleteDatasets();
     }

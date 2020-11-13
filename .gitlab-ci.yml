@@ -15,6 +15,7 @@ build:
     - cd Arch(.NetFramework)
     - dotnet restore Bhbk.Lib.sln --no-cache --verbosity quiet
     - nuget restore Bhbk.Lib.DataAccess.EF\Bhbk.Lib.DataAccess.EF.csproj -SolutionDirectory . -NoCache -Verbosity quiet
+    - nuget restore Bhbk.Lib.DataAccess.EF.Tests\Bhbk.Lib.DataAccess.EF.Tests.csproj -SolutionDirectory . -NoCache -Verbosity quiet
     - dotnet build Bhbk.Lib.sln --configuration Release --verbosity quiet /p:platform=x64
     - cd ..\Arch(.NetStandard)
     - dotnet restore Bhbk.Lib.sln --no-cache --verbosity quiet
@@ -27,16 +28,17 @@ test:
   script:
     - cd Arch(.NetFramework)
     - dotnet restore Bhbk.Lib.sln --no-cache --verbosity quiet
+    - dotnet build Bhbk.Lib.sln --configuration Release --verbosity quiet /p:platform=x64
     - nuget restore Bhbk.Lib.DataAccess.EF\Bhbk.Lib.DataAccess.EF.csproj -SolutionDirectory . -NoCache -Verbosity quiet
     - nuget restore Bhbk.Lib.DataAccess.EF.Tests\Bhbk.Lib.DataAccess.EF.Tests.csproj -SolutionDirectory . -NoCache -Verbosity quiet
-    - dotnet build Bhbk.Lib.sln --configuration Release --verbosity quiet /p:platform=x64
     - dotnet test Bhbk.Lib.DataAccess.EF.Tests\Bhbk.Lib.DataAccess.EF.Tests.csproj --configuration Release /p:platform=x64
     - cd ..\Arch(.NetStandard)
     - dotnet restore Bhbk.Lib.sln --no-cache --verbosity quiet
     - dotnet build Bhbk.Lib.sln --configuration Release --verbosity quiet /p:platform=x64
+    - dotnet test Bhbk.Lib.Cryptography.Tests\Bhbk.Lib.Cryptography.Tests.csproj --configuration Release /p:platform=x64 /p:CollectCoverage=true /p:CoverletOutput=bin\Release\
     - dotnet test Bhbk.Lib.DataAccess.EFCore.Tests\Bhbk.Lib.DataAccess.EFCore.Tests.csproj --configuration Release /p:platform=x64 /p:CollectCoverage=true /p:CoverletOutput=bin\Release\
     - dotnet test Bhbk.Lib.DataState.Tests\Bhbk.Lib.DataState.Tests.csproj --configuration Release /p:platform=x64 /p:CollectCoverage=true /p:CoverletOutput=bin\Release\
-    - dotnet test Bhbk.Lib.QueryExpression.Tests\Bhbk.Lib.DataState.Tests.csproj --configuration Release /p:platform=x64 /p:CollectCoverage=true /p:CoverletOutput=bin\Release\
+    - dotnet test Bhbk.Lib.QueryExpression.Tests\Bhbk.Lib.QueryExpression.Tests.csproj --configuration Release /p:platform=x64 /p:CollectCoverage=true /p:CoverletOutput=bin\Release\
     - dotnet test Bhbk.Lib.Waf.Tests\Bhbk.Lib.Waf.Tests.csproj --configuration Release /p:platform=x64 /p:CollectCoverage=true /p:CoverletOutput=bin\Release\
 
 deploy:
@@ -44,7 +46,7 @@ deploy:
   only:
     - dummy
   script:
-    - set VERSION=2020.08.11.1945
+    - set VERSION=2020.11.11.1800
     - cd Arch(.NetFramework)
     - dotnet restore Bhbk.Lib.sln --no-cache --verbosity quiet
     - nuget restore Bhbk.Lib.DataAccess.EF\Bhbk.Lib.DataAccess.EF.csproj -SolutionDirectory . -NoCache -Verbosity quiet

@@ -1,18 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 
+#nullable disable
+
 namespace Bhbk.Lib.DataAccess.EFCore.Tests.Models
 {
-    public partial class Locations
+    public partial class Location
     {
-        public Locations()
+        public Location()
         {
-            Users = new HashSet<Users>();
+            Users = new HashSet<User>();
         }
 
         public Guid locationID { get; set; }
         public string description { get; set; }
 
-        public virtual ICollection<Users> Users { get; set; }
+        public virtual ICollection<User> Users { get; set; }
     }
 }

@@ -1,18 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 
+#nullable disable
+
 namespace Bhbk.Lib.DataAccess.EFCore.Tests.Models
 {
-    public partial class Roles
+    public partial class Role
     {
-        public Roles()
+        public Role()
         {
-            Members = new HashSet<Members>();
+            Members = new HashSet<Member>();
         }
 
         public Guid roleID { get; set; }
         public string description { get; set; }
 
-        public virtual ICollection<Members> Members { get; set; }
+        public virtual ICollection<Member> Members { get; set; }
     }
 }

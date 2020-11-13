@@ -6,9 +6,9 @@ namespace Bhbk.Lib.DataAccess.EFCore.Tests.UnitOfWorks
 {
     public interface IUnitOfWork : IGenericUnitOfWork
     {
-        IGenericRepository<Users> Users { get; }
-        IGenericRepository<Roles> Roles { get; }
-        IGenericRepository<Locations> Locations { get; }
+        IGenericRepository<User> Users { get; }
+        IGenericRepository<Role> Roles { get; }
+        IGenericRepository<Location> Locations { get; }
         void CreateDatasets(int sets);
         void DeleteDatasets();
     }
