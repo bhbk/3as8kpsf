@@ -46,7 +46,7 @@ deploy:
   only:
     - dummy
   script:
-    - set VERSION=2020.11.11.1800
+    - set VERSION=2020.11.13.2100
     - cd Arch(.NetFramework)
     - dotnet restore Bhbk.Lib.sln --no-cache --verbosity quiet
     - nuget restore Bhbk.Lib.DataAccess.EF\Bhbk.Lib.DataAccess.EF.csproj -SolutionDirectory . -NoCache -Verbosity quiet

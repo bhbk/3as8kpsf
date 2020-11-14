@@ -4,19 +4,20 @@ namespace Bhbk.Lib.Common.Primitives.Enums
 {
     public enum InstanceContext
     {
-        DeployedOrLocal,
-        End2EndTest,
-        IntegrationTest,
-        UnitTest,
+        DeployedOrLocal = 4,
+        End2EndTest = 3,
+        SystemTest = 2,
+        IntegrationTest = 1,
+        UnitTest = 0,
     }
 
     public enum LoggingLevel
     {
-        Critical = 0,
-        Error = 1,
-        Warning = 2,
-        Information = 3,
-        Debug = 4,
         Trace = 5,
+        Debug = 4,
+        Information = 3,
+        Warning = 2,
+        Error = 1,
+        Critical = 0,
     }
 }

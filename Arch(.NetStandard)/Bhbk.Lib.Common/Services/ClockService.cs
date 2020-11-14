@@ -23,30 +23,25 @@ namespace Bhbk.Lib.Common.Services
         {
             get
             {
-                if (_instance == InstanceContext.DeployedOrLocal)
+                if (_instance == InstanceContext.DeployedOrLocal
+                    || _instance == InstanceContext.End2EndTest)
                     return DateTime.UtcNow;
 
-                else if (_instance == InstanceContext.End2EndTest
-                    || _instance == InstanceContext.IntegrationTest
-                    || _instance == InstanceContext.UnitTest)
+                else
                 {
                     if (_future)
                         return DateTime.UtcNow.Add(_offset);
                     else
                         return DateTime.UtcNow.Subtract(_offset);
                 }
-
-                else
-                    throw new NotImplementedException();
             }
             set
             {
-                if (_instance == InstanceContext.DeployedOrLocal)
+                if (_instance == InstanceContext.DeployedOrLocal
+                    || _instance == InstanceContext.End2EndTest)
                     throw new NotSupportedException();
 
-                else if (_instance == InstanceContext.End2EndTest
-                    || _instance == InstanceContext.IntegrationTest
-                    || _instance == InstanceContext.UnitTest)
+                else
                 {
                     _moment = value;
 
@@ -61,9 +56,6 @@ namespace Bhbk.Lib.Common.Services
                         _offset = DateTime.UtcNow.Subtract(_moment.UtcDateTime);
                     }
                 }
-
-                else
-                    throw new NotImplementedException();
             }
         }
     }
