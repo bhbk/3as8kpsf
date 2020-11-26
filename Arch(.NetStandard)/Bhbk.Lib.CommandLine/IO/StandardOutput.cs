@@ -8,23 +8,22 @@ namespace Bhbk.Lib.CommandLine.IO
         public static int FondFarewell()
         {
             Console.WriteLine();
-            Console.WriteLine("Press key to exit...");
             Console.WriteLine();
 
-            Console.ReadKey();
             return (int)ExitCodes.Success;
         }
 
         public static int AngryFarewell(Exception ex)
         {
             Console.WriteLine();
+
+            Console.ForegroundColor = ConsoleColor.Red;
             Console.Error.WriteLine(ex.Message);
             Console.Error.WriteLine(ex.StackTrace);
-            Console.WriteLine();
-            Console.WriteLine("Press key to exit...");
+            Console.ResetColor();
+
             Console.WriteLine();
 
-            Console.ReadKey();
             return (int)ExitCodes.Exception;
         }
     }
