@@ -5,7 +5,7 @@
     <Authors>Bhbk</Authors>
     <Description>Library for general web application firewall purposes</Description>
     <PackageProjectUrl>https://gitlab.com/bhbk/3as8kpsf</PackageProjectUrl>
-    <Platforms>AnyCPU;x64;x86</Platforms>
+    <Platforms>AnyCPU</Platforms>
   </PropertyGroup>
 
   <ItemGroup>

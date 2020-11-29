@@ -5,7 +5,7 @@
     <Authors>Bhbk</Authors>
     <PackageProjectUrl>https://gitlab.com/bhbk/3as8kpsf</PackageProjectUrl>
     <Description>Library for command line purposes.</Description>
-    <Platforms>AnyCPU;x64;x86</Platforms>
+    <Platforms>AnyCPU</Platforms>
   </PropertyGroup>
 
   <ItemGroup>

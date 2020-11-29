@@ -5,7 +5,7 @@
     <PackageProjectUrl>https://gitlab.com/bhbk/3as8kpsf</PackageProjectUrl>
     <Authors>Bhbk</Authors>
     <Description>Library for general data state purposes</Description>
-    <Platforms>AnyCPU;x64;x86</Platforms>
+    <Platforms>AnyCPU</Platforms>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
