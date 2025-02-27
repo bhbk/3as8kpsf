@@ -146,7 +146,9 @@ namespace Bhbk.Lib.QueryExpression.Extensions
             if (skip < 0)
                 throw new QueryExpressionSkipException(skip);
 
-            var method = typeof(Queryable).GetMethod("Skip")
+            var method = typeof(Queryable).GetMethods()
+                .Where(x => x.Name == "Skip" && x.GetParameters().Length == 2)
+                .First(x => x.GetParameters()[1].ParameterType == typeof(int))
                 .MakeGenericMethod(typeof(TEntity));
 
             query.Body = Expression.Call(
@@ -166,7 +168,9 @@ namespace Bhbk.Lib.QueryExpression.Extensions
             if (take < 1)
                 throw new QueryExpressionTakeException(take);
 
-            var method = typeof(Queryable).GetMethod("Skip")
+            var method = typeof(Queryable).GetMethods()
+                .Where(x => x.Name == "Skip" && x.GetParameters().Length == 2)
+                .First(x => x.GetParameters()[1].ParameterType == typeof(int))
                 .MakeGenericMethod(typeof(TEntity));
 
             query.Body = Expression.Call(
@@ -183,7 +187,9 @@ namespace Bhbk.Lib.QueryExpression.Extensions
             if (take < 1)
                 throw new QueryExpressionTakeException(take);
 
-            var method = typeof(Queryable).GetMethod("Take")
+            var method = typeof(Queryable).GetMethods()
+                .Where(x => x.Name == "Take" && x.GetParameters().Length == 2)
+                .First(x => x.GetParameters()[1].ParameterType == typeof(int))
                 .MakeGenericMethod(typeof(TEntity));
 
             query.Body = Expression.Call(
