@@ -19,9 +19,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bhbk.Lib.Common", "Bhbk.Lib
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bhbk.Lib.Cryptography", "Bhbk.Lib.Cryptography\Bhbk.Lib.Cryptography.csproj", "{A668B734-FB56-4A39-9E1D-3151776610F1}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bhbk.Lib.DataAccess.EFCore", "Bhbk.Lib.DataAccess.EFCore\Bhbk.Lib.DataAccess.EFCore.csproj", "{C40E39AA-797E-4CB6-9DF7-9A18350A523C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bhbk.Lib.DataAccess.EF", "Bhbk.Lib.DataAccess.EF\Bhbk.Lib.DataAccess.EF.csproj", "{C40E39AA-797E-4CB6-9DF7-9A18350A523C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bhbk.Lib.DataAccess.EFCore.Tests", "Bhbk.Lib.DataAccess.EFCore.Tests\Bhbk.Lib.DataAccess.EFCore.Tests.csproj", "{D3162116-E333-40D0-A787-3B3495C518E0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bhbk.Lib.DataAccess.EF.Tests", "Bhbk.Lib.DataAccess.EF.Tests\Bhbk.Lib.DataAccess.EF.Tests.csproj", "{D3162116-E333-40D0-A787-3B3495C518E0}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bhbk.Lib.DataState", "Bhbk.Lib.DataState\Bhbk.Lib.DataState.csproj", "{E93BBC2B-9608-405C-BF41-2F977DE70CCD}"
 EndProject

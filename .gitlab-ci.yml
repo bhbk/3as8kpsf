@@ -39,7 +39,7 @@ test:
     - dotnet restore Bhbk.Lib.sln --no-cache --verbosity quiet
     - dotnet build Bhbk.Lib.sln --configuration Release --verbosity quiet
     - dotnet test Bhbk.Lib.Cryptography.Tests\Bhbk.Lib.Cryptography.Tests.csproj --configuration Release /p:CollectCoverage=true /p:CoverletOutput=bin\Release\
-    - dotnet test Bhbk.Lib.DataAccess.EFCore.Tests\Bhbk.Lib.DataAccess.EFCore.Tests.csproj --configuration Release /p:CollectCoverage=true /p:CoverletOutput=bin\Release\
+    - dotnet test Bhbk.Lib.DataAccess.EF.Tests\Bhbk.Lib.DataAccess.EF.Tests.csproj --configuration Release /p:CollectCoverage=true /p:CoverletOutput=bin\Release\
     - dotnet test Bhbk.Lib.DataState.Tests\Bhbk.Lib.DataState.Tests.csproj --configuration Release /p:CollectCoverage=true /p:CoverletOutput=bin\Release\
     - dotnet test Bhbk.Lib.QueryExpression.Tests\Bhbk.Lib.QueryExpression.Tests.csproj --configuration Release /p:CollectCoverage=true /p:CoverletOutput=bin\Release\
     - dotnet test Bhbk.Lib.Waf.Tests\Bhbk.Lib.Waf.Tests.csproj --configuration Release /p:CollectCoverage=true /p:CoverletOutput=bin\Release\
@@ -64,7 +64,7 @@ deploy:
     - dotnet pack Bhbk.Lib.CommandLine\Bhbk.Lib.CommandLine.csproj -p:PackageVersion=%VERSION% --output . --configuration Release
     - dotnet pack Bhbk.Lib.Common\Bhbk.Lib.Common.csproj -p:PackageVersion=%VERSION% --output . --configuration Release
     - dotnet pack Bhbk.Lib.Cryptography\Bhbk.Lib.Cryptography.csproj -p:PackageVersion=%VERSION% --output . --configuration Release
-    - dotnet pack Bhbk.Lib.DataAccess.EFCore\Bhbk.Lib.DataAccess.EFCore.csproj -p:PackageVersion=%VERSION% --output . --configuration Release
+    - dotnet pack Bhbk.Lib.DataAccess.EF\Bhbk.Lib.DataAccess.EF.csproj -p:PackageVersion=%VERSION% --output . --configuration Release
     - dotnet pack Bhbk.Lib.DataState\Bhbk.Lib.DataState.csproj -p:PackageVersion=%VERSION% --output . --configuration Release
     - dotnet pack Bhbk.Lib.Hosting\Bhbk.Lib.Hosting.csproj -p:PackageVersion=%VERSION% --output . --configuration Release
     - dotnet pack Bhbk.Lib.QueryExpression\Bhbk.Lib.QueryExpression.csproj -p:PackageVersion=%VERSION% --output . --configuration Release

@@ -15,7 +15,7 @@ $LibraryProjects = @(
     "Bhbk.Lib.CommandLine",
     "Bhbk.Lib.Common",
     "Bhbk.Lib.Cryptography",
-    "Bhbk.Lib.DataAccess.EFCore",
+    "Bhbk.Lib.DataAccess.EF",
     "Bhbk.Lib.DataState",
     "Bhbk.Lib.Hosting",
     "Bhbk.Lib.QueryExpression",
@@ -24,7 +24,7 @@ $LibraryProjects = @(
 
 $TestProjects = @(
     "Bhbk.Lib.Cryptography.Tests",
-    "Bhbk.Lib.DataAccess.EFCore.Tests",
+    "Bhbk.Lib.DataAccess.EF.Tests",
     "Bhbk.Lib.DataState.Tests",
     "Bhbk.Lib.QueryExpression.Tests",
     "Bhbk.Lib.Waf.Tests"
